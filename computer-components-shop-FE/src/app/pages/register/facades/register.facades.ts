@@ -1,11 +1,11 @@
 
 import { IRegister, IResponse, IVerify } from "../models/register.model";
-import { ToastService } from "@shared/services/toast.service";
 import { Router } from "@angular/router";
 import { RegisterService } from "../services/register.service";
 import { Injectable } from "@angular/core";
 import { HttpResponse } from "@angular/common/http";
 import { Subject } from "rxjs";
+import { ToastService } from "../../../shared/services/toast.service";
 @Injectable({
     providedIn: 'root',
 })
@@ -43,14 +43,14 @@ export class RegisterFacade {
     verify(email: string, otp: string) {
 
         return this.registerService.verify(email, otp).subscribe({
-            next: (res) => {
+            next: (res: any) => {
                 if(res){
                     this.loadingVerifySubject.next(false)
                     this.toastService.showSuccess('Đăng ký thành công')
                     this.router.navigate(['/auth']);
                 }
             }, 
-            error: (err) =>  {
+            error: (err: any) =>  {
                 if(err){
                     this.loadingVerifySubject.next(false)
                 }

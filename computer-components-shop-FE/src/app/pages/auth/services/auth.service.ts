@@ -1,10 +1,10 @@
 // import { SocialSourceInfo, SocialSourceInput, UpdateSocialSourceInput, FilterSocialSourceInput } from '../models/page-facebook.model';
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { ApiService } from "@shared/services/api.service";
-import { API_ROUTER } from "@shared/constants/api.constant";
 import { IAuthInfo, ILogin, IResponseLogin, IUserProfile } from "../models/auth.model";
 import { HttpHeaders, HttpParams } from "@angular/common/http";
+import { ApiService } from "../../../shared/services/api.service";
+import { API_ROUTER } from "../../../shared/constants/api.constant";
 @Injectable({
     providedIn: 'root',
 })

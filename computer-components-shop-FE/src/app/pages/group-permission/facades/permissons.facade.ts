@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { PagingData, ResponseData } from "@shared/models/paging.model";
 import { BehaviorSubject, Observable, distinctUntilChanged, filter } from "rxjs"; 
-import { ToastService } from "@shared/services/toast.service";
 import { LazyLoadEvent } from "primeng/api";
-import { convertFilter } from "@shared/utils/filter-params.util"; 
 import { permissionsService } from "../services/permisons.service";
 import { IPermissions } from "../models/permissons.model";
 import { IFilterGroup } from "../models/group-permissions.model";
+import { PagingData } from "../../../shared/models/paging.model";
+import { ToastService } from "../../../shared/services/toast.service";
+import { convertFilter } from "../../../shared/utils/filter-params.util";
 
 
 

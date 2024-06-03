@@ -1,4 +1,5 @@
-import { IStatusBar } from "@shared/components/p-statusbar/models/statusbar.model"
+import { IStatusBar } from "../../../shared/components/p-statusbar/models/statusbar.model"
+
 
 export interface IFilterpermissions {
     keyword: string | undefined

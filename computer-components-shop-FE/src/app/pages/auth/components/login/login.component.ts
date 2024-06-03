@@ -5,18 +5,17 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { CustomVaidators } from '@shared/validators/custom.validator';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import { IAuthInfo, IUserProfile } from '../../models/auth.model';
 import { AuthFacade } from '../../facades/auth.facade';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { SessionService } from '@shared/services/session.service';
+import { IAuthInfo } from '../../models/auth.model';
+import { LayoutService } from '../../../../layout/service/app.layout.service';
+import { SessionService } from '../../../../shared/services/session.service';
+import { CustomVaidators } from '../../../../shared/validators/custom.validator';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
     valCheck: string[] = ['remember'];

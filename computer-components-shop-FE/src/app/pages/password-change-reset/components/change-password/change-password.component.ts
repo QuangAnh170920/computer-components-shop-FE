@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CustomVaidators } from '@shared/validators/custom.validator';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { DataSharingService } from '../../services/data-sharing.service';
 import { ChangePasswordFacade } from '../../facades/change-password.facade';
 import { NgxOtpInputConfig } from 'ngx-otp-input';
+import { LayoutService } from '../../../../layout/service/app.layout.service';
+import { CustomVaidators } from '../../../../shared/validators/custom.validator';
 
 @Component({
   selector: 'app-change-password',

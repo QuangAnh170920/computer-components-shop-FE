@@ -5,21 +5,20 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { EFormAction } from '@shared/models/form.model';
 
 import { MenuItem } from 'primeng/api';
-import { IStatusBar } from '@shared/components/p-statusbar/models/statusbar.model';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import {
     IGrouppermissions,
     STATUS,
 } from '../../../models/group-permissions.model';
-import { PagingData } from '@shared/models/paging.model';
 import { LazyLoadEvent } from 'primeng/api';
 import { GroupPerFacade } from '../../../facades/group-permissons.facade';
 import { PermissionFacade } from '../../../facades/permissons.facade';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { CustomVaidators } from '@shared/validators/custom.validator';
+import { EFormAction } from '../../../../../shared/models/form.model';
+import { IStatusBar } from '../../../../../shared/components/p-statusbar/models/statusbar.model';
+import { CustomVaidators } from '../../../../../shared/validators/custom.validator';
 
 @Component({
     selector: 'app-group-permissions-detail',

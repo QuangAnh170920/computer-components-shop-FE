@@ -1,19 +1,12 @@
 import { Component } from '@angular/core';
 
-import { PDialogService } from '@shared/components/p-dialog/services/m-dialog.service';
-import { LazyLoadEvent } from 'primeng/api';
-
-
-import { EActionBar } from '@shared/components/p-actionbar/models/p-actionbar.model';
-import { EToolBarAction } from '@shared/components/p-toolbar/models/toolbar.model';
-import { EFormAction, IFormConfig } from '@shared/models/form.model';
-import { PagingData } from '@shared/models/paging.model';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { PermissionFacade } from '../../facades/permissons.facade';
 import { IPermissions } from '../../models/permissons.model';
-
-// import { PermissonFacade } from '../../../facades/permissions.facade';
-// import { Ipermissions } from '../../../models/permissions.model';
+import { PagingData } from '../../../../shared/models/paging.model';
+import { EToolBarAction } from '../../../../shared/components/p-toolbar/models/toolbar.model';
+import { EFormAction } from '../../../../shared/models/form.model';
+import { LazyLoadEvent } from 'primeng/api';
 
 
 
@@ -57,7 +50,7 @@ export class PermissionsComponent {
 
 
 
-  lazyLoad(event?: LazyLoadEvent) {
+  lazyLoad(event?: any) {
     if (event) {
       this.event = event;
     } else {

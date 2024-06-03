@@ -1,4 +1,4 @@
-import { SessionService } from '@services/session.service';
+
 import { PDialogConfig } from './../refs/m-dailog.config';
 import {
   ApplicationRef,
@@ -14,7 +14,8 @@ import { DialogComponent } from '../components/dialog/dialog.component';
 import { MDialogInjector } from '../injectors/dialog.injector';
 import { MDialogRef } from '../refs/m-dialog-ref';
 import { LocationStrategy } from '@angular/common';
-import { SharedModule } from '@shared/shared.module';
+import { SharedModule } from 'primeng/api';
+import { SessionService } from '../../../services/session.service';
 
 @Injectable({
   providedIn: SharedModule,

@@ -2,11 +2,11 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from '@env';
 import { ToastService } from './toast.service';
 import { SpinnerService } from './spinner.service';
 import { Router } from '@angular/router';
 import { SessionService } from './session.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

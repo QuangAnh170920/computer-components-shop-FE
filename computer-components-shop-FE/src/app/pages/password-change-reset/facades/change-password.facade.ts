@@ -1,10 +1,11 @@
-import { ToastService } from "@shared/services/toast.service";
+
 import { ChangePasswordService } from "../services/change-password.service";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { Injectable } from "@angular/core";
 import { DataSharingService } from "../services/data-sharing.service";
 import { IChangePassword } from "../models/password.model";
+import { ToastService } from "../../../shared/services/toast.service";
 
 @Injectable({
     providedIn: 'root',

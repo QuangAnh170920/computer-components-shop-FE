@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, Subject, catchError, distinctUntilChanged, filter, mergeMap, tap } from "rxjs";
-import { ToastService } from "@shared/services/toast.service";
 import { AuthService } from "../services/auth.service";
 import { ILogin, IAuthInfo, IUserProfile } from "../models/auth.model";
-import { SessionService } from "@shared/services/session.service";
 import { Router } from "@angular/router";
+import { SessionService } from "../../../shared/services/session.service";
+import { ToastService } from "../../../shared/services/toast.service";
 
 
 @Injectable({

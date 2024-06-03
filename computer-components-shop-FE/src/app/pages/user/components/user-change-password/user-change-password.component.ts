@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomVaidators } from '@shared/validators/custom.validator';
 import { UserFacade } from '../../facades/user.facade';
+import { CustomVaidators } from '../../../../shared/validators/custom.validator';
 
 @Component({
   selector: 'app-user-change-password',

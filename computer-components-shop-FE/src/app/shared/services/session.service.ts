@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { environment } from '@env';
+import { Injectable } from '@angular/core';
 
 export const AUTH_TOKEN = '__TKNI';
 export const ACCOUNT_INFO = 'ACCOUNT_INFO';
@@ -9,9 +8,10 @@ export const MENU = 'MENU';
 export const ROLES = 'ROLES';
 export const URLS = 'URLS';
 import { UserInfo } from '../models/user-info.model';
-import { RoleInfo } from '@shared/models/role.model';
-import { ILogin } from 'src/app/pages/auth/models/auth.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../../../environments/environment';
+import { RoleInfo } from '../models/role.model';
+import { ILogin } from '../../pages/auth/models/auth.model';
 
 @Injectable({
   providedIn: 'root',

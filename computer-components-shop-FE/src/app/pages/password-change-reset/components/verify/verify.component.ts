@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CustomVaidators } from '@shared/validators/custom.validator';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { LayoutService } from '../../../../layout/service/app.layout.service';
+import { CustomVaidators } from '../../../../shared/validators/custom.validator';
 
 @Component({
   selector: 'app-verify',

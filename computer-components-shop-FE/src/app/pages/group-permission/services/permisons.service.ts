@@ -1,12 +1,11 @@
 // import { SocialSourceInfo, SocialSourceInput, UpdateSocialSourceInput, FilterSocialSourceInput } from '../models/page-facebook.model';
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";      
-import { ApiService } from "@shared/services/api.service";
 import { HttpParams } from "@angular/common/http";
-import { PagingData, ResponseData } from "@shared/models/paging.model";  
-
-import { API_ROUTER } from "@shared/constants/api.constant";
 import { IPermissions } from "../models/permissons.model";
+import { ApiService } from "../../../shared/services/api.service";
+import { PagingData } from "../../../shared/models/paging.model";
+import { API_ROUTER } from "../../../shared/constants/api.constant";
 
 
 @Injectable({

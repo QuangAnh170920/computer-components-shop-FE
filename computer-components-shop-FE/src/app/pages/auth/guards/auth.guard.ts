@@ -7,8 +7,8 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SessionService } from 'src/app/shared/services/session.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { SessionService } from '../../../shared/services/session.service';
+import { ToastService } from '../../../shared/services/toast.service';
 
 @Injectable({
   providedIn: 'root',

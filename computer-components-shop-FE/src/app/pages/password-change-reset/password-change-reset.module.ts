@@ -7,11 +7,11 @@ import { SendOtpComponent } from './components/send-otp/send-otp.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ToastService } from '@shared/services/toast.service';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { VerifyComponent } from './components/verify/verify.component';
 import { NgxOtpInputModule } from "ngx-otp-input";
+import { ToastService } from '../../shared/services/toast.service';
 @NgModule({
   declarations: [ChangePasswordComponent,SendOtpComponent, VerifyComponent ],
   imports: [

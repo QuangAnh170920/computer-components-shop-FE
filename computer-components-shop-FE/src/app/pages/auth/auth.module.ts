@@ -8,7 +8,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ToastService } from '@shared/services/toast.service';
+import { ToastService } from '../../shared/services/toast.service';
 
 
 

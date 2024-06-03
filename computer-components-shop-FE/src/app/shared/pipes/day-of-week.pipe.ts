@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { DAY_OF_WEEK_OPT } from "@shared/constants/notification.constant";
+import { DAY_OF_WEEK_OPT } from "../constants/notification.constant";
 
 @Pipe({ name: 'dayOfWeekLabel' })
 export class DayOfWeekPipe implements PipeTransform {

@@ -1,4 +1,4 @@
-import { PadPipe } from '@pipes/pad.pipe';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -9,14 +9,15 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { TooltipModule } from 'primeng/tooltip';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TableModule } from 'primeng/table';
-import { GenderPipe } from '@pipes/gender.pipe';
-import { ImagesPipe } from '@pipes/images.pipe';
-import { ReadMoneyPipe } from '@pipes/read-mony.pipe';
-import { NumberViewPipe } from '@pipes/number-view.pipe';
-import { StringMaxLengthPipe } from '@pipes/string-maxlength.pipe';
 import { ChangeOnBlurDirective } from './directives/change-on-blur';
 import { DayOfWeekPipe } from './pipes/day-of-week.pipe';
 import { JsonArrayStringPipe } from './pipes/json-array-string.pipe';
+import { GenderPipe } from './pipes/gender.pipe';
+import { ImagesPipe } from './pipes/images.pipe';
+import { ReadMoneyPipe } from './pipes/read-mony.pipe';
+import { PadPipe } from './pipes/pad.pipe';
+import { NumberViewPipe } from './pipes/number-view.pipe';
+import { StringMaxLengthPipe } from './pipes/string-maxlength.pipe';
 
 @NgModule({
     declarations: [

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable} from "rxjs";
-import { API_ROUTER } from '@shared/constants/api.constant';
 import { HttpParams } from "@angular/common/http";
-import { PagingData } from '@shared/models/paging.model';
-import { ApiService } from '@shared/services/api.service';
 import { Subject } from 'rxjs';
+import { ApiService } from '../../shared/services/api.service';
 
 export interface AppConfig {
     inputStyle: string;

@@ -8,8 +8,8 @@ import {
 } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
-import { SessionService } from 'src/app/shared/services/session.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { SessionService } from '../../../shared/services/session.service';
+import { ToastService } from '../../../shared/services/toast.service';
 const helper = new JwtHelperService();
 @Injectable({
   providedIn: 'root',

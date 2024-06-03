@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CustomVaidators } from '@shared/validators/custom.validator';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { ChangePasswordFacade } from '../../facades/change-password.facade';
+import { LayoutService } from '../../../../layout/service/app.layout.service';
+import { CustomVaidators } from '../../../../shared/validators/custom.validator';
 
 @Component({
   selector: 'app-send-otp',

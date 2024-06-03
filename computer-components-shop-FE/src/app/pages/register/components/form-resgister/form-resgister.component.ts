@@ -1,12 +1,12 @@
+import { NgxOtpInputConfig } from 'ngx-otp-input';
+
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { IRegister } from '../../models/register.model';
 import { RegisterFacade } from '../../facades/register.facades';
 import { Router } from '@angular/router';
-import { CustomVaidators } from '@shared/validators/custom.validator';
-import { NgxOtpInputConfig } from 'ngx-otp-input';
+import { LayoutService } from '../../../../layout/service/app.layout.service';
+import { CustomVaidators } from '../../../../shared/validators/custom.validator';
 
 
 @Component({

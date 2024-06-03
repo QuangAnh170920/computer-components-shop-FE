@@ -17,9 +17,9 @@ import { AppFooterComponent } from './app.footer.component';
 import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
-import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MenuModule } from 'primeng/menu';
+import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 @NgModule({
     declarations: [
         AppMenuitemComponent,

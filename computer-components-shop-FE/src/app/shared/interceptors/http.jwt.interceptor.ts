@@ -14,7 +14,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { ToastService } from '../services/toast.service';
 import { SpinnerService } from '../services/spinner.service';
-import { ShowErrorService } from '@shared/services/show-error.service';
+import { ShowErrorService } from '../services/show-error.service';
 
 @Injectable()
 export class HttpJwtInterceptor implements HttpInterceptor {

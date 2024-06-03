@@ -1,19 +1,15 @@
 import { Component } from '@angular/core';
 
-import { PDialogService } from '@shared/components/p-dialog/services/m-dialog.service';
 import { LazyLoadEvent } from 'primeng/api';
-
-
-import { EActionBar } from '@shared/components/p-actionbar/models/p-actionbar.model';
-import { EToolBarAction } from '@shared/components/p-toolbar/models/toolbar.model';
-import { EFormAction, IFormConfig } from '@shared/models/form.model';
-import { PagingData } from '@shared/models/paging.model';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { IGroup, IGrouppermissions } from '../../../models/group-permissions.model';
 import { GroupPerFacade } from '../../../facades/group-permissons.facade';
 import { GroupPermissionsDetailComponent } from '../group-permissons-detail/group-permissions-detail.component';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
+import { PagingData } from '../../../../../shared/models/paging.model';
+import { EActionBar } from '../../../../../shared/components/p-actionbar/models/p-actionbar.model';
+import { EFormAction } from '../../../../../shared/models/form.model';
+import { EToolBarAction } from '../../../../../shared/components/p-toolbar/models/toolbar.model';
 
 
 
@@ -53,7 +49,7 @@ export class GrouppermissionsListComponent {
       this.totalRecords = res.total_records
     })  
   }
-  lazyLoad(event?: LazyLoadEvent) {
+  lazyLoad(event?: any) {
     if (event) {
       this.event = event;
     } else {

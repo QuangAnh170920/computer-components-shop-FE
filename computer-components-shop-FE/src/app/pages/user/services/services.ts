@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from '@shared/services/api.service';
 import { Observable } from 'rxjs';
 import { IChangePassword, IResponse, IUser } from '../models/user.model';
-import { API_ROUTER } from '@shared/constants/api.constant';
+import { ApiService } from '../../../shared/services/api.service';
+import { API_ROUTER } from '../../../shared/constants/api.constant';
 
 @Injectable({
     providedIn: 'root',

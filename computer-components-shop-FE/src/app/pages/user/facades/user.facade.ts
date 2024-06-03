@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../services/services';
-import { ToastService } from '@shared/services/toast.service';
 import { IChangePassword, IResponse, IUser } from '../models/user.model';
 import {
     BehaviorSubject,
@@ -10,7 +9,8 @@ import {
     filter,
 } from 'rxjs';
 import { Router } from '@angular/router';
-import { SessionService } from '@shared/services/session.service';
+import { ToastService } from '../../../shared/services/toast.service';
+import { SessionService } from '../../../shared/services/session.service';
 
 @Injectable({
     providedIn: 'root',

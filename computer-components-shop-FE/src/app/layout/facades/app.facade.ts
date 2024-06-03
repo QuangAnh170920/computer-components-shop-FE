@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
-import { PagingData, ResponseData } from "@shared/models/paging.model";
 import { BehaviorSubject, Observable, distinctUntilChanged, filter } from "rxjs";
-import { ToastService } from "@shared/services/toast.service";
 import { LazyLoadEvent } from "primeng/api";
-import { convertFilter } from "@shared/utils/filter-params.util";
 import { LayoutService } from "../service/app.layout.service";
+import { ToastService } from "../../shared/services/toast.service";
 
 @Injectable({
     providedIn: 'root',

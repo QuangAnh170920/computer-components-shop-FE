@@ -9,11 +9,11 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, filter, map, switchMap, tap, throwError } from 'rxjs';
 import { SessionService } from '../services/session.service';
-import { SpinnerService } from '@shared/services/spinner.service';
 import { Router } from '@angular/router';
-import { ToastService } from '@shared/services/toast.service';
-import { AuthFacade } from 'src/app/pages/auth/facades/auth.facade';
-import { AuthService } from 'src/app/pages/auth/services/auth.service';
+import { AuthFacade } from '../../pages/auth/facades/auth.facade';
+import { AuthService } from '../../pages/auth/services/auth.service';
+import { SpinnerService } from '../services/spinner.service';
+import { ToastService } from '../services/toast.service';
 
 @Injectable()
 
