@@ -1,0 +1,20 @@
+::ng-deep .permision-checkbox-item {
+    border-right: solid 1px #ddd;
+}
+
+::ng-deep .permision-label-item {
+    border-left: solid 1px #ddd;
+    border-right: solid 1px #ddd;
+}
+
+::ng-deep .permision-checkbox-item-delete {
+    border-right: solid 1px #ddd;
+    text-align: right;
+    padding-right: 3.6%;
+}
+
+::ng-deep .bg-permission {
+    color: white;
+    background-color: rgb(218, 162, 11);
+    font-weight: bold;
+}

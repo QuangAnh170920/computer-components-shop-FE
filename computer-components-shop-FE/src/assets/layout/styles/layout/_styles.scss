@@ -1,0 +1,98 @@
+.p-dropdown .p-dropdown-clear-icon {
+    color: #DC2626;
+}
+
+.datatable-responsive .p-datatable-tbody>tr>td>.p-column-title {
+ font-weight: bold;
+}
+@media only screen and (max-width: 700px) {
+    .datatable-responsive .p-datatable-thead > tr > th {
+        display: none !important;
+    }
+
+    .p-datatable.datatable-responsive .p-datatable-tbody > tr > td {
+        float: left;
+        clear: left;
+        width: 100%;
+    }
+
+    .datatable-responsive .p-datatable-tbody>tr>td>.p-column-title {
+        display: inline;
+    }
+}
+
+.ck-editor__editable_inline {
+    min-height: 300px;
+}
+
+.p-formgrid .field > label {
+    font-weight: 600;
+}
+
+.p-fileupload .p-fileupload-buttonbar {
+    padding: 5px 10px!important;
+}
+
+.p-fileupload .p-fileupload-buttonbar .p-button {
+    padding: 5px 10px!important ;
+    color: var(--primary-500)!important;
+    background: var(--surface-ground);
+    
+}
+.p-fileupload .p-fileupload-buttonbar .p-button .p-button-label {
+    font-weight: 400!important; 
+}
+
+.p-dialog .p-dialog-header {
+    text-transform: uppercase;
+    padding: 1.5rem!important;
+}
+
+.read-input-component {
+    background-color: var(--red-50);
+}
+
+.p-tooltip>.p-tooltip-text {
+    max-width: 350px!important; 
+  }
+
+.help-text {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+p-dynamicdialog .p-dialog .p-dialog-footer {
+    height: 70px;
+    border-top: 1px solid var(--surface-ground);
+}
+
+
+.checkbox-active .p-checkbox .p-checkbox-box.p-highlight {
+    background-color: #1488E7!important;
+    border-color: #1488E7!important;
+}
+
+p-checkbox .p-disabled {
+    opacity: .85!important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+    padding-left: 0.8rem!important;
+    padding-right: 0.8rem!important;
+}
+
+.p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
+  color: var(--red-400);  
+}
+
+.p-confirm-dialog .p-dialog-header {
+    background-color: #1488E7;
+    color: #eee;
+}
+
+.p-dialog .p-dialog-content {
+    padding-top: 1.5rem;
+}
+.p-tag {
+    padding: 0.35rem 0.6rem!important;
+}

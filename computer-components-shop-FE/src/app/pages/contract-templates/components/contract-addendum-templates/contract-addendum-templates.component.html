@@ -1,0 +1,274 @@
+<!-- <s-toolbar
+    (onClick)="toolbarOnClick($event)"
+    [keyword]="keyword"
+    (onSearch)="onSearch()"
+    [placeHolder]="searchTitle"
+>
+</s-toolbar> -->
+<form [formGroup]="form">
+    <div class="card">
+        <div class="grid">
+            <div class="col-6">
+                <input
+                    type="text"
+                    formControlName="name"
+                    pInputText
+                    [placeholder]="placeHolder"
+                    class="p-inputtext p-component p-element w-full"
+                />
+            </div>
+            <div class="col-6">
+                <div class="flex justify-content-end gap-3">
+                    <p-button
+                        label="Tìm kiếm"
+                        icon="pi pi-search"
+                        (onClick)="onSearch()"
+                    ></p-button>
+                    <p-button
+                        (click)="showDialog()"
+                        icon="pi pi-external-link"
+                        label="Thêm mới"
+                    ></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <p-table
+            #dt
+            [value]="data"
+            [lazy]="true"
+            (onLazyLoad)="lazyLoad($event)"
+            [showCurrentPageReport]="true"
+            dataKey="id"
+            [rows]="rows"
+            [rowsPerPageOptions]="[10, 25, 50]"
+            [paginator]="true"
+            [totalRecords]="totalRecords"
+            styleClass="datatable-responsive p-datatable-gridlines"
+            currentPageReportTemplate="Hiển thị từ  {first} đến {last} trên tổng số  {totalRecords} bản ghi"
+            [tableStyle]="{ 'min-width': '50rem' }"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Mã mẫu hợp đồng phụ lục</th>
+                    <th class="text-center">Tên mẫu hợp đồng phụ lục</th>
+                    <th class="text-center">Mô tả</th>
+                    <th style="width: 15%" class="text-center">Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-contract let-i="rowIndex">
+                <tr>
+                    <td class="text-center">{{ i + 1 }}</td>
+                    <td class="text-center">
+                        {{ contract?.contractTemplateCode }}
+                    </td>
+                    <td>{{ contract?.contractTemplateName }}</td>
+                    <td [innerHTML]="contract?.describe">
+                        {{ contract?.describe }}
+                    </td>
+                    <td class="text-center">
+                        <p-button
+                            styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only p-button-info mr-2"
+                            icon="pi pi-download"
+                        ></p-button>
+                        <p-button
+                            styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only p-button-info mr-2"
+                            icon="pi pi-file-edit"
+                        ></p-button>
+                        <p-button
+                            styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only p-button-info mr-2"
+                            icon="pi pi-trash"
+                        ></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</form>
+
+<p-dialog header="Thêm mới" [(visible)]="visible" [style]="{ width: '50vw' }">
+    <form [formGroup]="form!">
+        <div class="p-fluid">
+            <div class="p-formgrid grid">
+                <div class="field col-12 lg:col-6">
+                    <label htmlfor="title"
+                        >Tên mẫu hợp đồng phụ lục<span class="p-error"
+                            >*</span
+                        ></label
+                    >
+                    <input
+                        pInputText
+                        id="title"
+                        type="text"
+                        class="p-inputtext p-component p-element"
+                        formControlName="contractTemplateName"
+                        [ngClass]="
+                            f['contractTemplateName'].errors &&
+                            (f['contractTemplateName'].dirty ||
+                                f['contractTemplateName'].touched)
+                                ? 'ng-dirty ng-invalid'
+                                : ''
+                        "
+                    />
+                    <span
+                        class="p-error font-italic"
+                        *ngIf="
+                            f['contractTemplateName'].errors &&
+                            (f['contractTemplateName'].dirty ||
+                                f['contractTemplateName'].touched)
+                        "
+                    >
+                        <small
+                            *ngIf="
+                                f['contractTemplateName'].errors['required'] ||
+                                f['contractTemplateName'].errors['whitespace']
+                            "
+                            >Tên phụ lục hợp đồng không được để trống</small
+                        >
+                        <span
+                            *ngIf="
+                                f['contractTemplateName'].errors &&
+                                f['contractTemplateName'].errors['maxlength']
+                            "
+                            class="p-error font-italic"
+                        >
+                            <small
+                                >Tên phụ lục hợp đồng không được vượt quá 255 ký
+                                tự</small
+                            >
+                        </span>
+                    </span>
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label htmlfor="display_order"
+                        >Mã mẫu hợp đồng phụ lục<span class="p-error"
+                            >*</span
+                        ></label
+                    >
+                    <input
+                        pInputText
+                        id="title"
+                        type="text"
+                        class="p-inputtext p-component p-element"
+                        formControlName="contractTemplateCode"
+                        [ngClass]="
+                            f['contractTemplateCode'].errors &&
+                            (f['contractTemplateCode'].dirty ||
+                                f['contractTemplateCode'].touched)
+                                ? 'ng-dirty ng-invalid'
+                                : ''
+                        "
+                    />
+                    <span
+                        class="p-error font-italic"
+                        *ngIf="
+                            f['contractTemplateCode'].errors &&
+                            (f['contractTemplateCode'].dirty ||
+                                f['contractTemplateCode'].touched)
+                        "
+                    >
+                        <small
+                            *ngIf="
+                                f['contractTemplateCode'].errors['required'] ||
+                                f['contractTemplateCode'].errors['whitespace']
+                            "
+                            >Mã phụ lục hợp đồng không được để trống</small
+                        >
+                        <span
+                            *ngIf="
+                                f['contractTemplateCode'].errors &&
+                                f['contractTemplateCode'].errors['maxlength']
+                            "
+                            class="p-error font-italic"
+                        >
+                            <small
+                                >Mã phụ lục hợp đồng không được vượt quá 255 ký
+                                tự</small
+                            >
+                        </span>
+                    </span>
+                </div>
+                <div class="field col-12 lg:col-12">
+                    <p-fileUpload
+                        name="inputFile"
+                        url="{{ UPLOAD_URL }}"
+                        method="post"
+                        chooseLabel="Upload báo giá"
+                        accept=""
+                        (onUpload)="onUpload($event)"
+                        #fileUpload
+                        [multiple]="false"
+                    >
+                        <ng-template pTemplate="content">
+                            <ul>
+                                <li>
+                                    {{ this.fileName }}
+                                </li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                <div class="field col-12 lg:col-12">
+                    <label htmlfor="note"
+                        >Mô tả<span class="p-error">*</span></label
+                    >
+                    <textarea
+                        pTextArea
+                        id="description"
+                        rows="5"
+                        cols="30"
+                        pInputTextarea
+                        type="text"
+                        class="p-inputtext p-component p-element"
+                        formControlName="describe"
+                        [ngClass]="
+                            f['describe'].errors &&
+                            (f['describe'].dirty || f['describe'].touched)
+                                ? 'ng-dirty ng-invalid'
+                                : ''
+                        "
+                    >
+                    <span
+                        class="p-error font-italic"
+                        *ngIf="
+                            f['describe'].errors &&
+                            (f['describe'].dirty ||
+                                f['describe'].touched)
+                        "
+                    >
+                        <small
+                            *ngIf="
+                                f['describe'].errors['required'] ||
+                                f['describe'].errors['whitespace']
+                            "
+                            >Mô tả không được để trống</small
+                        >
+                        <span
+                            *ngIf="
+                                f['describe'].errors &&
+                                f['describe'].errors['maxlength']
+                            "
+                            class="p-error font-italic"
+                        >
+                            <small>Mô tả không được vượt quá 255 ký tự</small>
+                        </span>
+                    </span>
+                    </textarea>
+                </div>
+            </div>
+            <div
+                class="flex justify-content-end gap-3"
+                style="margin-top: 10px"
+            >
+                <p-button
+                    label="Gửi báo giá"
+                    (click)="save()"
+                    [disabled]="form!.invalid"
+                ></p-button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

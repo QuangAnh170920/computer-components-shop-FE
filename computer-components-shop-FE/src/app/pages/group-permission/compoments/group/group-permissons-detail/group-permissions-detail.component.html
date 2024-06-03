@@ -1,0 +1,156 @@
+<dialog-header>
+    <div class="flex justify-content-end">
+        <p-statusbar
+            [status]="status"
+            (statusChange)="statusChange($event)"
+        ></p-statusbar>
+    </div>
+</dialog-header>
+
+<dialog-content>
+    <form [formGroup]="form!">
+        <div class="p-fluid">
+            <div class="p-formgrid grid">
+                <div class="field col-12 lg:col-6">
+                    <label htmlfor="name"
+                        >Nhóm<span class="p-error">*</span></label
+                    >
+                    <input
+                        pInputText
+                        id="name"
+                        formControlName="name"
+                        [ngClass]="
+                            f['name'].errors &&
+                            (f['name'].dirty || f['name'].touched)
+                                ? 'ng-dirty ng-invalid'
+                                : ''
+                        "
+                        type="text"
+                        class="p-inputtext p-component p-element"
+                    />
+                </div>
+
+                <div class="field col-12 lg:col-6">
+                    <label htmlfor="note">Ghi chú</label>
+                    <input
+                        pInputText
+                        id="note"
+                        formControlName="note"
+                        [ngClass]="
+                            f['note'].errors &&
+                            (f['note'].dirty || f['note'].touched)
+                                ? 'ng-dirty ng-invalid'
+                                : ''
+                        "
+                        type="text"
+                        class="p-inputtext p-component p-element"
+                    />
+                </div>
+            </div>
+
+            <div class="p-formgrid grid"></div>
+            <pre>
+                 <!-- {{ dataPermissions[0] | json }} -->
+                 <!-- {{ groupPermissions| json }} -->
+            </pre>
+
+            <div class="p-formgrid">
+                <p-table
+                    [value]="dataPermissions"
+                    dataKey="module_code"
+                    rowGroupMode="subheader"
+                    groupRowsBy="module_code"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 30%" class="text-center">
+                                Chức năng
+                            </th>
+                            <th style="width: 10%" class="text-center">Xem</th>
+                            <th style="width: 10%" class="text-center">Thêm</th>
+                            <th style="width: 10%" class="text-center">Sửa</th>
+                            <th style="width: 10%" class="text-center">Xóa</th>
+                            <th style="width: 20%" class="text-center">Khác</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template
+                        pTemplate="groupheader"
+                        let-dataPermission
+                        let-rowIndex="rowIndex"
+                        let-expanded="expanded"
+                    >
+                        <tr>
+                            <td style="width: 30%" colspan="6">
+                                <div class="flex align-items-center">
+                                    <button
+                                        type="button"
+                                        pButton
+                                        pRipple
+                                        [pRowToggler]="dataPermission"
+                                        class="p-button-text p-button-rounded p-button-plain mr-2"
+                                        [icon]="
+                                            expanded
+                                                ? 'pi pi-chevron-down'
+                                                : 'pi pi-chevron-right'
+                                        "
+                                    ></button>
+                                    <span class="font-bold ml-2">{{
+                                        dataPermission.module_name
+                                    }}</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="rowexpansion" let-dataPermisson>
+                        <tr>
+                            <td>{{ dataPermisson.model_name }}</td>
+                            <td
+                                *ngFor="
+                                    let _per of dataPermisson.permissions;
+                                    let i = index
+                                "
+                            >
+                                <input
+                                    type="checkbox"
+                                    [checked]="permissionCheck(_per.id)"
+                                    (change)="
+                                        perMissionChecked(_per?.id, $event)
+                                    "
+                                    [value]="_per.id"
+                                    id="{{ _per.id }}"
+                                />
+                                <label
+                                    class="form-check-label mx-2"
+                                    for="{{ _per.id }}"
+                                    *ngIf="i >= 4"
+                                    >{{ _per.name }}
+                                </label>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <!-- <pre>
+             {{ form?.value | json }}
+        </pre>
+        <pre>
+            {{ data | json }}
+       </pre>
+
+       <pre>
+        {{ params | json }}
+   </pre> -->
+    </form>
+</dialog-content>
+<dialog-footer
+    [isOnSave]="action !== 'view'"
+    (onSave)="save()"
+    (onSaveContinue)="save(true)"
+    (onClose)="close()"
+    [isOnSaveContinue]="action === 'insert'"
+    [disabledSave]="form!.invalid"
+    [cancelLabel]="action === 'view' ? 'Đóng' : 'Huỷ'"
+>
+</dialog-footer>

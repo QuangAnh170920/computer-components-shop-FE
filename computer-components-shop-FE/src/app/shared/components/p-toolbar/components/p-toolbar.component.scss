@@ -1,0 +1,13 @@
+::ng-deep {
+    .p-toolbar {
+        position: sticky;
+        z-index: 1;
+        position: -webkit-sticky; // Needed for Safari browsers.
+        top: 70px; // Required for "position: sticky" to take effect.
+        padding: 0 1rem!important
+
+    }
+    .keyword-search-input {
+        min-width: 350px;
+    }
+}

@@ -1,0 +1,65 @@
+<s-toolbar (onClick) ="toolbarOnClick($event)" [keyword] ="keyword" (onSearch) = "onSearch($event)" [placeHolder] ="searchTitle" >   
+    <!-- <p-dropdown [ngModel]="searchParams.unit_type" [options]="unitTypes" optionLabel="name" optionValue="value" styleClass="mx-3 search-box" 
+    (onChange)="dt.filter($event.value, 'unit_type', 'contains')" [showClear] = "true"
+      ></p-dropdown>  
+      <p-dropdown [ngModel]="searchParams.is_base_unit" [options]="isBaseUnits" optionLabel="name" optionValue="value" styleClass="mx-3 search-box"
+      (onChange)="dt.filter($event.value, 'is_base_unit', 'contains')" [showClear] = "true"
+      ></p-dropdown> -->
+      <p-dropdown [ngModel]="searchParams.status" [options]="status" optionLabel="name" optionValue="value" styleClass="mx-3 search-box"
+      (onChange)="dt.filter($event.value, 'status', 'contains')" [showClear] = "true"
+      ></p-dropdown> 
+</s-toolbar>
+
+<div class="card mt-3"> 
+<p-table
+    #dt
+    [lazy]="true" (onLazyLoad)="lazyLoad($event)" 
+    [value]="data"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [totalRecords]="totalRecords"
+ 
+    [paginator]="true"
+    currentPageReportTemplate="Hiển thị từ  {first} đến {last} trên tổng số  {totalRecords} bản ghi"
+    styleClass="datatable-responsive"
+    [tableStyle]="{ 'min-width': '75rem' }"> 
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:10%; text-align: center;">#</th>
+            <th style="width:35%">Tên nhóm</th>           
+            <th style="width:10%">Trạng thái</th>
+            <th style="width:35%">Thao tác</th>
+        </tr>
+        
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <tr>
+            <td class="p-column-title">
+                <span class="item-center">{{ i+1 }}</span>
+            </td> 
+            <td><span class="p-column-title">Tên nhóm: </span>
+                {{ item.name }}
+            </td>
+            
+
+            <td >
+                <span class="p-column-title">Trạng thái: </span>  
+                <p-checkbox [disabled]="true" [(ngModel)]= "item.status" [binary]="true" inputId="binary"></p-checkbox>
+            </td>
+            <td> 
+                <span class="p-column-title">Thao tác:</span>
+                <p-actionbar [actions] = "['view','edit', 'del']" (onClick)="actionClick($event, item)"></p-actionbar>
+            </td>
+        </tr>
+        
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5" class="text-center">Không có nhóm quyền nào!</td>
+        </tr>
+    </ng-template> 
+</p-table> 
+
+</div> 

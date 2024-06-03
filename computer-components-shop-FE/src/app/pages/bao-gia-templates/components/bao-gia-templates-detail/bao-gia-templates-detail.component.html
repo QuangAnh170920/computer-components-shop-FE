@@ -1,0 +1,250 @@
+<dialog-header> </dialog-header>
+
+<dialog-content>
+    <form [formGroup]="form!">
+        <div class="p-fluid">
+            <div class="p-formgrid grid">
+                <div class="field col-12 lg:col-6">
+                    <label htmlfor="title"
+                        >Tên mẫu báo giá<span class="p-error">*</span></label
+                    >
+                    <input
+                        pInputText
+                        id="title"
+                        type="text"
+                        class="p-inputtext p-component p-element"
+                    />
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label htmlfor="display_order"
+                        >Mã mẫu báo giá<span class="p-error">*</span></label
+                    >
+                    <input
+                        pInputText
+                        id="title"
+                        type="text"
+                        class="p-inputtext p-component p-element"
+                    />
+                </div>
+                <div class="field col-12 lg:col-12">
+                    <label htmlfor="note"
+                        >Nội dung email<span class="p-error">*</span></label
+                    >
+                    <p-editor [style]="{ height: '150px' }">
+                        <ng-template pTemplate="header">
+                            <div class="p-editor-toolbar">
+                                <span class="ql-formats">
+                                    <select class="ql-header">
+                                        <option value="1">Heading</option>
+                                        <option value="2">Subheading</option>
+                                        <option selected="">Normal</option>
+                                    </select>
+                                    <span class="ql-font ql-picker">
+                                        <select class="ql-font">
+                                            <option selected="">
+                                                Sans Serif
+                                            </option>
+                                            <option value="serif">Serif</option>
+                                            <option value="monospace">
+                                                Monospace
+                                            </option>
+                                            <option value="roboto">
+                                                Roboto
+                                            </option>
+                                            <option value="times-new-roman">
+                                                Time New Roman
+                                            </option>
+                                        </select>
+                                    </span>
+                                    <span>
+                                        <select
+                                            title="Font Size"
+                                            class="ql-size"
+                                        >
+                                            <option value="small">small</option>
+                                            <option value="normal">
+                                                normal
+                                            </option>
+                                            <option value="large">large</option>
+                                            <option value="huge">huge</option>
+                                        </select>
+                                    </span>
+                                    <span>
+                                        <select class="ql-align">
+                                            <option selected=""></option>
+                                            <option value="center">
+                                                center
+                                            </option>
+                                            <option value="right">right</option>
+                                            <option value="justify">
+                                                justify
+                                            </option>
+                                        </select></span
+                                    >
+                                    <button
+                                        class="ql-script"
+                                        value="sub"
+                                    ></button>
+                                    <button
+                                        class="ql-script"
+                                        value="super"
+                                    ></button>
+                                    <button class="ql-clean"></button>
+                                    <button
+                                        type="button"
+                                        class="ql-font"
+                                        aria-label="Bold"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        class="ql-bold"
+                                        aria-label="Bold"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        class="ql-italic"
+                                        aria-label="Italic"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        class="ql-underline"
+                                        aria-label="Underline"
+                                    ></button>
+                                    <button
+                                        aria-label="Insert Link"
+                                        type="button"
+                                        class="ql-link"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        class="ql-image"
+                                        aria-label="Image"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        class="ql-video"
+                                        aria-label="Video"
+                                    ></button>
+                                </span>
+                            </div>
+                        </ng-template>
+                    </p-editor>
+                </div>
+                <div class="field col-12 lg:col-12">
+                    <label htmlfor="note"
+                        >Mô tả<span class="p-error">*</span></label
+                    >
+                    <p-editor [style]="{ height: '150px' }">
+                        <ng-template pTemplate="header">
+                            <div class="p-editor-toolbar">
+                                <span class="ql-formats">
+                                    <select class="ql-header">
+                                        <option value="1">Heading</option>
+                                        <option value="2">Subheading</option>
+                                        <option selected="">Normal</option>
+                                    </select>
+                                    <span class="ql-font ql-picker">
+                                        <select class="ql-font">
+                                            <option selected="">
+                                                Sans Serif
+                                            </option>
+                                            <option value="serif">Serif</option>
+                                            <option value="monospace">
+                                                Monospace
+                                            </option>
+                                            <option value="roboto">
+                                                Roboto
+                                            </option>
+                                            <option value="times-new-roman">
+                                                Time New Roman
+                                            </option>
+                                        </select>
+                                    </span>
+                                    <span>
+                                        <select
+                                            title="Font Size"
+                                            class="ql-size"
+                                        >
+                                            <option value="small">small</option>
+                                            <option value="normal">
+                                                normal
+                                            </option>
+                                            <option value="large">large</option>
+                                            <option value="huge">huge</option>
+                                        </select>
+                                    </span>
+                                    <span>
+                                        <select class="ql-align">
+                                            <option selected=""></option>
+                                            <option value="center">
+                                                center
+                                            </option>
+                                            <option value="right">right</option>
+                                            <option value="justify">
+                                                justify
+                                            </option>
+                                        </select></span
+                                    >
+                                    <button
+                                        class="ql-script"
+                                        value="sub"
+                                    ></button>
+                                    <button
+                                        class="ql-script"
+                                        value="super"
+                                    ></button>
+                                    <button class="ql-clean"></button>
+                                    <button
+                                        type="button"
+                                        class="ql-font"
+                                        aria-label="Bold"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        class="ql-bold"
+                                        aria-label="Bold"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        class="ql-italic"
+                                        aria-label="Italic"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        class="ql-underline"
+                                        aria-label="Underline"
+                                    ></button>
+                                    <button
+                                        aria-label="Insert Link"
+                                        type="button"
+                                        class="ql-link"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        class="ql-image"
+                                        aria-label="Image"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        class="ql-video"
+                                        aria-label="Video"
+                                    ></button>
+                                </span>
+                            </div>
+                        </ng-template>
+                    </p-editor>
+                </div>
+            </div>
+        </div>
+    </form>
+</dialog-content>
+
+<dialog-footer
+    [isOnSave]="action !== 'view'"
+    (onClose)="close()"
+    (onSave)="save()"
+    [isOnSaveContinue]="action === 'insert'"
+    [disabledSave]="form!.invalid"
+    [cancelLabel]="action === 'view' ? 'Đóng' : 'Huỷ'"
+>
+</dialog-footer>

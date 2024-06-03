@@ -1,0 +1,14 @@
+@media(max-width: 700px){
+    .item-center{
+        display: flex!important;
+        justify-content: flex-start!important;
+        margin-top: 6px;
+        
+    }
+}
+
+.item-center{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}

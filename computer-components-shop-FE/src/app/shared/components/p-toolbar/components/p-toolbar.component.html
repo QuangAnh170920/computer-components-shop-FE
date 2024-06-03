@@ -1,0 +1,18 @@
+ <p-toolbar styleClass="sticky" >
+    <div class="p-toolbar-group-start grid" style="margin-top: 0px!important;">
+        <div class="p-inputgroup keyword-search-input col-12 md:col-12 lg:col-3"  >
+            <input type="text" pInputText [placeholder]="placeHolder" [(ngModel)]="keyword"   (blur)="search()" (keyup.enter)="search()"  class="p-inputtext p-component p-element" />
+            <button type="button" pButton icon="pi pi-search" styleClass="p-button-warn"></button>
+        </div>
+        <div>
+             <ng-content></ng-content>
+        </div>
+    </div>
+    <div class="p-toolbar-group-end py-3">
+        <!-- <p-button icon="pi pi-search" class="mr-2"></p-button>
+        <p-button icon="pi pi-calendar" styleClass="p-button-success mr-2"></p-button>
+        <p-button icon="pi pi-times" styleClass="p-button-danger mr-2"></p-button> -->
+        <p-button *ngIf="sync" label="Đồng bộ" icon="pi pi-undo" styleClass="mr-2" (onClick)="click('sync')" ></p-button>
+        <p-button *ngIf="add" label="Thêm mới" icon="pi pi-plus" styleClass="p-button mr-2" (onClick)="click('insert')" ></p-button>
+    </div>
+</p-toolbar>

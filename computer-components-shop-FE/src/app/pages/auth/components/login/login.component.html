@@ -1,0 +1,43 @@
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="flex flex-column align-items-center justify-content-center">
+        <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo' : 'logo-white'}}.png"
+        alt="Ariba" class="w-20rem flex-shrink-0" style="margin-bottom: 1em !important;">        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, #1488E7 10%, rgba(33, 150, 243, 0) 30%);">
+            <form [formGroup] ="form!" class="w-full surface-card py-6 px-5 sm:px-8" style="border-radius:53px">
+
+                <div class="p-formgrid grid">
+                    <div class="field col-12">
+                    <label for="username" class="block text-900 text-xl font-medium mb-2">Tài khoản</label>
+                    <input id="username" formControlName="username" type="text" placeholder="Tài khoản đăng nhập" pInputText class="w-full md:w-30rem mb-1 p-inputtext p-component p-element"   style="padding:1rem"> <br/>
+                    <span class="p-error font-italic" *ngIf="f['username'].errors && (f['username'].dirty || f['username'].touched) ">
+                        <small *ngIf="f['username'].errors['required'] || f['username'].errors['whitespace']">Tài khoản không được để trống</small>
+                        <small *ngIf="f['username'].errors['maxlength']">Tên tài khoản không quá 50 ký tự</small>
+                        <small *ngIf="f['username'].errors['minlength']">Tên tài khoản phải dài hơn 3 ký tự</small>
+                    </span>
+
+                </div>
+
+                </div>
+
+                <div class="p-formgrid grid">
+                    <div class="field col-12">
+                    <label for="password" class="block text-900 font-medium text-xl mb-2">Mật khẩu</label>
+                    <p-password class="w-full" [style]="{ display: 'block' }" id="password" formControlName="password" inputStyleClass="w-full" (onBlur)="validatePwd()" [(ngModel)]="password" placeholder="Mật khẩu đăng nhập" [toggleMask]="true" styleClass="mb-1 " inputStyleClass="w-full p-3 md:w-30rem"></p-password> <br/>
+                    <span class="p-error font-italic" *ngIf="f['password'].errors && (f['password'].dirty || f['password'].touched) ">
+                        <small *ngIf="f['password'].errors['required'] || f['password'].errors['whitespace']">Mật khẩu không được để trống</small>
+                        <small *ngIf="f['password'].errors['minlength']">Mật khẩu phải dài hơn 6 ký tự</small>
+                    </span>
+                    <div class="flex align-items-center justify-content-between my-5 gap-5">
+                        <div class="flex align-items-center">
+                            <p-checkbox id="rememberme1" [ngModelOptions]="{standalone: true}" [(ngModel)]="remember" [binary]="true" styleClass="mr-2"></p-checkbox>
+                            <label for="rememberme1">Nhớ mật khẩu</label>
+                        </div>
+                        <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)" (click)="changePassword()">Quên mật khẩu?</a>
+                    </div>
+                    <button pButton pRipple label="Đăng nhập" [loading]="loadingLogin" [disabled]="!form?.valid" class="w-full p-3 text-xl btn-success mb-2" (click)="login()"></button>
+                    <button pButton pRipple label="Đăng ký tài khoản" [loading]="loadingRegister" class="w-full p-3 text-xl btn-success" (click)="regsiter()"></button>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

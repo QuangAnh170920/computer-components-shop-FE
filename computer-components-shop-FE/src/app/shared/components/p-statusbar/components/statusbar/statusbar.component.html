@@ -1,0 +1,8 @@
+<div class="wrapper" >
+    <div class="arrow-steps clearfix">
+        <ng-container *ngFor="let item of status">
+            <div *ngIf="!item?.selected"  [ngClass]="editable?'step cursor-pointer':'step'" (click)="changeStatus(item)" ><span>  {{item?.label}} </span></div>
+            <div *ngIf="item?.selected"  class="step current"><span>  {{item?.label}} </span></div>
+        </ng-container> 
+    </div>
+</div>

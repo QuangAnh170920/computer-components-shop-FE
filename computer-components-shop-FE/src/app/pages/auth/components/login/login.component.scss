@@ -1,0 +1,15 @@
+::ng-deep {
+    .btn-success {
+        background-color: #1488E7!important;
+        border-color: #1488E7!important;
+    }
+    .p-inputwrapper {
+        width: 100%;
+    }
+}
+
+@media (max-width:500px) {
+    .surface-ground {
+        padding: 0px 10px;
+    }
+}

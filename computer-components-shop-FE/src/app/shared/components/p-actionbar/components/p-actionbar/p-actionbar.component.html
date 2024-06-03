@@ -1,0 +1,83 @@
+<span class="flex align-items-center">
+    <p-button icon="pi pi-eye"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only p-button-info mr-2"
+        pTooltip="Xem chi tiết" tooltipPosition="bottom" (onClick)="actionClick('view')"
+        *ngIf="actions.includes('view')">
+    </p-button>
+
+    <p-button icon="pi pi-file-edit"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only p-button-warning mr-2"
+        pTooltip="Sửa thông tin" tooltipPosition="bottom" (onClick)="actionClick('edit')"
+        *ngIf="actions.includes('edit')">
+    </p-button>
+
+    <p-button icon="pi pi-check"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only mr-2 p-button-success"
+        pTooltip="Phê duyệt" tooltipPosition="bottom" (onClick)="actionClick('approve')"
+        *ngIf="actions.includes('approve')">
+    </p-button>
+
+    <p-button icon="pi pi-times"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only mr-2 p-button-danger"
+        pTooltip="Hủy bỏ" tooltipPosition="bottom" (onClick)="actionClick('unapprove')"
+        *ngIf="actions.includes('unapprove')">
+    </p-button>
+
+    <p-button icon="pi pi-calendar-plus"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only mr-2 p-button-success"
+        pTooltip="Kích hoạt tem" tooltipPosition="bottom" (onClick)="actionClick('activate')"
+        *ngIf="actions.includes('activate')">
+    </p-button>
+
+    <p-button icon="pi pi-file-excel"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only mr-2 p-button-primary"
+        pTooltip="Xuất file Excel" tooltipPosition="bottom" (onClick)="actionClick('excel')"
+        *ngIf="actions.includes('excel')">
+    </p-button>
+
+    <p-button icon="pi pi-trash"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only p-button-danger mr-2"
+        pTooltip="Xóa thông tin" tooltipPosition="bottom" (onClick)="actionClick('del')"
+        *ngIf="actions.includes('del')">
+    </p-button>
+
+    <p-button icon="pi pi-play"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only mr-2 p-button-success"
+        pTooltip="Kích hoạt" tooltipPosition="bottom" (onClick)="actionClick('active')"
+        *ngIf="actions.includes('active')">
+    </p-button>
+    <p-button icon="pi pi-calendar-plus"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only mr-2 p-button-success"
+        pTooltip="Giao việc" tooltipPosition="bottom" (onClick)="actionClick('assign')"
+        *ngIf="actions.includes('assign')">
+    </p-button>
+    <p-button icon="pi pi-calendar-plus"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only mr-2 p-button-success"
+        pTooltip="Thực hiện công việc" tooltipPosition="bottom" (onClick)="actionClick('do')"
+        *ngIf="actions.includes('do')">
+    </p-button>
+    <p-button icon="pi pi-cog"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only mr-2 p-button-danger"
+        pTooltip="Thiết lập" tooltipPosition="bottom" (onClick)="actionClick('config')"
+        *ngIf="actions.includes('config')">
+    </p-button>
+
+    <p-button icon="pi pi-stop-circle"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only mr-2 p-button-danger"
+        pTooltip="Tạm dừng" tooltipPosition="bottom" (onClick)="actionClick('deactive')"
+        *ngIf="actions.includes('deactive')">
+    </p-button>
+
+    <p-button icon="pi pi-calculator"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only mr-2 p-button-danger"
+        pTooltip="Tách lô tem" tooltipPosition="bottom" (onClick)="actionClick('divide')"
+        *ngIf="actions.includes('divide')">
+    </p-button>
+
+    <p-button icon="pi pi-arrow-right-arrow-left"
+        styleClass="p-element p-ripple p-button-rounded p-button-text p-button p-component p-button-icon-only mr-2 p-button-primary"
+        tooltipPosition="bottom" (onClick)="actionClick('put')"
+        *ngIf="actions.includes('put')">
+    </p-button>
+
+</span>

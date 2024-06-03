@@ -1,0 +1,163 @@
+<div class="card">
+    <p-tabView>
+        <p-tabPanel header="Thông tin người dùng">
+            <section class="vh-100">
+                <div class="container py-0">
+                    <div>
+                        <div class="col col-12 mb-0">
+                            <div
+                                class="p-card mb-3 card-container"
+                                style="border-radius: 0.5rem"
+                            >
+                                <div>
+                                    <div>
+                                        <div class="p-card-body p-4">
+                                            <div
+                                                style="
+                                                    justify-content: space-between;
+                                                    display: flex;
+                                                    margin-bottom: 10px;
+                                                "
+                                            >
+                                                <div>
+                                                    <h4 style="color: #1488e7">
+                                                        Thông tin chung
+                                                    </h4>
+                                                </div>
+
+                                                <div>
+                                                    <div
+                                                        style="text-align: end"
+                                                    >
+                                                        <p-button
+                                                            [loading]="loading"
+                                                            label="Chỉnh sửa thông tin"
+                                                            (click)="
+                                                                dialogEditUserInfo(
+                                                                    'top'
+                                                                )
+                                                            "
+                                                        ></p-button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr
+                                                class="mt-0 mb-4"
+                                                style="width: 100%"
+                                            />
+                                            <div
+                                                class="grid row pt-1 wrap-infomation"
+                                            >
+                                                <div class="col-4">
+                                                    <h6 htmlfor="fullName">
+                                                        Tên người dùng
+                                                    </h6>
+                                                    <p class="text-muted"></p>
+                                                    <p class="text-muted">
+                                                        {{ data?.fullName }}
+                                                    </p>
+                                                    <!-- <input
+                                                            pInputText
+                                                            id="fullName"
+                                                            formControlName="fullName"
+                                                            type="text"
+                                                            class="p-inputtext p-component p-element"
+                                                        /> -->
+                                                </div>
+                                                <div class="col-4">
+                                                    <h6>Điện thoại</h6>
+                                                    <p class="text-muted">
+                                                        {{ data?.mobile }}
+                                                    </p>
+                                                </div>
+                                                <div class="col-4">
+                                                    <h6>Email</h6>
+                                                    <p class="text-muted">
+                                                        {{ data?.email }}
+                                                    </p>
+                                                </div>
+                                                <div class="col-4">
+                                                    <h6 htmlfor="dateOfBirth">
+                                                        Ngày sinh
+                                                    </h6>
+                                                    <p class="text-muted">
+                                                        {{ data?.dateOfBirth }}
+                                                    </p>
+                                                </div>
+                                                <div class="col-4">
+                                                    <h6 htmlfor="gender">
+                                                        Giới tính
+                                                    </h6>
+                                                    <p class="text-muted">
+                                                        {{ data?.gender ? getGenderText(data.gender) : 'Không xác định' }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+
+<p-dialog
+    header="Chỉnh sửa thông tin"
+    [(visible)]="visible"
+    [style]="{ width: '30%' }"
+    [modal]="true"
+    [maximizable]="true"
+>
+    <form [formGroup]="form!">
+        <div>
+            <h6 htmlfor="dateOfBirth">Tên người dùng</h6>
+            <input
+                pInputText
+                id="fullName"
+                formControlName="fullName"
+                type="text"
+                class="p-inputtext p-component p-element w-full"
+            />
+        </div>
+        <div style="padding: 10px 0;">
+            <h6 htmlfor="dateOfBirth">Ngày sinh</h6>
+            <p-calendar
+                formControlName="dateOfBirth"
+                dateFormat="dd-mm-yy"
+                appendTo="body"
+                dataType="date"
+            ></p-calendar>
+        </div>
+        <div>
+            <h6 htmlfor="gender">Giới tính</h6>
+            <p-dropdown
+                [options]="genderUser"
+                formControlName="gender"
+                optionLabel="label"
+                optionValue="value"
+                filterBy="label"
+                placeholder="Chọn giới tính"
+                type="text"
+                appendTo="body"
+
+            ></p-dropdown>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button
+            icon="pi pi-times"
+            (click)="visible = false"
+            label="Hủy"
+        ></p-button>
+        <p-button
+            icon="pi pi-check"
+            (click)="editUserProfile()"
+            label="Xác nhận"
+        ></p-button>
+    </ng-template>
+</p-dialog>

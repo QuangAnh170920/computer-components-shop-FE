@@ -1,0 +1,100 @@
+<div class="po-page">
+    <div class="grid" style="margin-top: 5px">
+        <div class="flex" style="width: 100%; justify-content: center">
+            <div class="col-6">
+                <div class="card mb-0" style="background-color: #1d5284">
+                    <div class="flex justify-content-between mb-3">
+                        <div>
+                            <span class="block text-white font-medium mb-3"
+                                >New PO</span
+                            >
+                            <div class="text-900 font-medium text-xl"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card mb-0" style="background-color: #bb4747">
+                    <div class="flex justify-content-between mb-3">
+                        <div>
+                            <span class="block text-white font-medium mb-3"
+                                >Released PO</span
+                            >
+                            <div class="text-900 font-medium text-xl"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="grid"> 
+            <div class="col-6">
+                <div class="col-12">
+                    <input
+                        style="width: 100%"
+                        type="text"
+                        pInputText
+                        [(ngModel)]="keyword"
+                        placeholder="Nhập từ khóa tìm kiếm"
+                        class="p-inputtext p-component p-element"
+                    />
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="col-12">
+                    <p-dropdown
+                        placeholder="Status"
+                        optionLabel="name"
+                    ></p-dropdown>
+                </div>
+                <div class="col-12 text-right">
+                    <p-button
+                        label="Reset"
+                        icon="pi pi-refresh"
+                        styleClass="mr-2"
+                    ></p-button>
+                    <p-button
+                        label="Tìm kiếm"
+                        icon="pi pi-search"
+                        styleClass="mr-2"
+                        (onClick)="click()"
+                    ></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card mt-3">
+        <h4>Danh sách PO</h4>
+        <p-table
+            #dt
+            [lazy]="true"
+            (onLazyLoad)="lazyLoad($event)"
+            dataKey="id"
+            styleClass="datatable-responsive p-datatable-striped"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [scrollable]="true"
+            scrollHeight="400px"
+            scrollableX="true"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Company Code</th>
+                    <th class="text-center">PO</th>
+                    <th class="text-center">PR</th>
+                    <th class="text-center">Purch. Organization</th>
+                    <th class="text-center">Purchasing Group</th>
+                    <th class="text-center">Purchasing Document</th>
+                    <th class="text-center">Vendor</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-i="rowIndex"> </ng-template>
+        </p-table>
+    </div>
+</div>

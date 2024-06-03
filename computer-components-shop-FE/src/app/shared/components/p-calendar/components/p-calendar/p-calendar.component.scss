@@ -1,0 +1,19 @@
+:host ::ng-deep  .p-button-label {
+    display: block;
+    min-width: 70px;
+}
+:host ::ng-deep .p-toolbar{
+    padding: 0!important
+    
+}
+
+@media(max-width: 500px) {
+    .resStyle {
+        margin-bottom: 4px!important;
+    }
+    .test {
+        display: block;
+        width: 100%;
+    }
+
+}

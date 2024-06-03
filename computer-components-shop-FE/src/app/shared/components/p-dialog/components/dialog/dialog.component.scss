@@ -1,0 +1,39 @@
+.close {
+  display: block;
+  position: absolute;
+  right: -42px;
+  z-index: 1000;
+
+  button {
+    background: #fff;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: none;
+    color: #495057;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}
+
+
+
+::ng-deep {
+  .system-dialog {
+    min-width: 50vw;
+  }
+
+  .p-dialog .p-dialog-content {
+    padding: 0;
+  }
+
+  .p-dialog .p-dialog-content:last-of-type {
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+  }
+  
+}

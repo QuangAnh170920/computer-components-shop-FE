@@ -1,0 +1,731 @@
+<form [formGroup]="form!">
+    <div class="grid">
+        <div class="col-12 flex card p-3 m-0">
+            <div class="col-12 lg:col-2 text-white">
+                <label class="text-lg font-semibold" style="color: black" for=""
+                    >Thống kê</label
+                >
+                <div
+                    class="card p-3 mt-2 m-0 flex flex-column flex-1"
+                    style="background-color: #1d5284"
+                >
+                    <p class="text-base mb-1">New PR</p>
+                    <p class="font-bold text-4xl">{{ countErbanIn }}</p>
+                </div>
+                <div class="py-2"></div>
+                <div
+                    class="card p-3 m-0 flex flex-column flex-1"
+                    style="background-color: #bb4747"
+                >
+                    <p class="text-base mb-1">PR In-progress</p>
+                    <p class="font-bold text-4xl">{{ countErbanNew }}</p>
+                </div>
+            </div>
+
+            <div class="col-12 lg:col-10 grid grid-nogutter">
+                <div class="col-6 p-2">
+                    <input
+                        type="text"
+                        formControlName="searchField"
+                        pInputText
+                        [placeholder]="placeHolder"
+                        class="p-inputtext p-component p-element w-full"
+                    />
+                </div>
+                <div class="col-6 p-2">
+                    <p-multiSelect
+                        optionLabel="label"
+                        formControlName="werks"
+                        [showClear]="true"
+                        optionValue="werks"
+                        [options]="PlanOptions"
+                        appendTo="body"
+                        placeholder="Plant"
+                    ></p-multiSelect>
+                </div>
+                <div class="col-6 p-2">
+                    <p-multiSelect
+                        optionLabel="materialName"
+                        [showClear]="true"
+                        formControlName="matnr"
+                        optionValue="materialName"
+                        [options]="MaterialOptions"
+                        appendTo="body"
+                        placeholder="materials"
+                    ></p-multiSelect>
+                </div>
+                <div class="col-6 p-2">
+                    <p-multiSelect
+                        optionLabel="label"
+                        [showClear]="true"
+                        optionValue="matkl"
+                        formControlName="matkl"
+                        [options]="MaterialGroupOptions"
+                        appendTo="body"
+                        placeholder="Material Group"
+                    ></p-multiSelect>
+                </div>
+                <div class="col-6 p-2">
+                    <p-calendar
+                        appendTo="body"
+                        [showClear]="true"
+                        formControlName="fromDate"
+                        [showIcon]="true"
+                        [showButtonBar]="true"
+                        [showClear]="true"
+                        dateFormat="dd/mm/yy"
+                        placeholder="From Date (Release Date)"
+                    ></p-calendar>
+                    <span
+                        class="p-error font-italic"
+                        *ngIf="
+                            f['fromDate'].errors &&
+                            (f['fromDate'].dirty || f['fromDate'].touched)
+                        "
+                    >
+                        <small *ngIf="f['fromDate'].errors['fromdate']"
+                            >Ngày bắt đầu không được lớn hơn ngày kết
+                            thúc!</small
+                        >
+                    </span>
+                </div>
+                <div class="col-6 p-2">
+                    <p-calendar
+                        appendTo="body"
+                        [showClear]="true"
+                        formControlName="toDate"
+                        [showIcon]="true"
+                        [showButtonBar]="true"
+                        [showClear]="true"
+                        dateFormat="dd/mm/yy"
+                        placeholder="To Date (Release Date)"
+                    ></p-calendar>
+                    <span
+                        class="p-error font-italic"
+                        *ngIf="
+                            f['toDate'].errors &&
+                            (f['toDate'].dirty || f['toDate'].touched)
+                        "
+                    >
+                        <small *ngIf="f['toDate'].errors['todate']"
+                            >Ngày bắt đầu không được lớn hơn ngày kết
+                            thúc!</small
+                        >
+                    </span>
+                </div>
+                <div class="col-6 p-2">
+                    <p-dropdown
+                        placeholder="Status"
+                        formControlName="status"
+                        [showClear]="true"
+                        appendTo="body"
+                        optionValue="value"
+                        optionLabel="name"
+                        [editable]="true"
+                        [options]="statuses"
+                    ></p-dropdown>
+                </div>
+                <div class="col-6 p-2">
+                    <p-button
+                        label="Reset"
+                        icon="pi pi-refresh"
+                        (onClick)="clickReset()"
+                        styleClass="mr-2"
+                    ></p-button>
+                    <p-button
+                        label="Tìm kiếm"
+                        icon="pi pi-search"
+                        (onClick)="clickSearch()"
+                    ></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid mt-3">
+        <div class="col-12 flex card m-0">
+            <div class="col-12 lg:col-2 gap-3">
+                <div class="pb-2">
+                    <label
+                        class="text-lg font-semibold"
+                        style="color: black"
+                        for=""
+                        >Danh sách cần làm</label
+                    >
+                </div>
+                <div
+                    class="card p-3 m-0 flex align-items-center justify-content-between"
+                >
+                    <p class="text-base mb-1">Báo giá đến</p>
+                    <p class="font-bold text-4xl">20</p>
+                </div>
+                <div
+                    class="card p-3 m-0 flex align-items-center justify-content-between"
+                >
+                    <p class="text-base mb-1">Chờ xác nhận</p>
+                    <p class="font-bold text-4xl">4</p>
+                </div>
+                <div
+                    class="card p-3 m-0 flex align-items-center justify-content-between"
+                >
+                    <p class="text-base mb-1">Pending</p>
+                    <p class="font-bold text-4xl">3</p>
+                </div>
+            </div>
+            <div class="col-12 lg:col-10">
+                <div class="pb-2">
+                    <label
+                        class="text-xl font-semibold"
+                        style="color: black"
+                        for=""
+                        >Thông tin PR</label
+                    >
+                </div>
+                <p-table
+                    #dt
+                    id="myTable"
+                    [value]="purchaseRequests"
+                    [lazy]="true"
+                    (onLazyLoad)="lazyLoad($event)"
+                    dataKey="id"
+                    styleClass="datatable-responsive p-datatable-striped p-datatable-sm"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    [scrollable]="true"
+                    scrollHeight="400px"
+                    scrollableX="true"
+                    [showCurrentPageReport]="true"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    [totalRecords]="totalRecords"
+                    [paginator]="true"
+                    [rows]="10"
+                    currentPageReportTemplate="Hiển thị từ  {first} đến {last} trên tổng số {totalRecords} bản ghi"
+                    styleClass="datatable-responsive p-datatable-striped"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="text-center">PR Code</th>
+                            <th class="text-center">Item</th>
+                            <th class="text-center">Material</th>
+                            <th class="text-center">Material Group</th>
+                            <th class="text-center">Doc Type</th>
+                            <th class="text-center">Doc cat</th>
+                            <th class="text-center">Purch Group</th>
+                            <th class="text-center">Plant</th>
+                            <th class="text-center">Storage Loc</th>
+                            <th class="text-center">Delivery Date</th>
+                            <th class="text-center">Release Date</th>
+                            <th class="text-center">Status</th>
+                            <th
+                                class="text-center"
+                                alignFrozen="right"
+                                pFrozenColumn
+                            >
+                                Actions
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-i="rowIndex" let-pr>
+                        <tr>
+                            <td>{{ pr?.banfn }}</td>
+                            <td>{{ pr?.bnfpo }}</td>
+                            <td>{{ pr?.matnr }}</td>
+                            <td>{{ pr?.wgbez }}</td>
+                            <td>{{ pr?.bsart }}</td>
+                            <td>{{ pr?.bstyp }}</td>
+                            <td>{{ pr?.ekgrp }}</td>
+                            <td>{{ pr?.name1 }}</td>
+                            <td>{{ pr?.lgort }}</td>
+                            <td>
+                                {{
+                                    !pr.lfdat
+                                        ? ""
+                                        : (pr?.lfdat | date : "dd/MM/yyyy")
+                                }}
+                            </td>
+                            <td>
+                                {{
+                                    !pr.frgdt
+                                        ? ""
+                                        : (pr?.frgdt | date : "dd/MM/yyyy")
+                                }}
+                            </td>
+                            <td>{{ statusLabel(pr?.status) }}</td>
+                            <td alignFrozen="right" pFrozenColumn>
+                                <p-actionbar
+                                    [actions]="setActionBar(pr?.status)"
+                                    (onClick)="actionClick($event, pr)"
+                                ></p-actionbar>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="13" class="text-center">
+                                Không tìm thấy Thông tin PR!
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div *ngIf="prDetails" class="grid mt-3">
+    <div class="col-12 card p-3 m-0">
+        <h5>{{ prDetails?.banfn }} / {{ prDetails?.matnr }}</h5>
+
+        <div>
+            <p-steps
+                [model]="steps"
+                [activeIndex]="prDetails?.status - 1"
+                [readonly]="true"
+            ></p-steps>
+        </div>
+
+        <div>
+            <div class="grid p-3 mt-3">
+                <div class="col-4 p-2">
+                    <p class="font-bold">
+                        Short Text:
+                        <span class="font-normal">{{ prDetails?.txz01 }}</span>
+                    </p>
+                </div>
+                <div class="col-4 p-2">
+                    <p class="font-bold">
+                        Processing State:
+                        <span class="font-normal">{{ prDetails?.status }}</span>
+                    </p>
+                </div>
+                <div class="col-4 p-2">
+                    <p class="font-bold">
+                        Quantity:
+                        <span class="font-normal">{{ prDetails?.menge }}</span>
+                    </p>
+                </div>
+                <div class="col-4 p-2">
+                    <p class="font-bold">
+                        Unit of Measure:
+                        <span class="font-normal">{{ prDetails?.meins }}</span>
+                    </p>
+                </div>
+                <div class="col-4 p-2">
+                    <p class="font-bold">
+                        Creation Indicator:
+                        <span class="font-normal">{{ prDetails?.estkz }}</span>
+                    </p>
+                </div>
+                <div class="col-4 p-2">
+                    <p class="font-bold">
+                        Valuation Price:
+                        <span class="font-normal">{{ prDetails?.preis }}</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex justify-content-end">
+                <p-button
+                    styleClass="p-button-text"
+                    label="Xem thêm"
+                ></p-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="vendorList" class="grid mt-3">
+    <div class="col-12 card p-3 m-0">
+        <h5>Danh sách nhà cung cấp phù hợp</h5>
+        <p-table
+            #dt
+            [lazy]="true"
+            (onLazyLoad)="lazyLoad($event)"
+            dataKey="id"
+            styleClass="datatable-responsive p-datatable-striped p-datatable-sm"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [scrollable]="true"
+            scrollHeight="400px"
+            scrollableX="true"
+            [value]="vendorList"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Mã NCC</th>
+                    <th class="text-center">Tên NCC</th>
+                    <!-- <th class="text-center">Company Code</th> -->
+                    <th class="text-center">Rating</th>
+                    <th class="text-center">Purchased</th>
+                    <th class="text-center">Địa chỉ</th>
+                    <th class="text-center">SĐT</th>
+                    <!-- <th class="text-center">VAT Registration Number</th> -->
+                    <!-- <th class="text-center">Payment Block</th> -->
+                    <th class="text-center">Status</th>
+                    <th class="text-center" alignFrozen="right" pFrozenColumn>
+                        Actions
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-i="rowIndex" let-suplier>
+                <!-- {{suplier | json}} -->
+                <tr>
+                    <td class="text-center">
+                        <!-- <p-tableCheckbox [value]="suplier" ></p-tableCheckbox> -->
+                        <p-checkbox
+                            (onChange)="changeValue(suplier, suplier?.lifnr)"
+                            [binary]="true"
+                            inputId="binary"
+                        ></p-checkbox>
+                    </td>
+                    <td class="text-center">{{ i }}</td>
+                    <td class="text-center">{{ suplier.lifnr }}</td>
+                    <td class="text-center">
+                        {{ suplier.name1 ? suplier.name1 : suplier.name2 }}
+                    </td>
+
+                    <!-- <td class="text-center">{{ suplier.bukrs }}</td> -->
+                    <td class="text-center">{{ suplier.rank }}</td>
+                    <td class="text-center">{{ suplier.purchased }}</td>
+                    <td class="text-center">{{ suplier.stras }}</td>
+                    <td class="text-center">
+                        {{ suplier.telf1 ? suplier.telf1 : suplier.telf2 }}
+                    </td>
+                    <!-- <td class="text-center">{{ suplier.stceg }}</td> -->
+                    <!-- <td class="text-center">{{ suplier.zahls }}</td> -->
+                    <td class="text-center">
+                        {{ statusLabel(suplier?.status) }}
+                    </td>
+                    <td alignFrozen="right" pFrozenColumn>
+                        <div class="flex justify-content-center">
+                            <p-button
+                                icon="pi pi-directions"
+                                styleClass="p-button-text"
+                                (click)="showDialog(i)"
+                            ></p-button>
+
+                            <p-button
+                                icon="pi pi-dollar"
+                                styleClass="p-button-text"
+                                (click)="showDialogPR(i)"
+                            ></p-button>
+
+                            <p-button
+                                icon="pi pi-cart-plus"
+                                styleClass="p-button-text"
+                            ></p-button>
+                            <p-button
+                                icon="pi pi-comments"
+                                styleClass="p-button-text"
+                            ></p-button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <div class="flex justify-content-end gap-2 mt-3">
+            <p-button class="" label="Gửi yêu cầu báo giá" (onClick)="showDialogQuoteList()"></p-button>
+            <p-button class="" label="Tạo phòng đấu giá"></p-button>
+            <p-button class="" label="Vendor khác"></p-button>
+        </div>
+    </div>
+</div>
+
+<form [formGroup]="formDialog!">
+    <p-dialog
+        header="Gửi phụ lục hợp đồng cho nhà cung cấp"
+        [(visible)]="visible"
+        [modal]="true"
+        [style]="{ width: '35%' }"
+        [draggable]="false"
+        [resizable]="false"
+    >
+        <div class="grid">
+            <div class="col-12">
+                <div
+                    class="col-12 lg:col-12 flex flex-column justify-content-center"
+                >
+                    <label
+                        for="fullname"
+                        class="block text-900 text-xl font-medium mb-2"
+                        >Tên nhà cung cấp</label
+                    >
+
+                    <input
+                        id="fullname"
+                        type="text"
+                        placeholder="Họ và tên"
+                        pInputText
+                        class="w-full md:w-30rem mb-1 p-inputtext p-component p-element"
+                        style="padding: 1rem"
+                        name="fullname"
+                        [value]="
+                            contract?.name1 ? contract?.name1 : contract?.name2
+                        "
+                        [disabled]="true"
+                    />
+
+                    <br />
+                </div>
+                <div class="col-12 lg:col-12">
+                    <label
+                        for="email"
+                        class="block text-900 text-xl font-medium mb-2"
+                        >Email nhà cung cấp</label
+                    >
+                    <input
+                        id="email"
+                        type="email"
+                        placeholder="Email"
+                        pInputText
+                        class="w-full md:w-30rem mb-1 p-inputtext p-component p-element"
+                        style="padding: 1rem"
+                        name="email"
+                        [value]="contract?.datlt"
+                        [disabled]="true"
+                    />
+                    <br />
+                </div>
+
+                <div class="col-12 lg:col-12">
+                    <label
+                        for="mobile"
+                        class="block text-900 text-xl font-medium mb-2"
+                        >Số điện thoại</label
+                    >
+                    <input
+                        id="mobile"
+                        type="text"
+                        placeholder="Số điện thoại"
+                        pInputText
+                        class="w-full md:w-30rem mb-1 p-inputtext p-component p-element"
+                        style="padding: 1rem"
+                        name="mobile"
+                        [value]="
+                            contract?.telf1 ? contract?.telf1 : contract?.telf2
+                        "
+                        [disabled]="true"
+                    />
+                    <br />
+                </div>
+                <div class="col-12 lg:col-12">
+                    <label
+                        for="contractsTemplateId"
+                        class="block text-900 text-xl font-medium mb-2"
+                        >Mẫu phụ lục hợp đồng</label
+                    >
+                    <p-dropdown
+                        [options]="ContractTemplate"
+                        optionLabel="contractTemplateName"
+                        optionValue="id"
+                        placeholder="Chọn phụ lục hợp đồng"
+                        formControlName="contractsTemplateId"
+                        appendTo="body"
+                    ></p-dropdown>
+                    <br />
+                </div>
+                <p-button styleClass="p-button-text" (onClick)="onClose()"
+                    >Thoát</p-button
+                >
+                <p-button
+                    styleClass="p-button-text"
+                    (onClick)="
+                        sendMailVendorPR(
+                            contract!.banfn,
+                            contract!.bnfpo,
+                            contract!.lifnr
+                        )
+                    "
+                    >Gửi hợp đồng</p-button
+                >
+            </div>
+        </div>
+    </p-dialog>
+</form>
+
+<form [formGroup]="formDialogPR!">
+    <p-dialog
+        header="Gửi yêu cầu báo giá cho nhà cung cấp"
+        [(visible)]="visiblePR"
+        [modal]="true"
+        [style]="{ width: '35%' }"
+        [draggable]="false"
+        [resizable]="false"
+    >
+        <div class="p-formgrid grid">
+            <div class="field col-6" style="height: 100%">
+                <div class="p-formgrid grid">
+                    <div class="field col-12">
+                        <label
+                            for="fullname"
+                            class="block text-900 text-xl font-medium mb-2"
+                            >Tên nhà cung cấp</label
+                        >
+                        <input
+                            id="fullname"
+                            type="text"
+                            placeholder="Họ và tên"
+                            pInputText
+                            class="w-full md:w-30rem mb-1 p-inputtext p-component p-element"
+                            style="padding: 1rem"
+                            name="fullname"
+                            [value]="
+                                contract?.name1
+                                    ? contract?.name1
+                                    : contract?.name2
+                            "
+                            [disabled]="true"
+                        />
+                        <br />
+                    </div>
+                </div>
+                <div class="p-formgrid grid">
+                    <div class="field col-12">
+                        <label
+                            for="email"
+                            class="block text-900 text-xl font-medium mb-2"
+                            >Email nhà cung cấp</label
+                        >
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="Email"
+                            pInputText
+                            class="w-full md:w-30rem mb-1 p-inputtext p-component p-element"
+                            style="padding: 1rem"
+                            name="email"
+                            [value]="contract?.datlt"
+                            [disabled]="true"
+                        />
+                        <br />
+                    </div>
+                </div>
+
+                <div class="p-formgrid grid">
+                    <div class="field col-12">
+                        <label
+                            for="mobile"
+                            class="block text-900 text-xl font-medium mb-2"
+                            >Số điện thoại</label
+                        >
+                        <input
+                            id="mobile"
+                            type="text"
+                            placeholder="Số điện thoại"
+                            pInputText
+                            class="w-full md:w-30rem mb-1 p-inputtext p-component p-element"
+                            style="padding: 1rem"
+                            name="mobile"
+                            [value]="
+                                contract?.telf1
+                                    ? contract?.telf1
+                                    : contract?.telf2
+                            "
+                            [disabled]="true"
+                        />
+                        <br />
+                    </div>
+                </div>
+                <div class="p-formgrid grid">
+                    <div class="field col-12">
+                        <label
+                            for="prTemplateId"
+                            class="block text-900 text-xl font-medium mb-2"
+                            >Mẫu báo giá</label
+                        >
+                        <p-dropdown
+                            [options]="QuoteTemplate"
+                            optionLabel="quoteTemplateName"
+                            optionValue="id"
+                            placeholder="Chọn phụ lục hợp đồng"
+                            formControlName="prTemplateId"
+                            appendTo="body"
+                        ></p-dropdown>
+                        <br />
+                    </div>
+                </div>
+                <p-button styleClass="p-button-text">Thoát</p-button>
+                <p-button
+                    styleClass="p-button-text"
+                    (onClick)="
+                        sendMailVendorQuote(
+                            contract!.banfn,
+                            contract!.bnfpo,
+                            contract!.lifnr
+                        )
+                    "
+                    >Yêu cầu gửi báo giá</p-button
+                >
+            </div>
+        </div>
+    </p-dialog>
+</form>
+
+<form [formGroup]="formDialogPR!">
+    <p-dialog
+        header="Gửi yêu cầu báo giá"
+        [(visible)]="visible1"
+        [modal]="true"
+        [style]="{ width: '50%' }"
+        [draggable]="false"
+        [resizable]="false"
+    >
+        <div class="p-formgrid grid">
+            <div class="field col-12">
+                <label
+                    for="prTemplateId"
+                    class="block text-900 text-xl font-medium mb-2"
+                    >Mẫu báo giá</label
+                >
+                <p-dropdown
+                    [options]="QuoteTemplate"
+                    optionLabel="quoteTemplateName"
+                    optionValue="id"
+                    placeholder="Mẫu báo giá"
+                    formControlName="prTemplateId"
+                    appendTo="body"
+                ></p-dropdown>
+                <br />
+            </div>
+        </div>
+        <p-table
+            #dt
+            [lazy]="true"
+            (onLazyLoad)="lazyLoad($event)"
+            dataKey="id"
+            styleClass="datatable-responsive p-datatable-striped p-datatable-sm"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [scrollable]="true"
+            scrollHeight="400px"
+            scrollableX="true"
+            [value]="selectedItems"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Mã NCC</th>
+                    <th class="text-center">Tên NCC</th>
+                    <th class="text-center">Company Code</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-i="rowIndex" let-suplier>
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>{{ suplier.name1 }}</td>
+                    <td>{{ suplier.datlt }}</td>
+
+                    <td>{{ suplier.telf1 }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <p-button styleClass="p-button-text">Thoát</p-button>
+        <p-button
+            styleClass="p-button-text"
+            (onClick)="sendMailVendorQuoteList()"
+            >Yêu cầu gửi báo giá</p-button
+        >
+    </p-dialog>
+</form>
