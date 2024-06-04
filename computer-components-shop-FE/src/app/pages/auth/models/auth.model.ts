@@ -1,6 +1,6 @@
 
 export interface ILogin {
-    username:string
+    mobileOrEmail:string
     password:string
 }
 
@@ -16,6 +16,7 @@ export interface IAuthInfo {
     user:IUserProfile
     accessToken: string 
     refreshToken: string
+    token: string
 }
 export interface IResponseLogin {
     responseCode: string;

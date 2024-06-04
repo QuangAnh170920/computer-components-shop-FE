@@ -59,7 +59,7 @@ export class LoginComponent {
 
     private _formInit() {
         this.form = this.fb.group({
-            username: [
+            mobileOrEmail: [
                 '',
                 Validators.compose([
                     Validators.required,
@@ -80,9 +80,9 @@ export class LoginComponent {
         });
     }
     rememberUser() {
-        if (localStorage.getItem('username') && localStorage.getItem('password')) {
+        if (localStorage.getItem('mobileOrEmail') && localStorage.getItem('password')) {
             this.form?.patchValue({
-                username: localStorage.getItem('username'),
+                mobileOrEmail: localStorage.getItem('mobileOrEmail'),
             });
             this.password = localStorage.getItem('password') ?? ''
         }
@@ -108,20 +108,20 @@ export class LoginComponent {
         }
     }
 
-    // private _loadUserProfile() {
-    //     this.authFacade.authInfo$.subscribe((res: IAuthInfo) => {
-    //         if (res.token) {
-    //         }
-    //         // this.data = res
-    //         // if
-    //     });
-    // }
+    private _loadUserProfile() {
+        this.authFacade.authInfo$.subscribe((res: IAuthInfo) => {
+            if (res.token) {
+            }
+            // this.data = res
+            // if
+        });
+    }
 
     validatePwd() { }
-    // isLoggedIn() {
-    //     if(localStorage.getItem('__TKNI')) {
-    //         this.router.navigate(['/'])
-    //     }
-    //     return
-    // }
+    isLoggedIn() {
+        if(localStorage.getItem('__TKNI')) {
+            this.router.navigate(['/'])
+        }
+        return
+    }
 }

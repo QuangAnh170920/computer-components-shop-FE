@@ -5,12 +5,12 @@
 
                 <div class="p-formgrid grid">
                     <div class="field col-12">
-                    <label for="username" class="block text-900 text-xl font-medium mb-2">Tài khoản</label>
-                    <input id="username" formControlName="username" type="text" placeholder="Tài khoản đăng nhập" pInputText class="w-full md:w-30rem mb-1 p-inputtext p-component p-element"   style="padding:1rem"> <br/>
-                    <span class="p-error font-italic" *ngIf="f['username'].errors && (f['username'].dirty || f['username'].touched) ">
-                        <small *ngIf="f['username'].errors['required'] || f['username'].errors['whitespace']">Tài khoản không được để trống</small>
-                        <small *ngIf="f['username'].errors['maxlength']">Tên tài khoản không quá 50 ký tự</small>
-                        <small *ngIf="f['username'].errors['minlength']">Tên tài khoản phải dài hơn 3 ký tự</small>
+                    <label for="mobileOrEmail" class="block text-900 text-xl font-medium mb-2">Tài khoản</label>
+                    <input id="mobileOrEmail" formControlName="mobileOrEmail" type="text" placeholder="Tài khoản đăng nhập" pInputText class="w-full md:w-30rem mb-1 p-inputtext p-component p-element"   style="padding:1rem"> <br/>
+                    <span class="p-error font-italic" *ngIf="f['mobileOrEmail'].errors && (f['mobileOrEmail'].dirty || f['mobileOrEmail'].touched) ">
+                        <small *ngIf="f['mobileOrEmail'].errors['required'] || f['mobileOrEmail'].errors['whitespace']">Tài khoản không được để trống</small>
+                        <small *ngIf="f['mobileOrEmail'].errors['maxlength']">Tên tài khoản không quá 50 ký tự</small>
+                        <small *ngIf="f['mobileOrEmail'].errors['minlength']">Tên tài khoản phải dài hơn 3 ký tự</small>
                     </span>
 
                 </div>

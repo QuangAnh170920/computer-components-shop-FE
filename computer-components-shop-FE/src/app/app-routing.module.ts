@@ -9,7 +9,7 @@ import { AuthGuard } from './pages/auth/guards/auth.guard';
         RouterModule.forRoot([
             {
                 canActivate: [AuthGuard],
-                path: '', component: AppLayoutComponent, title:'Ariba',
+                path: '', component: AppLayoutComponent, title:'QAP Store',
                 children: [
                     {path:'groups', loadChildren:()=> import('./pages/group-permission/group-permissions.module').then(m=>m.GrouppermissionsModule)},
                     // { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
@@ -19,8 +19,10 @@ import { AuthGuard } from './pages/auth/guards/auth.guard';
                     { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
                     {path: 'user', loadChildren: ()=> import('./pages/user/user.module').then(m => m.UserModule)},
-                    // processess
-                    //statistics
+                    {path: 'product-management', loadChildren: ()=> import('./pages/product-management/product-management.module').then(m => m.ProductManagementModule) },
+                    {path: 'product-specifications', loadChildren: ()=> import('./pages/product-specifications/product-specifications.module').then(m => m.ProductSpecificationsModule) },
+                    {path: 'brand-management', loadChildren: ()=> import('./pages/brand-management/brand-mamagement.module').then(m => m.BrandMamagementModule) },
+                    {path: 'categories-management', loadChildren: ()=> import('./pages/categories-management/categories-management.module').then(m => m.CategoriesManagementModule) },
                 ]
             },
             { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },

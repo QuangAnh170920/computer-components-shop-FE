@@ -6271,13 +6271,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   background-color: #F48FB1;
   color: #121212;
 }
-
-
-.p-tag.p-tag-primany {
-  background-color: blue;
-  color: #121212;
-}
-
 .p-tag .p-tag-icon {
   margin-right: 0.25rem;
   font-size: 0.75rem;

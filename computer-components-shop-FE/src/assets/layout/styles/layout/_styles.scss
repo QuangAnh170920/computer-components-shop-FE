@@ -68,8 +68,8 @@ p-dynamicdialog .p-dialog .p-dialog-footer {
 
 
 .checkbox-active .p-checkbox .p-checkbox-box.p-highlight {
-    background-color: #1488E7!important;
-    border-color: #1488E7!important;
+    background-color: var(--green-600)!important;
+    border-color: var(--green-600)!important;
 }
 
 p-checkbox .p-disabled {
@@ -86,7 +86,7 @@ p-checkbox .p-disabled {
 }
 
 .p-confirm-dialog .p-dialog-header {
-    background-color: #1488E7;
+    background-color: var(--green-400);
     color: #eee;
 }
 

@@ -160,12 +160,12 @@ export class SessionService {
   }
   rememberUser(remember: boolean, login:ILogin ){
     if(remember) {
-        localStorage.setItem('username',login.username)
+        localStorage.setItem('mobileOrEmail',login.mobileOrEmail)
         localStorage.setItem('password',login.password)
         localStorage.setItem('remember', 'true')
     }
     else{
-        localStorage.removeItem('username')
+        localStorage.removeItem('mobileOrEmail')
         localStorage.removeItem('password')
         localStorage.setItem('remember', 'false')
     }

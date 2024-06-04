@@ -35,44 +35,57 @@ export class AppMenuComponent implements OnInit {
                 ],
             },
             {
-                label: 'PR Management',
+                label: 'Quản lý sản phẩm',
                 items: [
                     {
-                        label: 'New PR',
-                        routerLink: ['/pr-management'],
+                        label: 'Sản phẩm',
+                        routerLink: ['/product-management'],
+                        icon: 'pi pi-box',
                     },
                     {
-                        label: 'PR In-progress',
-                        routerLink: ['/pr-management'],
+                        label: 'Danh sách thông số sản phẩm',
+                        routerLink: ['/product-specifications'],
+                        icon: 'pi pi-book',
                     },
                 ],
             },
             {
-                label: 'PO Management',
+                label: 'Quản lý loại sản phẩm',
                 items: [
                     {
-                        label: 'New PO',
-                        routerLink: ['/po-management'],
+                        label: 'Loại sản phẩm',
+                        routerLink: ['/categories-management'],
+                        icon: 'pi pi-database',
                     },
+                ],
+            },
+            {
+                label: 'Quản lý nhãn hiệu',
+                items: [
                     {
-                        label: 'Released PO',
+                        label: 'Nhãn hiệu',
+                        routerLink: ['/brand-management'],
+                        icon: 'pi pi-bookmark',
+                    },
+                ],
+            },
+            {
+                label: 'Quản lý kho hàng',
+                items: [
+                    {
+                        label: 'Kho hàng',
                         routerLink: [''],
+                        icon: 'pi pi-inbox',
                     },
                 ],
             },
             {
-                label: 'Vendor',
-            },
-            {
-                label: 'Template Management',
+                label: 'Quản lý đánh giá sản phẩm',
                 items: [
                     {
-                        label: 'Mẫu Phụ lục hợp đồng',
-                        routerLink: ['/contract-addendum-templates'],
-                    },
-                    {
-                        label: 'Mẫu Báo giá',
-                        routerLink: ['/bao-gia-templates'],
+                        label: 'Đánh giá sản phẩm',
+                        routerLink: [''],
+                        icon: 'pi pi-file-edit',
                     },
                 ],
             },
