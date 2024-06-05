@@ -14,13 +14,13 @@ export class AuthService {
     login(payload:ILogin): Observable<IResponseLogin> {
         return this.apiService.post(API_ROUTER.ACCOUNT.LOGIN, payload)
     }
-    loginSSO(payload:ILogin): Observable<IAuthInfo> {
-        return this.apiService.post(API_ROUTER.ACCOUNT.LOGIN_SSO, payload)
-    }
+    // loginSSO(payload:ILogin): Observable<IAuthInfo> {
+    //     return this.apiService.post(API_ROUTER.ACCOUNT.LOGIN_SSO, payload)
+    // }
 
-    group_list(payload:ILogin): Observable<IUserProfile> {
-        return this.apiService.post(API_ROUTER.ACCOUNT.GET_GROUP_LIST, payload)
-    }
+    // group_list(payload:ILogin): Observable<IUserProfile> {
+    //     return this.apiService.post(API_ROUTER.ACCOUNT.GET_GROUP_LIST, payload)
+    // }
     
     refresh_token(tokenRefresh: string): Observable<IResponseLogin>{
         const headers = new HttpHeaders();

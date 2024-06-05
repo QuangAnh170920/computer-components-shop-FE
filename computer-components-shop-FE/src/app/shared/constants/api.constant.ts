@@ -91,120 +91,6 @@ export const API_ROUTER = {
         FORGOT_PASSWORD:'auth/forgot-password',
         CHANGE_PASSWORD:'auth/change-password',
     },
-    ENTERPIRSE: {},
-    BUSINESS: {
-        GET_CUSTOMER_LIST: 'enterprise/customers',
-        GET_CUSTOMER_DETAIL: 'enterprise/customer/detail/',
-        CUSTOMER_ADD: 'enterprise/customer/add',
-        CUSTOMER_UPDATE: 'enterprise/customer/update/',
-        CUSTOMER_DELETE: 'enterprise/customer/delete/',
-        GET_CUSTOMER_INFO: 'enterprise/customer/info',
-        DASHBOARD_COUNT: 'enterprise/customer/report-counter',
-    },
-
-    PRODUCTION: {
-        GET_PRODUCT_LIST: 'production/products',
-        GET_PRODUCT_DETAIL: 'production/product/detail/',
-        PRODUCT_ADD: 'production/product/add',
-        PRODUCT_UPDATE: 'production/product/update/',
-        PRODUCT_DELETE: 'production/product/delete/',
-        PRODUCT_CODE_VALIDATE: 'production/product/product-code-validate/',
-        GET_PRODUCT_CATEGORIES: 'production/categories',
-        GET_PRODUCT_CATEGORIES_DETAIL: 'production/category/detail/',
-        GET_PRODUCT_SYNC: 'production/product/sync',
-        UPLOAD: 'production/product/update/',
-    },
-    QRCODE: {
-        GET_SERIAL_RANGE: 'qrcode/code/code-serial-range-generate',
-        CODE_SCAN: 'qrcode/code/scan/',
-        GET_LIST_CODE_TYPES: 'base/code-types',
-        CODE_VALIDATE: 'qrcode/code/series-code-validate',
-        CODE_GENERATE: 'qrcode/code/generate',
-        CODE_DETAIL: 'qrcode/code/detail/',
-        GET_CODE_LIST: 'qrcode/codes',
-        CODE_UPDATE: 'qrcode/code/update/',
-        CODE_APPROVE: 'qrcode/code/approve/',
-        CODE_DELETE: 'qrcode/code/delete/',
-        CODE_EXCEL: 'qrcode/code/export/excel/',
-        CODE_REPORT: 'qrcode/code/report/list-codes',
-        GET_CODE_ACTIVATEDS: 'qrcode/code/activateds',
-        CODE_ACTIVATEDS_UPDATE: 'qrcode/code/activate/update/',
-        // CODE_ACTIVATEDS_DELETE: 'qrcode/code/activate/delete/',
-        CODE_ACTIVATEDS_DELETE: 'qrcode/code/delete-activate/',
-        GET_CODE_ACTIVATEDS_DETAIL: 'qrcode/code/activate/detail',
-
-        CODE_ACTIVATEDS_APPROVE: 'qrcode/code/activate/approve/',
-        //CODE_ACTIVATEDS_APPROVE: 'qrcode/code/activate/delete-activate/',
-
-        GET_LIST_CODE_ACTIVATE: 'qrcode/activate-codes',
-        SPLIT_CODE: 'qrcode/code/split',
-        REPORT_PRODUCT_BATCH: 'qrcode/code/product-batch/report/list'
-    },
-    // Process
-
-    PROCESS: {
-        GET_PROCESS_LIST: 'procedure/procedures',
-        ADD_PROCESS: 'procedure/procedure/add',
-        GET_PROCESS_DETAIL: 'procedure/procedure/detail/',
-        UPDATE_PROCESS: 'procedure/procedure/update/',
-        DELETE_PROCESS: 'procedure/procedure/delete/',
-        WORK_HISTORY: 'procedure/work-form/work-data-history',
-        WORK_HISTORY_STATUS: 'procedure/work-form/data/update/',
-        WORK_HISTORY_DELETE: 'procedure/work-form/data/delete/',
-        WORK_UPDATE_FORM:  'procedure/work-form/update/'
-    },
-
-    // Step
-
-    STEP: {
-        GET_STEP_LIST: 'procedure/steps',
-        ADD_STEP: 'procedure/step/add',
-        GET_STEP_DETAIL: 'procedure/step/detail/',
-        UPDATE_STEP: 'procedure/step/update/',
-        DELETE_STEP: 'procedure/step/delete/',
-    },
-
-    // Work
-
-    WORK: {
-        GET_WORK_LIST: 'procedure/works',
-        ADD_WORK: 'procedure/work/add',
-        GET_WORK_DETAIL: 'procedure/work/detail/',
-        UPDATE_WORK: 'procedure/work/update/',
-        DELETE_WORK: 'procedure/work/delete/',
-        ADD_FORM: 'procedure/work-form/add',
-        UPDATE_FORM: 'procedure/work-form/update',
-    },
-
-    // Form
-
-    FORM: {
-        GET_DETAIL_FORM: 'procedure/work-form/detail/',
-        ADD_DATA_FORM: 'procedure/work-form/data/add',
-        GET_DATA_FORM_BY_WORK_ID: 'procedure/work-form/work-data/',
-    },
-
-    TASK: {
-        GET_TASK_LIST: 'procedure/tasks',
-        ADD_TASK: 'procedure/task/add',
-        GET_TASK_DETAIL: 'procedure/task/detail/',
-        UPDATE_TASK: 'procedure/task/update/',
-        DELETE_TASK: 'procedure/task/delete/',
-        GET_CROPS_LIST: 'procedure/crops',
-        ADD_CROPS: 'procedure/crop/add',
-        GET_DETAIL_CROP: 'procedure/crop/detail/',
-        UPDATE_CROPS: 'procedure/crop/update/',
-        DELETE_CROPS: 'procedure/crop/delete/',
-
-
-    },
-    // Crops
-
-    LOCATION: {
-        PROVINCES: 'base/provinces',
-        DISTRICTS_BY_PID: 'base/districts',
-        WARDS_BY_DID:'base/wards'
-    },
 
     //User
 
@@ -212,33 +98,11 @@ export const API_ROUTER = {
         PROFILE: '/v1/api/admin/profile',
         EDIT_PROFILE: 'api/edit-profile'
     },
-    DROP_DOWN_OPTION: {
-        PLAN: '/v1/api/admin/drop-down/plant',
-        MATERIAL: '/v1/api/admin/drop-down/material',
-        MATERIAL_GROUP: '/v1/api/admin/drop-down/material-group',
-        CONTRACT: '/v1/api/admin/drop-down/contract-template',
-        QUOTE:'/v1/api/admin/drop-down/quote-template'
-    },
-    PR_EBAN_CONTROLLER: {
-        SEARCH: '/v1/api/admin/pr_eban/search-pr-eban',
-        DETAIL: '/v1/api/admin/pr_eban/get-detail',
-        LIST_VENDOR: '/v1/api/admin/vendor/get-vendor',
-        SEND_MAIL_VENDOR_CONTRACT: '/v1/api/mail/send-vendor-contracts',
-        SEND_MAIL_VENDOR_PR:'/v1/api/mail/send-vendor-pr',
-        GET_QUOTES: '/v1/api/admin/vendor/get-quotes',
-        COUNT: '/v1/api/admin/pr_eban/count'
-
-    },
-    CONTRACT_ADDENDUM_TEMPLATE: {
-        FIND_ALL_AND_SEARCH: '/v1/api/admin/contract-template/find-all-and-search',
-        CREATE: '/v1/api/admin/contract-template/create'
-    },
-    QUOTE_TEMPLATE: {
-        FIND_ALL_AND_SEARCH: '/v1/api/admin/quote-template/find-all-and-search',
-        CREATE: '/v1/api/admin/quote-template/create'
-    },
-    CHAT:{
-        GET_LIST_CHAT: '/v1/api/chat/get-list-chat',
-        GET_DETAIL_CHAT:'/v1/api/chat/get-detail-chat'
+    BRAND: {
+        CREATE: '/v1/api/admin/brand/create',
+        UPDATE: '/v1/api/admin/brand/update',
+        SEARCH: '/v1/api/admin/brand/find-all-and-search',
+        DELETE: '/v1/api/admin/brand/delete',
+        DETAIL: '/v1/api/admin/brand/get-detail/',
     }
 };
