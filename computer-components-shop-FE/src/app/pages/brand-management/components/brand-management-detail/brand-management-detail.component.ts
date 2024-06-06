@@ -11,6 +11,7 @@ import { EFormAction } from '../../../../shared/models/form.model';
 import { CustomVaidators } from '../../../../shared/validators/custom.validator';
 import { BrandManagementService } from '../../services/brand-management.service';
 import { IBrand } from '../../models/brand-management.model';
+import { BrandManagementFacade } from '../../facade/brand-management.facade';
 
 @Component({
   selector: 'app-brand-management-detail',
@@ -27,7 +28,7 @@ export class BrandManagementDetailComponent {
     private fb: FormBuilder,
     private dialogRef: DynamicDialogRef,
     private messageService: MessageService,
-    private _brandService: BrandManagementService
+    private _brandFacade: BrandManagementFacade
   ) {
     this.action = dialogConfig.data?.action;
   }
@@ -82,7 +83,7 @@ export class BrandManagementDetailComponent {
   }
 
   loadBrandDetail() {
-    this._brandService.brandPaging$.subscribe((res: any) => {
+    this._brandFacade.brandPaging$.subscribe((res: any) => {
       if (res) {
         this.dataDetail = res.responseData;
         this.form?.patchValue(this.dataDetail!);
@@ -97,11 +98,15 @@ export class BrandManagementDetailComponent {
   save(e: boolean = false) {
     if (this.form?.valid) {
       if (this.form?.value.id) {
+        this._brandFacade.update(this.form?.value);
       } else {
+        this._brandFacade.create(this.form?.value);
       }
     }
     if (!e) {
       this.dialogRef.close();
     }
   }
+
+
 }

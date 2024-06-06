@@ -43,7 +43,7 @@ export class PermissionsComponent {
 
     this._perFacade.permissionsPaging$.subscribe((res:PagingData<IPermissions>)=>{
       this.data = res.items!
-      this.totalRecords = res.total_records
+      this.totalRecords = res.total_records!
     })
 
   }

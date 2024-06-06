@@ -101,8 +101,9 @@ export const API_ROUTER = {
     BRAND: {
         CREATE: '/v1/api/admin/brand/create',
         UPDATE: '/v1/api/admin/brand/update',
+        UPDATE_STATUS: '/v1/api/admin/brand/update-status',
         SEARCH: '/v1/api/admin/brand/find-all-and-search',
-        DELETE: '/v1/api/admin/brand/delete',
+        DELETE: '/v1/api/admin/brand/delete/',
         DETAIL: '/v1/api/admin/brand/get-detail/',
     }
 };

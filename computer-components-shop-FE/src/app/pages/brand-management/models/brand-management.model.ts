@@ -3,7 +3,7 @@ export interface IPayload {
     code: string;
     name: string;
     description: string;
-    status: number;
+    status: string;
 }
 
 export interface IResponse {
@@ -16,7 +16,7 @@ export interface ISearch  {
     pageNumber?: number;
     pageSize?: number;
     searchField?: string;
-    status?: number;
+    status?: string;
 }
 
 export interface IBrand {
@@ -24,5 +24,5 @@ export interface IBrand {
     code: string;
     name: string;
     description: string;
-    status: number;
+    status: string;
 }

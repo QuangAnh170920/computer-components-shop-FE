@@ -14,24 +14,7 @@ import { PagingData } from '../../../shared/models/paging.model';
   providedIn: 'root',
 })
 export class BrandManagementService {
-  private _id = new BehaviorSubject<any | null>(null);
-  private _brands = new BehaviorSubject<PagingData<IBrand> | null>(null);
-  private _brand = new BehaviorSubject<PagingData<IBrand> | null>(null);
   constructor(private apiService: ApiService) {}
-
-  get id$(): Observable<any> {
-    return this._id.asObservable().pipe(
-      filter((res: any) => res),
-      distinctUntilChanged()
-    );
-  }
-
-  get brandPaging$(): Observable<IBrand> {
-    return this._brand.asObservable().pipe(
-        filter((res: any) => res),
-        distinctUntilChanged()
-    );
-}
 
   search(payload: ISearch) {
     return this.apiService.post(`${API_ROUTER.BRAND.SEARCH}`, payload);
@@ -45,17 +28,27 @@ export class BrandManagementService {
     return this.apiService.put(`${API_ROUTER.BRAND.UPDATE}`, payload);
   }
 
+  approve(id: any, status: string) {
+    const payload = {
+      id,
+      status
+    }
+    return this.apiService.put(`${API_ROUTER.BRAND.UPDATE_STATUS}`, payload);
+  }
+
+  unapprove(id: any, status: string) {
+    const payload = {
+      id,
+      status
+    }
+    return this.apiService.put(`${API_ROUTER.BRAND.UPDATE_STATUS}`, payload);
+  }
+
   delete(id: any) {
-    return this.apiService.delete(`${API_ROUTER.BRAND.DELETE}${id}`);
+    return this.apiService.post(`${API_ROUTER.BRAND.DELETE}${id}`);
   }
 
   detail(id: any) {
-    return this.detailBrand(id).subscribe((res: any) => {
-      this._brand.next(res);
-    });
-  }
-
-  detailBrand(id: any) {
     return this.apiService.post(`${API_ROUTER.BRAND.DETAIL}${id}`);
   }
 }

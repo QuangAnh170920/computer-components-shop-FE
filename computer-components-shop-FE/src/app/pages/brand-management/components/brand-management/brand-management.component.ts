@@ -9,6 +9,7 @@ import { ListDropdownEnum } from '../../../../common/list-dropdown-enum';
 import { BrandManagementService } from '../../services/brand-management.service';
 import { IBrand, ISearch } from '../../models/brand-management.model';
 import { EActionBar } from '../../../../shared/components/p-actionbar/models/p-actionbar.model';
+import { BrandManagementFacade } from '../../facade/brand-management.facade';
 
 @Component({
   selector: 'app-brand-management',
@@ -22,7 +23,7 @@ export class BrandManagementComponent {
   searchTitle = 'Nhập từ khóa là tên, mã thương hiệu...';
   statusDropDown = ListDropdownEnum.statusDropDownEnum();
   searchField: string = '';
-  status: number | any;
+  status: string | any;
   searchPayload: ISearch = {
     pageNumber: 1,
     pageSize: 10,
@@ -33,33 +34,35 @@ export class BrandManagementComponent {
   constructor(
     private confirmationService: ConfirmationService,
     private dialogService: DialogService,
-    private _brandService: BrandManagementService
+    private _brandService: BrandManagementService,
+    private _brandFacade: BrandManagementFacade
   ) {}
 
   ngOnInit() {
     this.loadData();
   }
 
-  async loadData() {
-    this._brandService.search(this.searchPayload).subscribe((res: any) => {
+  loadData() {
+    this._brandFacade.search(this.searchPayload);
+    this._brandFacade.brandPaging$.subscribe((res) => {
       if (res) {
-        this.listDataSearchInit = res.responseData?.content;
-        console.log(this.listDataSearchInit);
-        this.totalRecords = res.responseData?.totalElements;
+        this.listDataSearchInit = res.content || [];
+        this.totalRecords = res.totalElements || 0;
+        console.log(this.listDataSearchInit, '22222');
       }
     });
   }
 
-  setStatus(s: boolean) {
-    return s ? 'Hoạt động' : 'Không hoạt động';
+  setStatus(s: number) {
+    return s === 1 ? 'Hoạt động' : 'Không hoạt động';
   }
 
-  setStatusColor(s: boolean) {
-    return s ? 'success' : 'warning';
+  setStatusColor(s: number) {
+    return s === 1 ? 'success' : 'warning';
   }
 
-  setActionBar(s: boolean) {
-    return s
+  setActionBar(s: number) {
+    return s === 1
       ? ['view', 'edit', 'unapprove']
       : ['view', 'edit', 'del', 'approve'];
   }
@@ -67,19 +70,18 @@ export class BrandManagementComponent {
   actionClick(e: any, item: IBrand) {
     switch (e as EActionBar) {
       case EActionBar.VIEW:
-        this._brandService.detail(item.id);
+        this._brandFacade.detail(item.id);
         this._loadDialog(
           { action: EFormAction.VIEW, item: item.id },
           e as unknown as EFormAction
         );
         break;
       case EActionBar.EDIT:
-        this._brandService.detail(item.id);
+        this._brandFacade.detail(item.id);
         this._loadDialog(
           { action: EFormAction.EDIT, item: item.id },
           e as unknown as EFormAction
         );
-
         break;
       case EActionBar.DEL:
         this.confirmationService.confirm({
@@ -87,7 +89,7 @@ export class BrandManagementComponent {
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
-            this._brandService.delete(item.id);
+            this._brandFacade.delete(item.id);
           },
           reject: () => {},
         });
@@ -98,7 +100,10 @@ export class BrandManagementComponent {
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
-            // this._brandService.approve(item.id);
+            item.status = '1'
+            this._brandFacade.approve(
+              item.id,
+              item.status);;
           },
           reject: () => {},
         });
@@ -109,7 +114,10 @@ export class BrandManagementComponent {
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
-            // this._brandService.unapprove(item.id);
+            item.status = '2'
+            this._brandFacade.unapprove(
+              item.id,
+              item.status);
           },
           reject: () => {},
         });
