@@ -5,7 +5,7 @@ import {
   distinctUntilChanged,
   filter,
 } from 'rxjs';
-import { NewPagingData, PagingData } from '../../../shared/models/paging.model';
+import { NewPagingData, NewResponseData, PagingData } from '../../../shared/models/paging.model';
 import { ToastService } from '../../../shared/services/toast.service';
 import { IBrand, IResponse, ISearch } from '../models/brand-management.model';
 import { BrandManagementService } from '../services/brand-management.service';
@@ -16,7 +16,7 @@ import { BrandManagementService } from '../services/brand-management.service';
 export class BrandManagementFacade {
   private _id = new BehaviorSubject<any | null>(null);
   private _brands = new BehaviorSubject<NewPagingData<IBrand> | null>(null);
-  private _brand = new BehaviorSubject<IBrand | null>(null);
+  private _brand = new BehaviorSubject<NewResponseData<IBrand> | null>(null);
   constructor(
     private brandService: BrandManagementService,
     private toastService: ToastService
@@ -29,8 +29,15 @@ export class BrandManagementFacade {
     );
   }
 
-  get brandPaging$(): Observable<NewPagingData<IBrand> | null> {
+  get brandsPaging$(): Observable<NewPagingData<IBrand> | null> {
     return this._brands.asObservable().pipe(
+      filter((res) => res !== null),
+      distinctUntilChanged()
+    );
+  }
+
+  get brandPaging$(): Observable<NewResponseData<IBrand> | null> {
+    return this._brand.asObservable().pipe(
       filter((res) => res !== null),
       distinctUntilChanged()
     );
@@ -85,8 +92,8 @@ export class BrandManagementFacade {
   }
 
   detail(id: any) {
-    return this.brandService.detail(id).subscribe((res: any) => {
-      this._brand.next(res.responseData);
+    return this.brandService.detail(id).subscribe((res: NewResponseData<IBrand>) => {
+      this._brand.next(res);
     });
   }
 

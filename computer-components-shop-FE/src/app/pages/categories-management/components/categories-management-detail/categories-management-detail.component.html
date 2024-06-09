@@ -1,1 +1,104 @@
-<p>categories-management-detail works!</p>
+<dialog-header> </dialog-header>
+
+<dialog-content>
+  <form [formGroup]="form!">
+    <div class="p-fluid">
+      <div class="p-formgrid grid">
+        <div class="field col-12 lg:col-6">
+          <label htmlfor="title"
+            >Mã loại sản phẩm<span class="p-error">*</span></label
+          >
+          <input
+            pInputText
+            formControlName="code"
+            id="title"
+            type="text"
+            class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['code'].errors && (f['code'].dirty || f['code'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
+          />
+          <span
+            class="p-error font-italic"
+            *ngIf="
+              f['code'].errors &&
+              (f['code'].dirty || f['code'].touched)
+            "
+          >
+            <small
+              *ngIf="
+                f['code'].errors['required'] ||
+                f['code'].errors['whitespace']
+              "
+              >Mã loại sản phẩm không được để trống</small
+            >
+            <small *ngIf="f['code'].errors['maxlength']"
+              >Mã loại sản phẩm không được vượt quá 100 ký tự</small
+            >
+          </span>
+        </div>
+        <div class="field col-12 lg:col-6">
+          <label htmlfor="display_order"
+            >Loại sản phẩm<span class="p-error">*</span></label
+          >
+          <input
+            pInputText
+            formControlName="name"
+            id="title"
+            type="text"
+            class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['name'].errors && (f['name'].dirty || f['name'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
+          />
+          <span
+            class="p-error font-italic"
+            *ngIf="
+              f['name'].errors &&
+              (f['name'].dirty || f['name'].touched)
+            "
+          >
+            <small
+              *ngIf="
+                f['name'].errors['required'] ||
+                f['name'].errors['whitespace']
+              "
+              >Loại sản phẩm không được để trống</small
+            >
+            <small *ngIf="f['name'].errors['maxlength']"
+              >Loại sản phẩm không được vượt quá 100 ký tự</small
+            >
+          </span>
+        </div>
+        <div class="field col-12 lg:col-12">
+          <label htmlfor="note">Mô tả</label>
+          <textarea
+            pTextArea
+            id="description"
+            formControlName="description"
+            rows="5"
+            cols="30"
+            pInputTextarea
+            type="text"
+            class="p-inputtext p-component p-element"
+          >
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+</dialog-content>
+
+<dialog-footer
+  [isOnSave]="action !== 'view'"
+  (onClose)="close()"
+  (onSave)="save()"
+  [isOnSaveContinue]="action === 'insert'"
+  [disabledSave]="form!.invalid"
+  [cancelLabel]="action === 'view' ? 'Đóng' : 'Huỷ'"
+>
+</dialog-footer>

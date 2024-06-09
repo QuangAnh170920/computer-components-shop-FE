@@ -42,3 +42,9 @@ export interface ResponseData<T> {
   message: string;
   data: T;
 }
+
+export interface NewResponseData<T> {
+  responseCode: string;
+  responseMessage: string;
+  responseData: T;
+}

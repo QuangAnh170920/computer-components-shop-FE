@@ -44,11 +44,10 @@ export class BrandManagementComponent {
 
   loadData() {
     this._brandFacade.search(this.searchPayload);
-    this._brandFacade.brandPaging$.subscribe((res) => {
+    this._brandFacade.brandsPaging$.subscribe((res) => {
       if (res) {
         this.listDataSearchInit = res.content || [];
         this.totalRecords = res.totalElements || 0;
-        console.log(this.listDataSearchInit, '22222');
       }
     });
   }

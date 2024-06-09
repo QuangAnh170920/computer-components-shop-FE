@@ -105,5 +105,21 @@ export const API_ROUTER = {
         SEARCH: '/v1/api/admin/brand/find-all-and-search',
         DELETE: '/v1/api/admin/brand/delete/',
         DETAIL: '/v1/api/admin/brand/get-detail/',
+    },
+    CATEGORIES: {
+        CREATE: '/v1/api/admin/categories/create',
+        UPDATE: '/v1/api/admin/categories/update',
+        UPDATE_STATUS: '/v1/api/admin/categories/update-status',
+        SEARCH: '/v1/api/admin/categories/find-all-and-search',
+        DELETE: '/v1/api/admin/categories/delete/',
+        DETAIL: '/v1/api/admin/categories/get-detail/',
+    },
+    PRODUCT: {
+        CREATE: '/v1/api/admin/products/create',
+        UPDATE: '/v1/api/admin/products/update',
+        UPDATE_STATUS: '/v1/api/admin/products/update-status',
+        SEARCH: '/v1/api/admin/products/find-all-and-search',
+        DELETE: '/v1/api/admin/products/delete/',
+        DETAIL: '/v1/api/admin/products/get-detail/',
     }
 };

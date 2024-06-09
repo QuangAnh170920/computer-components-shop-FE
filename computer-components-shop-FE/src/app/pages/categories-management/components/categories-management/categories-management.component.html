@@ -1,67 +1,80 @@
 <s-toolbar
-    (onClick)="toolbarOnClick($event)"
-    [keyword]="keyword"
-    (onSearch)="onSearch($event)"
-    [placeHolder]="searchTitle"
+  (onClick)="toolbarOnClick($event)"
+  [keyword]="searchField"
+  (onSearch)="onSearch($event)"
+  [placeHolder]="searchTitle"
 >
-    <!-- <p-dropdown [ngModel]="searchParams.unit_type" [options]="unitTypes" optionLabel="name" optionValue="value" styleClass="mx-3 search-box"
-    (onChange)="dt.filter($event.value, 'unit_type', 'contains')" [showClear] = "true"
-      ></p-dropdown>
-      <p-dropdown [ngModel]="searchParams.is_base_unit" [options]="isBaseUnits" optionLabel="name" optionValue="value" styleClass="mx-3 search-box"
-      (onChange)="dt.filter($event.value, 'is_base_unit', 'contains')" [showClear] = "true"
-      ></p-dropdown> -->
-    <p-dropdown
-        optionLabel="name"
-        optionValue="value"
-        styleClass="mx-3 search-box"
-        (onChange)="dt.filter($event.value, 'status', 'contains')"
-        [showClear]="true"
-    ></p-dropdown>
+  <p-dropdown
+    [ngModel]="status"
+    [options]="statusDropDown"
+    optionLabel="name"
+    optionValue="value"
+    styleClass="mx-3 search-box"
+    (onChange)="dt.filter($event.value, 'status', 'contains')"
+    [showClear]="true"
+    placeholder="Trạng thái"
+  ></p-dropdown>
 </s-toolbar>
 
 <div class="card mt-3">
     <p-table
-        #dt
-        [lazy]="true"
-        (onLazyLoad)="lazyLoad($event)"
-        dataKey="id"
-        [rows]="10"
-        [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[10, 25, 50]"
-        [paginator]="true"
-        currentPageReportTemplate="Hiển thị từ  {first} đến {last} trên tổng số  {totalRecords} bản ghi"
-        styleClass="datatable-responsive p-datatable-striped"
-        [tableStyle]="{ 'min-width': '75rem' }"
+      #dt
+      [value]="listDataSearchInit"
+      [lazy]="true"
+      (onLazyLoad)="lazyLoad($event)"
+      dataKey="id"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [paginator]="true"
+      [totalRecords]="totalRecords"
+      currentPageReportTemplate="Hiển thị từ  {first} đến {last} trên tổng số  {totalRecords} bản ghi"
+      styleClass="datatable-responsive p-datatable-striped"
+      [tableStyle]="{ 'min-width': '50rem' }"
     >
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width: 2%">#</th>
-                <th style="width: 8%">Mã loại sản phẩm</th>
-                <th style="width: 15%">Tên loại sản phẩm</th>
-                <th class="text-center" style="width: 9%">Trạng thái</th>
-                <th class="text-center" style="width: 10%">Thao tác</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr [ngClass]="item?.status ? '' : 'text-400'">
-                <td class="p-column-title">
-                    <span class="p-column-title">#</span>{{ i + 1 }}
-                </td>
-                <!-- <td>
-                    <span class="p-column-title">Thao tác:</span>
-                    <p-actionbar
-                        [actions]="setActionBar(item.status)"
-                        (onClick)="actionClick($event, item)"
-                    ></p-actionbar>
-                </td> -->
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="10" class="text-center">
-                    Không tìm thấy loại sản phẩm!
-                </td>
-            </tr>
-        </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="text-center" style="width: 2%">#</th>
+          <th class="text-center" style="width: 8%">Mã loại sản phẩm</th>
+          <th style="width: 15%">Loại sản phẩm</th>
+          <th class="text-center" style="width: 9%">Trạng thái</th>
+          <th class="text-center" style="width: 10%">Thao tác</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <tr>
+          <td class="text-center">
+            {{ i + 1 }}
+          </td>
+          <td class="text-center">
+            {{ item?.code }}
+          </td>
+          <td>
+            {{ item?.name }}
+          </td>
+          <td>
+            <div class="flex" style="justify-content: center">
+              <p-tag
+                class="item-center"
+                [severity]="setStatusColor(item.status)"
+                [value]="setStatus(item.status)"
+              ></p-tag>
+            </div>
+          </td>
+          <td class="text-center">
+            <div class="flex" style="justify-content: center">
+              <p-actionbar
+                [actions]="setActionBar(item.status)"
+                (onClick)="actionClick($event, item)"
+              ></p-actionbar>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="10" class="text-center">Không tìm thấy loại sản phẩm!</td>
+        </tr>
+      </ng-template>
     </p-table>
-</div>
+  </div>

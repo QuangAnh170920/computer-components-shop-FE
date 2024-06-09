@@ -12,6 +12,7 @@ import { CustomVaidators } from '../../../../shared/validators/custom.validator'
 import { BrandManagementService } from '../../services/brand-management.service';
 import { IBrand } from '../../models/brand-management.model';
 import { BrandManagementFacade } from '../../facade/brand-management.facade';
+import { NewResponseData } from '../../../../shared/models/paging.model';
 
 @Component({
   selector: 'app-brand-management-detail',
@@ -51,7 +52,6 @@ export class BrandManagementDetailComponent {
         break;
       }
     }
-    this.loadBrandDetail();
   }
 
   public get f(): { [key: string]: AbstractControl } {
@@ -83,7 +83,7 @@ export class BrandManagementDetailComponent {
   }
 
   loadBrandDetail() {
-    this._brandFacade.brandPaging$.subscribe((res: any) => {
+    this._brandFacade.brandPaging$.subscribe((res:  NewResponseData<IBrand> | null) => {
       if (res) {
         this.dataDetail = res.responseData;
         this.form?.patchValue(this.dataDetail!);
@@ -102,6 +102,7 @@ export class BrandManagementDetailComponent {
       } else {
         this._brandFacade.create(this.form?.value);
       }
+      this.dialogRef.close();
     }
     if (!e) {
       this.dialogRef.close();
