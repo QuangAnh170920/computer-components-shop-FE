@@ -84,7 +84,7 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     {
                         label: 'Đánh giá sản phẩm',
-                        routerLink: [''],
+                        routerLink: ['/product-review'],
                         icon: 'pi pi-file-edit',
                     },
                 ],

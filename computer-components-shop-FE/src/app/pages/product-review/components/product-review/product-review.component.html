@@ -1,0 +1,79 @@
+<s-toolbar [isSearch]="false" (onClick)="toolbarOnClick($event)">
+  <p-dropdown
+    [ngModel]="productId"
+    [options]="productList"
+    optionLabel="name"
+    optionValue="id"
+    styleClass="mx-3 search-box"
+    (onChange)="onSearch($event.value)"
+    [showClear]="true"
+    placeholder="Tên sản phẩm"
+  ></p-dropdown>
+  <p-dropdown
+    optionLabel="name"
+    optionValue="value"
+    styleClass="mx-3 search-box"
+    (onChange)="dt.filter($event.value, 'status', 'contains')"
+    [showClear]="true"
+    placeholder="Tên người dùng"
+  ></p-dropdown>
+</s-toolbar>
+
+<div class="card mt-3">
+  <p-table
+    #dt
+    [value]="listDataSearchInit"
+    [lazy]="true"
+    (onLazyLoad)="lazyLoad($event)"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [paginator]="true"
+    [totalRecords]="totalRecords"
+    currentPageReportTemplate="Hiển thị từ  {first} đến {last} trên tổng số  {totalRecords} bản ghi"
+    styleClass="datatable-responsive p-datatable-striped"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="text-center" style="width: 2%">#</th>
+        <th style="width: 15%">Tên sản phẩm</th>
+        <th style="width: 15%">Tên người dùng</th>
+        <th style="width: 15%">Đánh giá</th>
+        <th class="text-center" style="width: 9%">Rate</th>
+        <th class="text-center" style="width: 10%">Thao tác</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
+      <tr>
+        <td class="text-center">
+          {{ i + 1 }}
+        </td>
+        <td>
+          {{ item?.productName }}
+        </td>
+        <td>
+          {{ item?.userName }}
+        </td>
+        <td>
+          {{ item?.comment }}
+        </td>
+        <td class="text-center">{{ item?.rate }}/10</td>
+        <td class="text-center">
+          <div class="flex" style="justify-content: center">
+            <p-actionbar
+              [actions]="setActionBar()"
+              (onClick)="actionClick($event, item)"
+            ></p-actionbar>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="10" class="text-center">Không tìm thấy đánh giá!</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

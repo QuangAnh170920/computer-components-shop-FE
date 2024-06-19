@@ -23,6 +23,7 @@ import { AuthGuard } from './pages/auth/guards/auth.guard';
                     {path: 'product-specifications', loadChildren: ()=> import('./pages/product-specifications/product-specifications.module').then(m => m.ProductSpecificationsModule) },
                     {path: 'brand-management', loadChildren: ()=> import('./pages/brand-management/brand-mamagement.module').then(m => m.BrandMamagementModule) },
                     {path: 'categories-management', loadChildren: ()=> import('./pages/categories-management/categories-management.module').then(m => m.CategoriesManagementModule) },
+                    {path: 'product-review', loadChildren: ()=> import('./pages/product-review/product-reivew.module').then(m => m.ProductReviewModule) },
                 ]
             },
             { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },

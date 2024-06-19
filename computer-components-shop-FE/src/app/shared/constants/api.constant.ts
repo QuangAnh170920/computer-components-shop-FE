@@ -121,5 +121,17 @@ export const API_ROUTER = {
         SEARCH: '/v1/api/admin/products/find-all-and-search',
         DELETE: '/v1/api/admin/products/delete/',
         DETAIL: '/v1/api/admin/products/get-detail/',
+    },
+    PRODUCT_REVIEW: {
+        CREATE: '/v1/api/admin/product-reviews/create',
+        UPDATE: '/v1/api/admin/product-reviews/update',
+        SEARCH: '/v1/api/admin/product-reviews/find-all-and-search',
+        DELETE: '/v1/api/admin/product-reviews/delete/',
+        DETAIL: '/v1/api/admin/product-reviews/get-detail/',
+    },
+    DROP_LIST: {
+        PRODUCT_LIST: '/v1/admin/drop-list/products',
+        CATEGORIES_LIST: '/v1/admin/drop-list/categories',
+        BRAND_LIST: '/v1/admin/drop-list/brand',
     }
 };

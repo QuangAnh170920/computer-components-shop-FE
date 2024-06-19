@@ -1,0 +1,94 @@
+<dialog-header> </dialog-header>
+
+<dialog-content>
+  <form [formGroup]="form!">
+    <div class="p-fluid">
+      <div class="p-formgrid grid">
+        <div class="field col-12 lg:col-12">
+          <label htmlfor="note">Tên sản phẩm</label>
+          <p-dropdown
+            formControlName="productId"
+            [options]="productList"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Chọn sản phẩm"
+            [filter]="true"
+            filterBy="name"
+            [showClear]="true"
+          ></p-dropdown>
+        </div>
+        <div class="field col-12 lg:col-6">
+          <label htmlfor="title">Đánh giá<span class="p-error">*</span></label>
+          <input
+            pInputText
+            formControlName="comment"
+            id="title"
+            type="text"
+            class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['comment'].errors &&
+              (f['comment'].dirty || f['comment'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
+          />
+          <span
+            class="p-error font-italic"
+            *ngIf="
+              f['comment'].errors &&
+              (f['comment'].dirty || f['comment'].touched)
+            "
+          >
+            <small
+              *ngIf="
+                f['comment'].errors['required'] ||
+                f['comment'].errors['whitespace']
+              "
+              >Đánh giá không được để trống</small
+            >
+            <small *ngIf="f['comment'].errors['maxlength']"
+              >Đánh giá không được vượt quá 250 ký tự</small
+            >
+          </span>
+        </div>
+        <div class="field col-12 lg:col-6">
+          <label htmlfor="display_order"
+            >Rate<span class="p-error">*</span></label
+          >
+          <input
+            pInputText
+            formControlName="rate"
+            id="title"
+            type="number"
+            class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['rate'].errors && (f['rate'].dirty || f['rate'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
+          />
+          <span
+            class="p-error font-italic"
+            *ngIf="f['rate'].errors && (f['rate'].dirty || f['rate'].touched)"
+          >
+            <small *ngIf="f['rate'].errors['required']"
+              >Rate không được để trống</small
+            >
+            <small *ngIf="f['rate'].errors['min']">Rate phải từ 0 đến 10</small>
+            <small *ngIf="f['rate'].errors['max']">Rate phải từ 0 đến 10</small>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+</dialog-content>
+
+<dialog-footer
+  [isOnSave]="action !== 'view'"
+  (onClose)="close()"
+  (onSave)="save()"
+  [isOnSaveContinue]="action === 'insert'"
+  [disabledSave]="form!.invalid"
+  [cancelLabel]="action === 'view' ? 'Đóng' : 'Huỷ'"
+>
+</dialog-footer>

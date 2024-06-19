@@ -13,6 +13,7 @@ export class PToolbarComponent {
   @Input() count:number = 0
   @Input() keyword?:string
   @Input() placeHolder?:string = 'Từ khóa tìm kiếm'
+  @Input() isSearch?: boolean = true;
   @Output() onClick:EventEmitter<EToolBarAction> = new EventEmitter()
   @Output() onSearch:EventEmitter<string> = new EventEmitter()
   items: MenuItem[] = [];
