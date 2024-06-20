@@ -30,7 +30,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Dashboard',
                         icon: 'pi pi-fw pi-home',
-                        routerLink: ['/'],
+                        routerLink: [''],
                     },
                 ],
             },
@@ -70,12 +70,37 @@ export class AppMenuComponent implements OnInit {
                 ],
             },
             {
+                label: 'Quản lý nhập/xuất kho hàng',
+                items: [
+                    {
+                        label: 'Nhập hàng',
+                        routerLink: ['/receiving-inventory'],
+                        icon: 'pi pi-plus-circle',
+                    },
+                    {
+                        label: 'Xuất hàng',
+                        routerLink: ['/shipping-inventory'],
+                        icon: 'pi pi-minus-circle',
+                    },
+                ],
+            },
+            {
                 label: 'Quản lý kho hàng',
                 items: [
                     {
                         label: 'Kho hàng',
-                        routerLink: [''],
+                        routerLink: ['/warehouse'],
                         icon: 'pi pi-inbox',
+                    },
+                ],
+            },
+            {
+                label: 'Quản lý đơn hàng',
+                items: [
+                    {
+                        label: 'Đơn hàng',
+                        routerLink: ['/sales-order'],
+                        icon: 'pi pi-pen-to-square',
                     },
                 ],
             },
