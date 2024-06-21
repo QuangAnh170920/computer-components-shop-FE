@@ -14,6 +14,6 @@ export interface ISearch  {
     productId?: number;
 }
 
-export interface IReceivingInventory {
+export interface IWareHouse {
     id?: number
 }

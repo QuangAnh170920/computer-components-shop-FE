@@ -26,6 +26,7 @@ import { PToolbarModule } from '../../shared/components/p-toolbar/p-toolbar.modu
 import { ShippingInventoryDetailComponent } from './components/shipping-inventory-detail/shipping-inventory-detail.component';
 import { ShippingInventoryComponent } from './components/shipping-inventory/shipping-inventory.component';
 import { ShippingInventoryRoutingModule } from './shipping-inventory-routing.module';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [ShippingInventoryComponent, ShippingInventoryDetailComponent],
@@ -51,6 +52,7 @@ import { ShippingInventoryRoutingModule } from './shipping-inventory-routing.mod
     ListboxModule,
     DialogModule,
     CheckboxModule,
+    InputNumberModule,
   ],
   providers: [DialogService, DynamicDialogRef, DynamicDialogConfig],
 })

@@ -133,5 +133,26 @@ export const API_ROUTER = {
         PRODUCT_LIST: '/v1/admin/drop-list/products',
         CATEGORIES_LIST: '/v1/admin/drop-list/categories',
         BRAND_LIST: '/v1/admin/drop-list/brand',
-    }
+    },
+    RECEIVING_INVENTORY: {
+        CREATE: '',
+        UPDATE: '',
+        SEARCH: '',
+        DELETE: '',
+        DETAIL: '',
+    },
+    SHIPPING_INVENTORY: {
+        CREATE: '',
+        UPDATE: '',
+        SEARCH: '',
+        DELETE: '',
+        DETAIL: '',
+    },
+    WAREHOUSE: {
+        CREATE: '',
+        UPDATE: '',
+        SEARCH: '',
+        DELETE: '',
+        DETAIL: '',
+    },
 };

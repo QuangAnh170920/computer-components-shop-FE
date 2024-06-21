@@ -21,6 +21,7 @@ import { PToolbarModule } from "../../shared/components/p-toolbar/p-toolbar.modu
 import { ReceivingInventoryDetailComponent } from "./components/receiving-inventory-detail/receiving-inventory-detail.component";
 import { ReceivingInventoryComponent } from "./components/receiving-inventory/receiving-inventory.component";
 import { ReceivingInventoryRoutingModule } from "./receiving-inventory-routing.module";
+import { InputNumberModule } from "primeng/inputnumber";
 
 @NgModule({
     declarations: [
@@ -49,6 +50,7 @@ import { ReceivingInventoryRoutingModule } from "./receiving-inventory-routing.m
       ListboxModule,
       DialogModule,
       CheckboxModule,
+      InputNumberModule,
     ],
     providers: [DialogService, DynamicDialogRef, DynamicDialogConfig],
   })

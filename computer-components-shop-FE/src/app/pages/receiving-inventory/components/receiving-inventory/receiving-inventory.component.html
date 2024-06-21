@@ -1,1 +1,62 @@
-<p>receiving-inventory works!</p>
+<s-toolbar
+  [placeHolder]="searchTitle"
+  [add]="true"
+  (onClick)="toolbarOnClick($event)"
+>
+  <p-calendar
+    appendTo="body"
+    [showIcon]="true"
+    [showButtonBar]="true"
+    [showClear]="true"
+    dateFormat="dd/mm/yy"
+    placeholder="Từ ngày"
+  ></p-calendar>
+  <p-calendar
+    [ngStyle]="{ 'margin-left': '12px' }"
+    appendTo="body"
+    [showIcon]="true"
+    [showButtonBar]="true"
+    [showClear]="true"
+    dateFormat="dd/mm/yy"
+    placeholder="Đến ngày"
+  ></p-calendar>
+</s-toolbar>
+
+<div class="card mt-3">
+  <p-table
+    #dt
+    [lazy]="true"
+    (onLazyLoad)="lazyLoad($event)"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [paginator]="true"
+    [totalRecords]="totalRecords"
+    currentPageReportTemplate="Hiển thị từ  {first} đến {last} trên tổng số  {totalRecords} bản ghi"
+    styleClass="datatable-responsive p-datatable-striped"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="text-center" style="width: 2%">#</th>
+        <th class="text-center" style="width: 8%">Mã đơn</th>
+        <th class="text-center" style="width: 8%">Mã sản phẩm</th>
+        <th style="width: 15%">Tên sản phẩm</th>
+        <th class="text-center" style="width: 8%">Số lượng</th>
+        <th class="text-center" style="width: 8%">Giá nhập</th>
+        <th style="width: 15%">Nhà cung cấp</th>
+        <th class="text-center" style="width: 8%">Ngày nhập</th>
+        <th class="text-center" style="width: 10%">Thao tác</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
+      <tr></tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="10" class="text-center">Không tìm thấy đơn nhập hàng!</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
