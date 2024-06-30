@@ -29,6 +29,7 @@ import { AuthGuard } from './pages/auth/guards/auth.guard';
                     {path: 'shipping-inventory', loadChildren: ()=> import('./pages/shipping-inventory/shipping-inventory.module').then(m => m.ShippingInventoryModule) },
                     {path: 'warehouse', loadChildren: ()=> import('./pages/warehouse/warehouse.module').then(m => m.WarehouseModule) },
                     {path: 'sales-order', loadChildren: ()=> import('./pages/sales-order/sales-order.module').then(m => m.SalesOrderModule) },
+                    {path: 'promotion', loadChildren: ()=> import('./pages/promotion/promotion.module').then(m => m.PromotionModule) },
                 ]
             },
             { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },

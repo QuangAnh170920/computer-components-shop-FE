@@ -155,4 +155,12 @@ export const API_ROUTER = {
         DELETE: '',
         DETAIL: '',
     },
+    PROMOTION: {
+        CREATE: '',
+        UPDATE: '',
+        UPDATE_STATUS: '',
+        SEARCH: '',
+        DELETE: '',
+        DETAIL: '',
+    },
 };
