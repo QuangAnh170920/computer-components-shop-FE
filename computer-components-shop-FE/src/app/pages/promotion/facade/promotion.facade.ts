@@ -2,16 +2,28 @@ import { Injectable } from '@angular/core';
 import { IPromotion, ISearch } from '../models/promotion.model';
 import { PromotionService } from '../services/promotion.service';
 import { ToastService } from '../../../shared/services/toast.service';
-import { NewPagingData, NewResponseData } from '../../../shared/models/paging.model';
-import { BehaviorSubject, Observable, distinctUntilChanged, filter } from 'rxjs';
+import {
+  NewPagingData,
+  NewResponseData,
+} from '../../../shared/models/paging.model';
+import {
+  BehaviorSubject,
+  Observable,
+  distinctUntilChanged,
+  filter,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PromotionFacade {
-    private _id = new BehaviorSubject<any | null>(null);
-  private _promotions = new BehaviorSubject<NewPagingData<IPromotion> | null>(null);
-  private _promotion = new BehaviorSubject<NewResponseData<IPromotion> | null>(null);
+  private _id = new BehaviorSubject<any | null>(null);
+  private _promotions = new BehaviorSubject<NewPagingData<IPromotion> | null>(
+    null
+  );
+  private _promotion = new BehaviorSubject<NewResponseData<IPromotion> | null>(
+    null
+  );
   constructor(
     private promotionService: PromotionService,
     private toastService: ToastService
@@ -70,7 +82,9 @@ export class PromotionFacade {
     return this.promotionService.approve(id, status).subscribe((res) => {
       if (res) {
         this._promotion.next(res.responseData);
-        this.toastService.showSuccess('Cập nhật trạng thái khuyến mãi thành công');
+        this.toastService.showSuccess(
+          'Cập nhật trạng thái khuyến mãi thành công'
+        );
         this.search({ pageNumber: 1, pageSize: 10 });
       }
     });
@@ -80,16 +94,20 @@ export class PromotionFacade {
     return this.promotionService.unapprove(id, status).subscribe((res) => {
       if (res) {
         this._promotion.next(res.responseData);
-        this.toastService.showSuccess('Cập nhật trạng thái khuyến mãi thành công');
+        this.toastService.showSuccess(
+          'Cập nhật trạng thái khuyến mãi thành công'
+        );
         this.search({ pageNumber: 1, pageSize: 10 });
       }
     });
   }
 
   detail(id: any) {
-    return this.promotionService.detail(id).subscribe((res: NewResponseData<IPromotion>) => {
-      this._promotion.next(res);
-    });
+    return this.promotionService
+      .detail(id)
+      .subscribe((res: NewResponseData<IPromotion>) => {
+        this._promotion.next(res);
+      });
   }
 
   delete(id: any) {

@@ -163,4 +163,12 @@ export const API_ROUTER = {
         DELETE: '',
         DETAIL: '',
     },
+    SALE_ORDER: {
+        CREATE: '',
+        UPDATE: '',
+        UPDATE_STATUS: '',
+        SEARCH: '',
+        DELETE: '',
+        DETAIL: '',
+    },
 };

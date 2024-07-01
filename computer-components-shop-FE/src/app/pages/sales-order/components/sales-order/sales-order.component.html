@@ -1,1 +1,65 @@
-<p>sales-order works!</p>
+<s-toolbar
+  (onClick)="toolbarOnClick($event)"
+  [keyword]="searchField"
+  (onSearch)="onSearch($event)"
+  [placeHolder]="searchTitle"
+>
+  <p-dropdown
+    [ngModel]="status"
+    [options]="statusDropDown"
+    optionLabel="name"
+    optionValue="value"
+    styleClass="mx-3 search-box"
+    (onChange)="dt.filter($event.value, 'status', 'contains')"
+    [showClear]="true"
+    placeholder="Trạng thái"
+  ></p-dropdown>
+</s-toolbar>
+
+<div class="card mt-3">
+  <p-table
+    #dt
+    [value]="listDataSearchInit"
+    [lazy]="true"
+    (onLazyLoad)="lazyLoad($event)"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [paginator]="true"
+    [totalRecords]="totalRecords"
+    currentPageReportTemplate="Hiển thị từ  {first} đến {last} trên tổng số  {totalRecords} bản ghi"
+    styleClass="datatable-responsive p-datatable-striped"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="text-center" style="width: 2%">#</th>
+        <th class="text-center" style="width: 8%">Mã đơn hàng</th>
+        <th class="text-center" style="width: 8%">Mã khách hàng</th>
+        <th style="width: 15%">Tên khách hàng</th>
+        <th style="width: 15%">Email</th>
+        <th class="text-center" style="width: 8%">Số điện thoại</th>
+        <th style="width: 15%">Địa chỉ</th>
+        <th class="text-center" style="width: 8%">Thời gian đặt hàng</th>
+        <th class="text-center" style="width: 8%">Đơn giá</th>
+        <th class="text-center" style="width: 8%">Lần cập nhật cuối cùng</th>
+        <th class="text-center" style="width: 9%">Trạng thái</th>
+        <th class="text-center" style="width: 10%">Thao tác</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
+      <tr>
+        <td class="text-center">
+          {{ i + 1 }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="10" class="text-center">Không tìm thấy đơn hàng!</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
