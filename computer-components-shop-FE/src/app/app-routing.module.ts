@@ -30,6 +30,7 @@ import { AuthGuard } from './pages/auth/guards/auth.guard';
                     {path: 'warehouse', loadChildren: ()=> import('./pages/warehouse/warehouse.module').then(m => m.WarehouseModule) },
                     {path: 'sales-order', loadChildren: ()=> import('./pages/sales-order/sales-order.module').then(m => m.SalesOrderModule) },
                     {path: 'promotion', loadChildren: ()=> import('./pages/promotion/promotion.module').then(m => m.PromotionModule) },
+                    {path: 'employee', loadChildren: ()=> import('./pages/employee-management/employee-management.module').then(m => m.EmployeeManagementModule) },
                 ]
             },
             { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },

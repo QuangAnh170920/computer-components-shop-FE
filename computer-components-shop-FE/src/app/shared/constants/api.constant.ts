@@ -171,4 +171,12 @@ export const API_ROUTER = {
         DELETE: '',
         DETAIL: '',
     },
+    EMPLOYEE_MANAGEMENT: {
+        CREATE: '',
+        UPDATE: '',
+        UPDATE_STATUS: '',
+        SEARCH: '',
+        DELETE: '',
+        DETAIL: '',
+    },
 };
