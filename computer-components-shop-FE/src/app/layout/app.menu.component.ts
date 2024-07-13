@@ -124,16 +124,16 @@ export class AppMenuComponent implements OnInit {
                     },
                 ],
             },
-            {
-                label: 'Quản lý nhân viên',
-                items: [
-                    {
-                        label: 'Nhân viên',
-                        routerLink: ['/employee'],
-                        icon: 'pi pi-users',
-                    },
-                ],
-            },
+            // {
+            //     label: 'Quản lý nhân viên',
+            //     items: [
+            //         {
+            //             label: 'Nhân viên',
+            //             routerLink: ['/employee'],
+            //             icon: 'pi pi-users',
+            //         },
+            //     ],
+            // },
         ];
     }
 }
