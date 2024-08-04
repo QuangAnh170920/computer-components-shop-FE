@@ -60,10 +60,10 @@ export class AppMenuComponent implements OnInit {
                 ],
             },
             {
-                label: 'Quản lý nhãn hiệu',
+                label: 'Quản lý thương hiệu',
                 items: [
                     {
-                        label: 'Nhãn hiệu',
+                        label: 'Thương hiệu',
                         routerLink: ['/brand-management'],
                         icon: 'pi pi-bookmark',
                     },
@@ -105,21 +105,21 @@ export class AppMenuComponent implements OnInit {
                 ],
             },
             {
-                label: 'Quản lý đánh giá sản phẩm',
-                items: [
-                    {
-                        label: 'Đánh giá sản phẩm',
-                        routerLink: ['/product-review'],
-                        icon: 'pi pi-file-edit',
-                    },
-                ],
-            },
-            {
                 label: 'Quản lý khuyến mãi',
                 items: [
                     {
                         label: 'Khuyến mãi',
                         routerLink: ['/promotion'],
+                        icon: 'pi pi-file-edit',
+                    },
+                ],
+            },
+            {
+                label: 'Quản lý đánh giá sản phẩm',
+                items: [
+                    {
+                        label: 'Đánh giá sản phẩm',
+                        routerLink: ['/product-review'],
                         icon: 'pi pi-file-edit',
                     },
                 ],

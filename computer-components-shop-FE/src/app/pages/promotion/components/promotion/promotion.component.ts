@@ -109,7 +109,7 @@ export class PromotionComponent {
         break;
       case EActionBar.UNAPPROVE:
         this.confirmationService.confirm({
-          message: 'Bạn muốn chuyển trạng thái nhãn hiệu này?',
+          message: 'Bạn muốn chuyển trạng thái thương hiệu này?',
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {

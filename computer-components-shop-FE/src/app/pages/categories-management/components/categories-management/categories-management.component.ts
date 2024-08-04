@@ -83,7 +83,7 @@ export class CategoriesManagementComponent {
         break;
       case EActionBar.DEL:
         this.confirmationService.confirm({
-          message: 'Bạn muốn xóa bỏ thương hiệu này?',
+          message: 'Bạn muốn xóa bỏ loại sản phẩm này?',
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
@@ -94,7 +94,7 @@ export class CategoriesManagementComponent {
         break;
       case EActionBar.APPROVE:
         this.confirmationService.confirm({
-          message: 'Bạn muốn chuyển trạng thái nhãn hiệu này?',
+          message: 'Bạn muốn chuyển trạng thái loại sản phẩm này?',
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
@@ -108,7 +108,7 @@ export class CategoriesManagementComponent {
         break;
       case EActionBar.UNAPPROVE:
         this.confirmationService.confirm({
-          message: 'Bạn muốn chuyển trạng thái nhãn hiệu này?',
+          message: 'Bạn muốn chuyển trạng thái loại sản phẩm này?',
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {

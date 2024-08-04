@@ -95,7 +95,7 @@ export class BrandManagementComponent {
         break;
       case EActionBar.APPROVE:
         this.confirmationService.confirm({
-          message: 'Bạn muốn chuyển trạng thái nhãn hiệu này?',
+          message: 'Bạn muốn chuyển trạng thái thương hiệu này?',
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
@@ -109,7 +109,7 @@ export class BrandManagementComponent {
         break;
       case EActionBar.UNAPPROVE:
         this.confirmationService.confirm({
-          message: 'Bạn muốn chuyển trạng thái nhãn hiệu này?',
+          message: 'Bạn muốn chuyển trạng thái thương hiệu này?',
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
@@ -139,12 +139,12 @@ export class BrandManagementComponent {
     switch (t) {
       case EFormAction.INSERT:
       case EFormAction.CLONE:
-        return 'Thêm mới nhãn hiệu';
+        return 'Thêm mới thương hiệu';
 
       case EFormAction.EDIT:
-        return 'Cập nhật nhãn hiệu';
+        return 'Cập nhật thương hiệu';
       case EFormAction.VIEW:
-        return 'Chi tiết nhãn hiệu';
+        return 'Chi tiết thương hiệu';
     }
   }
 
