@@ -25,4 +25,6 @@ export interface ICategories {
     name: string;
     description: string;
     status: string;
+    parentId: number;
+    children: [];
 }

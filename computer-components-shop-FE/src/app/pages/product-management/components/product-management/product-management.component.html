@@ -35,11 +35,12 @@
     <ng-template pTemplate="header">
       <tr>
         <th class="text-center">#</th>
+        <th class="text-center">Ảnh</th>
         <th class="text-center" style="width: 8%">Mã sản phẩm</th>
         <th style="width: 15%">Tên sản phẩm</th>
         <th style="width: 13%">Loại sản phẩm</th>
-        <th style="width: 15%">Hãng</th>
-        <th class="text-center" style="width: 10%">Chiết khấu</th>
+        <th class="text-center" style="width: 10%">Hiệu suất</th>
+        <th class="text-center" style="width: 10%">Chiết khấu đang được áp dụng</th>
         <th class="text-center" style="width: 10%">Giá</th>
         <th class="text-center" class="text-center" style="width: 9%">
           Trạng thái
@@ -55,6 +56,9 @@
           {{ i + 1 }}
         </td>
         <td class="text-center">
+          {{ item?.imageUrl }}
+        </td>
+        <td class="text-center">
           {{ item?.code }}
         </td>
         <td>
@@ -63,10 +67,10 @@
         <td>
           {{ item?.categoryName }}
         </td>
-        <td>
-          {{ item?.brandName }}
+        <td class="text-center">
+          {{ item?.power }}
         </td>
-        <td class="text-center">{{ item?.discountPercentage }}%</td>
+        <td class="text-center">{{ item?.promotionName }}</td>
         <td class="text-center">{{ item?.finalTotalPrice }}</td>
         <td>
           <div class="flex" style="justify-content: center">

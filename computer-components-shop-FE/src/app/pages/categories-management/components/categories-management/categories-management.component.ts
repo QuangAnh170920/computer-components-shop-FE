@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CategoriesManagementDetailComponent } from '../categories-management-detail/categories-management-detail.component';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, TreeNode } from 'primeng/api';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { TableLazyLoadEvent } from 'primeng/table';
 import { EToolBarAction } from '../../../../shared/components/p-toolbar/models/toolbar.model';
@@ -23,7 +23,7 @@ export class CategoriesManagementComponent {
   searchField: string = '';
   status: string | any;
   statusDropDown = ListDropdownEnum.statusDropDownEnum();
-  listDataSearchInit: ICategories[] = [];
+  listDataSearchInit: TreeNode[] = [];
   totalRecords: number = 0;
   searchPayload: ISearch = {
     pageNumber: 1,
@@ -44,11 +44,31 @@ export class CategoriesManagementComponent {
     this._categoriesFacade.search(this.searchPayload);
     this._categoriesFacade.categoriesPaging$.subscribe((res) => {
       if (res) {
-        this.listDataSearchInit = res.content || [];
+        // Chuyển đổi dữ liệu `content` thành định dạng `TreeNode` cho p-treeTable
+        this.listDataSearchInit = this.transformToTreeNodes(res.content || []);
         this.totalRecords = res.totalElements || 0;
-        console.log(this.listDataSearchInit, '22222');
+        console.log(this.listDataSearchInit, 'TreeData');
       }
     });
+  }
+
+  // Hàm đệ quy để chuyển đổi dữ liệu thành cấu trúc TreeNode
+  transformToTreeNodes(data: any[]): TreeNode[] {
+    return data.map((item) => ({
+      data: {
+        id: item.id,
+        code: item.code,
+        name: item.name,
+        description: item.description,
+        status: item.status,
+      },
+      // Nếu có children thì tiếp tục gọi hàm transformToTreeNodes để chuyển đổi con
+      children:
+        item.children && item.children.length > 0
+          ? this.transformToTreeNodes(item.children)
+          : [],
+      leaf: !(item.children && item.children.length > 0), // Đặt leaf là true nếu không có children
+    }));
   }
 
   setStatus(s: number) {
@@ -98,10 +118,8 @@ export class CategoriesManagementComponent {
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
-            item.status = '1'
-            this._categoriesFacade.approve(
-              item.id,
-              item.status);;
+            item.status = '1';
+            this._categoriesFacade.approve(item.id, item.status);
           },
           reject: () => {},
         });
@@ -112,10 +130,8 @@ export class CategoriesManagementComponent {
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
-            item.status = '2'
-            this._categoriesFacade.unapprove(
-              item.id,
-              item.status);
+            item.status = '2';
+            this._categoriesFacade.unapprove(item.id, item.status);
           },
           reject: () => {},
         });

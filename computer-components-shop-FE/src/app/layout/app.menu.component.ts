@@ -42,11 +42,11 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ['/product-management'],
                         icon: 'pi pi-box',
                     },
-                    {
-                        label: 'Danh sách thông số sản phẩm',
-                        routerLink: ['/product-specifications'],
-                        icon: 'pi pi-book',
-                    },
+                    // {
+                    //     label: 'Danh sách thông số sản phẩm',
+                    //     routerLink: ['/product-specifications'],
+                    //     icon: 'pi pi-book',
+                    // },
                 ],
             },
             {
@@ -59,16 +59,16 @@ export class AppMenuComponent implements OnInit {
                     },
                 ],
             },
-            {
-                label: 'Quản lý thương hiệu',
-                items: [
-                    {
-                        label: 'Thương hiệu',
-                        routerLink: ['/brand-management'],
-                        icon: 'pi pi-bookmark',
-                    },
-                ],
-            },
+            // {
+            //     label: 'Quản lý thương hiệu',
+            //     items: [
+            //         {
+            //             label: 'Thương hiệu',
+            //             routerLink: ['/brand-management'],
+            //             icon: 'pi pi-bookmark',
+            //         },
+            //     ],
+            // },
             {
                 label: 'Quản lý nhập/xuất kho hàng',
                 items: [

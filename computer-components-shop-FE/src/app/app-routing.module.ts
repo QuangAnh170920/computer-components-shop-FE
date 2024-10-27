@@ -21,7 +21,6 @@ import { AuthGuard } from './pages/auth/guards/auth.guard';
                     {path: 'user', loadChildren: ()=> import('./pages/user/user.module').then(m => m.UserModule)},
                     // {path: '', loadChildren: ()=> import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     {path: 'product-management', loadChildren: ()=> import('./pages/product-management/product-management.module').then(m => m.ProductManagementModule) },
-                    {path: 'product-specifications', loadChildren: ()=> import('./pages/product-specifications/product-specifications.module').then(m => m.ProductSpecificationsModule) },
                     {path: 'brand-management', loadChildren: ()=> import('./pages/brand-management/brand-mamagement.module').then(m => m.BrandMamagementModule) },
                     {path: 'categories-management', loadChildren: ()=> import('./pages/categories-management/categories-management.module').then(m => m.CategoriesManagementModule) },
                     {path: 'product-review', loadChildren: ()=> import('./pages/product-review/product-reivew.module').then(m => m.ProductReviewModule) },

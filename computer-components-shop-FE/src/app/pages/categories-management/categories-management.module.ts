@@ -21,6 +21,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { PActionbarModule } from '../../shared/components/p-actionbar/p-actionbar.module';
 import { PDialogModule } from '../../shared/components/p-dialog/p-dialog.module';
 import { PToolbarModule } from '../../shared/components/p-toolbar/p-toolbar.module';
+import { TreeTableModule } from 'primeng/treetable';
 
 
 
@@ -51,6 +52,7 @@ import { PToolbarModule } from '../../shared/components/p-toolbar/p-toolbar.modu
     ListboxModule,
     DialogModule,
     CheckboxModule,
+    TreeTableModule,
   ],
   providers: [DialogService, DynamicDialogRef, DynamicDialogConfig],
 })
