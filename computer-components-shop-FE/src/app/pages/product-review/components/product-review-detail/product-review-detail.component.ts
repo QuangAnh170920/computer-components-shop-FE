@@ -47,6 +47,7 @@ export class ProductReviewDetailComponent {
       }
       case EFormAction.EDIT: {
         this.loadBrandDetail();
+        this.form?.get('userId')?.disable();
         break;
       }
     }
@@ -83,9 +84,9 @@ export class ProductReviewDetailComponent {
           Validators.required,
           Validators.min(0),
           Validators.max(10),
-          CustomVaidators.NoWhiteSpaceValidator(),
         ]),
       ],
+      userId: [''],
     });
     this.form?.reset();
   }

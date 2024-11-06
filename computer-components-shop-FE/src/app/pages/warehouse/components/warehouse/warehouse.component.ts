@@ -4,10 +4,6 @@ import { TableLazyLoadEvent } from 'primeng/table';
 import { ISearch, IWareHouse } from '../../models/warehouse.model';
 import { ConfirmationService } from 'primeng/api';
 import { WareHouseFacade } from '../../facade/warehouse.facade';
-import { EActionBar } from '../../../../shared/components/p-actionbar/models/p-actionbar.model';
-import { EFormAction } from '../../../../shared/models/form.model';
-import { WarehouseDetailComponent } from '../warehouse-detail/warehouse-detail.component';
-import { EToolBarAction } from '../../../../shared/components/p-toolbar/models/toolbar.model';
 
 @Component({
   selector: 'app-warehouse',
@@ -15,7 +11,7 @@ import { EToolBarAction } from '../../../../shared/components/p-toolbar/models/t
   styleUrls: ['./warehouse.component.scss']
 })
 export class WarehouseComponent {
-  searchTitle = 'Nhập mã đơn nhập hàng, tên sản phẩm để tìm kiếm...'
+  searchTitle = 'Nhập mã, tên sản phẩm để tìm kiếm...'
   ref?: DynamicDialogRef;
   event?: TableLazyLoadEvent;
   first = 1;
@@ -25,6 +21,7 @@ export class WarehouseComponent {
   };
   listDataSearchInit: IWareHouse[] = [];
   totalRecords: number = 0;
+  searchField: string = '';
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -33,41 +30,17 @@ export class WarehouseComponent {
   ) {}
 
   ngOnInit() {
+    this.loadData();
   }
 
-  setActionBar() {
-    return ['view', 'edit', 'del'];
-  }
-
-  actionClick(e: any, item: IWareHouse) {
-    switch (e as EActionBar) {
-      case EActionBar.VIEW:
-        this._wareHouseFacade.detail(item.id);
-        this._loadDialog(
-          { action: EFormAction.VIEW, item: item.id },
-          e as unknown as EFormAction
-        );
-        break;
-      case EActionBar.EDIT:
-        this._wareHouseFacade.detail(item.id);
-        this._loadDialog(
-          { action: EFormAction.EDIT, item: item.id },
-          e as unknown as EFormAction
-        );
-        break;
-      case EActionBar.DEL:
-        this.confirmationService.confirm({
-          message: 'Bạn muốn xóa bỏ sản phẩm này trong kho?',
-          header: 'Xác nhận',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-            this._wareHouseFacade.delete(item.id);
-          },
-          reject: () => {},
-        });
-        break;
-      default:
-    }
+  loadData() {
+    this._wareHouseFacade.search(this.searchPayload);
+    this._wareHouseFacade.wareHousesPaging$.subscribe((res) => {
+      if (res) {
+        this.listDataSearchInit = res.content || [];
+        this.totalRecords = res.totalElements || 0;
+      }
+    });
   }
 
   lazyLoad(event?: TableLazyLoadEvent) {
@@ -78,47 +51,16 @@ export class WarehouseComponent {
     }
   }
 
-  private _setFormTitle(t: EFormAction) {
-    switch (t) {
-      case EFormAction.INSERT:
-      case EFormAction.CLONE:
-        return 'Thêm mới kho hàng';
-
-      case EFormAction.EDIT:
-        return 'Cập nhật kho hàng';
-      case EFormAction.VIEW:
-        return 'Chi tiết kho hàng';
-    }
-  }
-
-  private _loadDialog(data: any, e: EFormAction) {
-    const _title = this._setFormTitle(e);
-    const ref = this.dialogService.open(WarehouseDetailComponent, {
-      header: _title,
-      footer: ' ',
-      width: '50%',
-      contentStyle: { overflow: 'auto' },
-      baseZIndex: 10000,
-      maximizable: true,
-      data: data,
+  onSearch(e: string) {
+    this._wareHouseFacade.search({
+      ...this.searchPayload,
+      searchField: e,
     });
-
-    this.ref?.onClose.subscribe((res) => {
-      this.lazyLoad();
+    this._wareHouseFacade.wareHousesPaging$.subscribe((res) => {
+      if (res) {
+        this.listDataSearchInit = res.content || [];
+        this.totalRecords = res.totalElements || 0;
+      }
     });
-  }
-
-  toolbarOnClick(e: EToolBarAction) {
-    switch (e) {
-      case EToolBarAction.NEW:
-        this._loadDialog(
-          { action: EFormAction.INSERT, item: null },
-          e as unknown as EFormAction
-        );
-        break;
-
-      case EToolBarAction.CLONE:
-        break;
-    }
   }
 }

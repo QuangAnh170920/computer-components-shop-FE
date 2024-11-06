@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { WarehouseDetailComponent } from './components/warehouse-detail/warehouse-detail.component';
 import { WarehouseComponent } from './components/warehouse/warehouse.component';
 import { WarehouseRoutingModule } from './warehouse-routing.module';
 import { CommonModule } from '@angular/common';
@@ -28,7 +27,7 @@ import { PDialogModule } from '../../shared/components/p-dialog/p-dialog.module'
 import { PToolbarModule } from '../../shared/components/p-toolbar/p-toolbar.module';
 
 @NgModule({
-  declarations: [WarehouseComponent, WarehouseDetailComponent],
+  declarations: [WarehouseComponent],
   imports: [
     CommonModule,
     WarehouseRoutingModule,

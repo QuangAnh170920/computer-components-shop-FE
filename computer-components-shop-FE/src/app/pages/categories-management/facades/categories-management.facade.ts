@@ -4,11 +4,14 @@ import {
   Observable,
   filter,
   distinctUntilChanged,
+  catchError,
+  of,
 } from 'rxjs';
 import { NewPagingData, NewResponseData } from '../../../shared/models/paging.model';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ICategories, ISearch } from '../models/categories-management.model';
 import { CategoriesManagementService } from '../services/categories-management.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -64,7 +67,28 @@ export class CategoriesManagementFacade {
   }
 
   update(payload: ICategories) {
-    return this.categoriesService.update(payload).subscribe((res) => {
+    return this.categoriesService.update(payload).pipe(
+      catchError((error) => {
+        console.log('Full error:', error); // Log đầy đủ để kiểm tra cấu trúc error
+
+      if (error instanceof HttpErrorResponse) {
+        // Kiểm tra mã lỗi và lấy thông báo lỗi từ API
+        if (error.status === 400) {
+          const errorMessage = error.error?.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau.';
+          this.toastService.showError(errorMessage);
+        } else {
+          // Các lỗi khác
+          this.toastService.showError('Có lỗi xảy ra. Vui lòng thử lại.');
+        }
+      } else {
+        // Trường hợp không phải lỗi HTTP (ví dụ lỗi mạng, v.v.)
+        this.toastService.showError('Đã có lỗi xảy ra. Vui lòng thử lại sau.');
+      }
+
+      // Trả về observable rỗng để không làm gián đoạn chuỗi
+      return of(null);
+      })
+    ).subscribe((res) => {
       if (res && res.responseData) {
         this._category.next(res.responseData);
         this.toastService.showSuccess('Cập nhật loại sản phẩm thành công');

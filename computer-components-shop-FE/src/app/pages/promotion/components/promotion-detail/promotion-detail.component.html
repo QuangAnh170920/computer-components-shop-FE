@@ -50,7 +50,7 @@
             type="text"
             class="p-inputtext p-component p-element"
             [ngClass]="
-              f['code'].errors && (f['name'].dirty || f['name'].touched)
+              f['name'].errors && (f['name'].dirty || f['name'].touched)
                 ? 'ng-dirty ng-invalid'
                 : ''
             "
@@ -72,6 +72,39 @@
             <small *ngIf="f['name'].errors['maxlength']"
               >Tên khuyến mãi không được vượt quá 100 ký tự</small
             >
+          </span>
+        </div>
+        <div class="field col-12 lg:col-6">
+          <label htmlfor="display_order"
+            >Phần trăm chiếu khấu<span class="p-error">*</span></label
+          >
+          <input
+            pInputText
+            formControlName="discountPercentage"
+            id="title"
+            type="number"
+            class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['discountPercentage'].errors && (f['discountPercentage'].dirty || f['discountPercentage'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
+          />
+          <span
+            class="p-error font-italic"
+            *ngIf="
+              f['discountPercentage'].errors &&
+              (f['discountPercentage'].dirty || f['discountPercentage'].touched)
+            "
+          >
+            <small
+              *ngIf="
+                f['discountPercentage'].errors['required']
+              "
+              >Phần trăm khuyến mãi không được để trống</small
+            >
+            <small *ngIf="f['discountPercentage'].errors['min']">Phần trăm khuyến mãi phải từ 0 đến 100</small>
+            <small *ngIf="f['discountPercentage'].errors['max']">Phần trăm khuyến mãi phải từ 0 đến 100</small>
           </span>
         </div>
         <div class="field col-12 lg:col-12">

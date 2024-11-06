@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    apiBaseUrl: 'http://172.16.0.2:8080/computer-components-admin-api/',
+    apiBaseUrl: 'http://192.168.1.22:8080/computer-components-admin-api/',
     domain: '',
 };
 /*

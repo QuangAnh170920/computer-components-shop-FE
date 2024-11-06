@@ -22,15 +22,11 @@
           />
           <span
             class="p-error font-italic"
-            *ngIf="
-              f['code'].errors &&
-              (f['code'].dirty || f['code'].touched)
-            "
+            *ngIf="f['code'].errors && (f['code'].dirty || f['code'].touched)"
           >
             <small
               *ngIf="
-                f['code'].errors['required'] ||
-                f['code'].errors['whitespace']
+                f['code'].errors['required'] || f['code'].errors['whitespace']
               "
               >Mã loại sản phẩm không được để trống</small
             >
@@ -57,15 +53,11 @@
           />
           <span
             class="p-error font-italic"
-            *ngIf="
-              f['name'].errors &&
-              (f['name'].dirty || f['name'].touched)
-            "
+            *ngIf="f['name'].errors && (f['name'].dirty || f['name'].touched)"
           >
             <small
               *ngIf="
-                f['name'].errors['required'] ||
-                f['name'].errors['whitespace']
+                f['name'].errors['required'] || f['name'].errors['whitespace']
               "
               >Loại sản phẩm không được để trống</small
             >
@@ -73,6 +65,21 @@
               >Loại sản phẩm không được vượt quá 100 ký tự</small
             >
           </span>
+        </div>
+        <div class="field col-12 lg:col-6">
+          <label htmlfor="title"
+            >Loại sản phẩm cha</label
+          >
+          <p-dropdown
+            formControlName="parentId"
+            [options]="parentList"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Chọn loại sản phẩm cha"
+            [filter]="true"
+            filterBy="name"
+            [showClear]="true"
+          ></p-dropdown>
         </div>
         <div class="field col-12 lg:col-12">
           <label htmlfor="note">Mô tả</label>

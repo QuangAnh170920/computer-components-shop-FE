@@ -15,5 +15,8 @@ export interface ISearch  {
 }
 
 export interface IWareHouse {
-    id?: number
+    id?: number;
+    code?: string;
+    name?: string;
+    quantityAvailable?: number;
 }

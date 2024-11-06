@@ -1,4 +1,4 @@
-<s-toolbar [isSearch]="false" (onClick)="toolbarOnClick($event)">
+<s-toolbar [isSearch]="false" (onClick)="toolbarOnClick($event)" [add]="false">
   <p-dropdown
     [ngModel]="productId"
     [options]="productList"
@@ -38,9 +38,9 @@
     <ng-template pTemplate="header">
       <tr>
         <th class="text-center" style="width: 2%">#</th>
-        <th style="width: 15%">Tên sản phẩm</th>
-        <th style="width: 15%">Tên người dùng</th>
-        <th style="width: 15%">Đánh giá</th>
+        <th class="text-center" style="width: 15%">Tên sản phẩm</th>
+        <th class="text-center" style="width: 15%">Tên người dùng</th>
+        <th class="text-center" style="width: 15%">Đánh giá</th>
         <th class="text-center" style="width: 9%">Rate</th>
         <th class="text-center" style="width: 10%">Thao tác</th>
       </tr>

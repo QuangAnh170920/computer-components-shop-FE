@@ -150,7 +150,6 @@ export class ProductReviewComponent {
   }
 
   onSearch(id: number) {
-    console.log(id, 'id product');
     this._productReviewFacade.search({
       ...this.searchPayload,
       productId: id,

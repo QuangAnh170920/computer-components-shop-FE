@@ -6,6 +6,7 @@ import { CategoriesManagementFacade } from '../../facades/categories-management.
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CustomVaidators } from '../../../../shared/validators/custom.validator';
+import { DropListService } from '../../../../shared/services/drop-list.service';
 
 @Component({
   selector: 'app-categories-management-detail',
@@ -16,19 +17,22 @@ export class CategoriesManagementDetailComponent {
   form?: FormGroup;
   action: EFormAction = EFormAction.VIEW;
   dataDetail?: ICategories;
+  parentList: any[] = [];
 
   constructor(
     private dialogConfig: DynamicDialogConfig,
     private fb: FormBuilder,
     private dialogRef: DynamicDialogRef,
     private messageService: MessageService,
-    private _categoriesFacade: CategoriesManagementFacade
+    private _categoriesFacade: CategoriesManagementFacade,
+    private _dropListService: DropListService
   ) {
     this.action = dialogConfig.data?.action;
   }
 
   ngOnInit() {
     this._formInit();
+    this.getParentList();
     switch (this.action) {
       case EFormAction.INSERT: {
         this.form?.reset();
@@ -46,6 +50,14 @@ export class CategoriesManagementDetailComponent {
       }
     }
     this.loadDetail();
+  }
+
+  getParentList() {
+    this._dropListService.getCategoriesList().subscribe((res: any) => {
+      if (res) {
+        this.parentList = res.responseData;
+      }
+    });
   }
 
   public get f(): { [key: string]: AbstractControl } {
@@ -72,6 +84,7 @@ export class CategoriesManagementDetailComponent {
         ]),
       ],
       description: [''],
+      parentId: [''],
     });
     this.form?.reset();
   }
@@ -80,7 +93,6 @@ export class CategoriesManagementDetailComponent {
     this._categoriesFacade.categoryPaging$.subscribe((res: any) => {
       if (res) {
         this.dataDetail = res.responseData;
-        console.log(this.dataDetail, '1111111111111111');
         this.form?.patchValue(this.dataDetail!);
       }
     })

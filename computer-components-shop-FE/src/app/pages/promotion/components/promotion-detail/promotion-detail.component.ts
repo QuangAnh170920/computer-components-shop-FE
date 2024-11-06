@@ -71,6 +71,14 @@ export class PromotionDetailComponent {
           CustomVaidators.NoWhiteSpaceValidator(),
         ]),
       ],
+      discountPercentage: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.min(0),
+          Validators.max(100),
+        ]),
+      ],
       description: [''],
     });
     this.form?.reset();

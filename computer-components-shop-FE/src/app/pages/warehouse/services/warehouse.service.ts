@@ -13,20 +13,4 @@ export class WarehouseService {
   search(payload: ISearch) {
     return this.apiService.post(`${API_ROUTER.WAREHOUSE.SEARCH}`, payload);
   }
-
-  create(payload: IPayload) {
-    return this.apiService.post(`${API_ROUTER.WAREHOUSE.CREATE}`, payload);
-  }
-
-  update(payload: IPayload) {
-    return this.apiService.put(`${API_ROUTER.WAREHOUSE.UPDATE}`, payload);
-  }
-
-  delete(id: any) {
-    return this.apiService.post(`${API_ROUTER.WAREHOUSE.DELETE}${id}`);
-  }
-
-  detail(id: any) {
-    return this.apiService.post(`${API_ROUTER.WAREHOUSE.DETAIL}${id}`);
-  }
 }
