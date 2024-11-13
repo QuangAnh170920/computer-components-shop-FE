@@ -12,6 +12,7 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ICategories, ISearch } from '../models/categories-management.model';
 import { CategoriesManagementService } from '../services/categories-management.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DropListService } from '../../../shared/services/drop-list.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +23,12 @@ export class CategoriesManagementFacade {
     null
   );
   private _category = new BehaviorSubject<NewResponseData<ICategories> | null>(null);
+  private _categoriesParent = new BehaviorSubject<NewPagingData<ICategories> | null>(
+    null
+  );
   constructor(
     private categoriesService: CategoriesManagementService,
+    private _dropListService: DropListService,
     private toastService: ToastService
   ) {}
 
@@ -43,6 +48,13 @@ export class CategoriesManagementFacade {
 
   get categoryPaging$(): Observable<NewResponseData<ICategories> | null> {
     return this._category.asObservable().pipe(
+      filter((res) => res !== null),
+      distinctUntilChanged()
+    );
+  }
+
+  get categoriesParentPaging$(): Observable<NewPagingData<ICategories> | null> {
+    return this._categoriesParent.asObservable().pipe(
       filter((res) => res !== null),
       distinctUntilChanged()
     );
@@ -69,23 +81,16 @@ export class CategoriesManagementFacade {
   update(payload: ICategories) {
     return this.categoriesService.update(payload).pipe(
       catchError((error) => {
-        console.log('Full error:', error); // Log đầy đủ để kiểm tra cấu trúc error
-
       if (error instanceof HttpErrorResponse) {
-        // Kiểm tra mã lỗi và lấy thông báo lỗi từ API
         if (error.status === 400) {
-          const errorMessage = error.error?.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau.';
+          const errorMessage = error.error?.message || 'Đã có lỗi xảy ra. Vui lòng thử lại.';
           this.toastService.showError(errorMessage);
         } else {
-          // Các lỗi khác
-          this.toastService.showError('Có lỗi xảy ra. Vui lòng thử lại.');
+          this.toastService.showError('Đã có lỗi xảy ra. Vui lòng thử lại.');
         }
       } else {
-        // Trường hợp không phải lỗi HTTP (ví dụ lỗi mạng, v.v.)
-        this.toastService.showError('Đã có lỗi xảy ra. Vui lòng thử lại sau.');
+        this.toastService.showError('Đã có lỗi xảy ra. Vui lòng thử lại.');
       }
-
-      // Trả về observable rỗng để không làm gián đoạn chuỗi
       return of(null);
       })
     ).subscribe((res) => {
@@ -129,6 +134,14 @@ export class CategoriesManagementFacade {
         this._category.next(res);
         this.toastService.showSuccess('Xóa thông tin thành công');
         this.search({ pageNumber: 1, pageSize: 10 });
+      }
+    });
+  }
+
+  parentList(id: any) {
+    this._dropListService.getCategoriesParentList(id).subscribe((res) => {
+      if (res && res.responseData) {
+        this._categoriesParent.next(res.responseData);
       }
     });
   }

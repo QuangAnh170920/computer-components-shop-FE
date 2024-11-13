@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../../shared/services/api.service';
 import { API_ROUTER } from '../../../shared/constants/api.constant';
-import { IPayload, ISearch } from '../models/product-management.model';
+import { IPayload, IProduct, ISearch } from '../models/product-management.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ProductManagementService {
     return this.apiService.post(`${API_ROUTER.PRODUCT.SEARCH}`, payload);
   }
 
-  create(payload: IPayload) {
+  create(payload: IProduct) {
     return this.apiService.post(`${API_ROUTER.PRODUCT.CREATE}`, payload);
   }
 

@@ -4,11 +4,13 @@ export interface IPayload {
     name: string;
     description: string;
     price: number;
-    quantityAvailable: number;
-    discountAmount: number;
-    discountPercentage: number;
     finalTotalPrice: number;
+    power: string;
+    imageUrl: string;
+    categoryId: number;
+    promotionId: number;
     status: string;
+    productFeatures: IProductFeatures[];
 }
 
 export interface IResponse {
@@ -25,14 +27,19 @@ export interface ISearch  {
 }
 
 export interface IProduct {
-    id: number;
     code: string;
     name: string;
     description: string;
     price: number;
-    quantityAvailable: number;
-    discountAmount: number;
-    discountPercentage: number;
     finalTotalPrice: number;
-    status: string;
+    power: string;
+    imageUrl: string;
+    categoryId: number;
+    promotionId: number;
+    productFeatures: IProductFeatures[];
+}
+
+export interface IProductFeatures {
+    name: string;
+    priority: number;
 }

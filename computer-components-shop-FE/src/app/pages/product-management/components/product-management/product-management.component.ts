@@ -6,7 +6,7 @@ import { EFormAction } from '../../../../shared/models/form.model';
 import { ProductManagementDetailComponent } from '../product-management-detail/product-management-detail.component';
 import { TableLazyLoadEvent } from 'primeng/table';
 import { ListDropdownEnum } from '../../../../common/list-dropdown-enum';
-import { IProduct, ISearch } from '../../models/product-management.model';
+import { IPayload, IProduct, ISearch } from '../../models/product-management.model';
 import { ProductManagementFacade } from '../../facades/product-management.facade';
 import { EActionBar } from '../../../../shared/components/p-actionbar/models/p-actionbar.model';
 
@@ -64,7 +64,7 @@ export class ProductManagementComponent {
       : ['view', 'edit', 'del', 'approve'];
   }
 
-  actionClick(e: any, item: IProduct) {
+  actionClick(e: any, item: IPayload) {
     switch (e as EActionBar) {
       case EActionBar.VIEW:
         this._productFacade.detail(item.id);

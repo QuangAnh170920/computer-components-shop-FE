@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IProduct, ISearch } from '../models/product-management.model';
+import { IPayload, IProduct, ISearch } from '../models/product-management.model';
 import { ProductManagementService } from '../services/product-management.service';
 import { BehaviorSubject, Observable, filter, distinctUntilChanged } from 'rxjs';
 import { NewPagingData, NewResponseData } from '../../../shared/models/paging.model';
@@ -57,7 +57,7 @@ export class ProductManagementFacade {
     });
   }
 
-  update(payload: IProduct) {
+  update(payload: IPayload) {
     return this.productService.update(payload).subscribe((res) => {
       if (res && res.responseData) {
         this._product.next(res.responseData);

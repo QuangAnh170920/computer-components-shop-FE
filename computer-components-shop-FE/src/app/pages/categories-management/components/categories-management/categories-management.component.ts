@@ -9,6 +9,7 @@ import { ListDropdownEnum } from '../../../../common/list-dropdown-enum';
 import { ICategories, ISearch } from '../../models/categories-management.model';
 import { CategoriesManagementFacade } from '../../facades/categories-management.facade';
 import { EActionBar } from '../../../../shared/components/p-actionbar/models/p-actionbar.model';
+import { DropListService } from '../../../../shared/services/drop-list.service';
 
 @Component({
   selector: 'app-categories-management',
@@ -33,7 +34,8 @@ export class CategoriesManagementComponent {
   constructor(
     private confirmationService: ConfirmationService,
     private dialogService: DialogService,
-    private _categoriesFacade: CategoriesManagementFacade
+    private _categoriesFacade: CategoriesManagementFacade,
+    private _dropListService: DropListService
   ) {}
 
   ngOnInit() {
@@ -89,6 +91,7 @@ export class CategoriesManagementComponent {
     switch (e as EActionBar) {
       case EActionBar.VIEW:
         this._categoriesFacade.detail(item.id);
+        this._categoriesFacade.parentList(item.id);
         this._loadDialog(
           { action: EFormAction.VIEW, item: item.id },
           e as unknown as EFormAction
@@ -96,6 +99,7 @@ export class CategoriesManagementComponent {
         break;
       case EActionBar.EDIT:
         this._categoriesFacade.detail(item.id);
+        this._categoriesFacade.parentList(item.id);
         this._loadDialog(
           { action: EFormAction.EDIT, item: item.id },
           e as unknown as EFormAction

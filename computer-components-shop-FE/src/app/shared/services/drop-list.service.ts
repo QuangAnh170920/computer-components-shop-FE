@@ -17,7 +17,11 @@ export class DropListService {
     return this.apiService.get(`${API_ROUTER.DROP_LIST.CATEGORIES_LIST}`);
   }
 
-  getBrandList() {
-    return this.apiService.get(`${API_ROUTER.DROP_LIST.BRAND_LIST}`);
+  getCategoriesParentList(id: any) {
+    return this.apiService.get(`${API_ROUTER.DROP_LIST.CATEGORIES_PARENT_LIST}${id}`);
+  }
+
+  getPromotionList() {
+    return this.apiService.get(`${API_ROUTER.DROP_LIST.PROMOTION_LIST}`);
   }
 }

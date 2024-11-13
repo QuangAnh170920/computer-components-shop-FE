@@ -32,20 +32,21 @@ export class CategoriesManagementDetailComponent {
 
   ngOnInit() {
     this._formInit();
-    this.getParentList();
     switch (this.action) {
       case EFormAction.INSERT: {
         this.form?.reset();
+        this.getCategoriesList();
         break;
       }
       case EFormAction.VIEW: {
         this.loadDetail();
+        this.getParentList();
         this.form?.disable();
-        
         break;
       }
       case EFormAction.EDIT: {
         this.loadDetail();
+        this.getParentList();
         break;
       }
     }
@@ -53,6 +54,14 @@ export class CategoriesManagementDetailComponent {
   }
 
   getParentList() {
+    this._categoriesFacade.categoriesParentPaging$.subscribe((res: any) => {
+      if (res) {
+        this.parentList = res;
+      }
+    })
+  }
+
+  getCategoriesList() {
     this._dropListService.getCategoriesList().subscribe((res: any) => {
       if (res) {
         this.parentList = res.responseData;
