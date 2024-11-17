@@ -35,7 +35,7 @@ export class ProductManagementDetailComponent {
     private _productManagementFacadee: ProductManagementFacade,
     private _dropListService: DropListService,
     private toastService: ToastService,
-    private confirmationService: ConfirmationService,
+    private confirmationService: ConfirmationService
   ) {
     this.action = dialogConfig.data?.action;
   }
@@ -68,8 +68,6 @@ export class ProductManagementDetailComponent {
       }
     }
   }
-
-  
 
   getPromotionList() {
     this._dropListService.getPromotionList().subscribe((res: any) => {
@@ -193,18 +191,18 @@ export class ProductManagementDetailComponent {
     const isEmpty = !row.feature;
     if (isEmpty) {
       this.productFeatures.removeAt(i);
-  } else {
+    } else {
       this.confirmationService.confirm({
-          message: 'Bạn có muốn xóa thông tin này?',
-          header: 'Xác nhận',
-          acceptLabel: 'Xóa',
-          rejectLabel: 'Hủy bỏ',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-              this.productFeatures.removeAt(i);
-          },
-          reject: () => {},
+        message: 'Bạn có muốn xóa thông tin này?',
+        header: 'Xác nhận',
+        acceptLabel: 'Xóa',
+        rejectLabel: 'Hủy bỏ',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.productFeatures.removeAt(i);
+        },
+        reject: () => {},
       });
-  }
+    }
   }
 }
