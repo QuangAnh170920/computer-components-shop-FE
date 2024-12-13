@@ -229,6 +229,54 @@
             </ng-template>
           </p-table>
         </div>
+
+        <div class="field col-12 lg:col-6">
+          <label for="imageUrl">Hình ảnh sản phẩm</label>
+          <div class="file-upload">
+            <input
+              #fileInput
+              type="file"
+              (change)="onFileSelect($event)"
+              accept="image/*"
+              style="display: none"
+            />
+            <button
+              type="button"
+              (click)="fileInput.click()"
+              class="p-button p-component p-button-text"
+            >
+              <i class="pi pi-upload"></i> Choose
+            </button>
+            <button
+              type="button"
+              (click)="uploadImage()"
+              class="p-button p-component p-button-success"
+              [disabled]="!imageUrl"
+            >
+              <i class="pi pi-check"></i> Upload
+            </button>
+            <button
+              type="button"
+              (click)="cancelImage()"
+              class="p-button p-component p-button-danger"
+              [disabled]="!imageUrl"
+            >
+              <i class="pi pi-times"></i> Cancel
+            </button>
+          </div>
+        </div>
+        <div class="field col-12 lg:col-6">
+          <label for="imageUrl">Ảnh sản phẩm</label>
+          <div *ngIf="imageUrl">
+            <img
+              [src]="imageUrl"
+              alt="Product Image"
+              class="product-image"
+              style="max-width: 100%; max-height: 200px"
+            />
+          </div>
+        </div>
+
         <div class="field col-12 lg:col-12">
           <label htmlfor="note">Mô tả</label>
           <textarea

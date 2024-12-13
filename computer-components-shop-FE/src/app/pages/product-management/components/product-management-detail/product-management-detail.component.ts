@@ -26,6 +26,8 @@ export class ProductManagementDetailComponent {
   promotionList: any[] = [];
   categoriesList: any[] = [];
   discountPercentage: any;
+  imageUrl: string | undefined;
+  selectedFile: File | undefined;
 
   constructor(
     private dialogConfig: DynamicDialogConfig,
@@ -204,5 +206,44 @@ export class ProductManagementDetailComponent {
         reject: () => {},
       });
     }
+  }
+
+  onFileSelect(event: any) {
+    const file = event.target.files[0];
+    if (file && this.isValidImage(file)) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imageUrl = e.target.result;
+        this.selectedFile = file; // Lưu lại file đã chọn
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.toastService.showWarning('Please select a valid image file. Expected: =< 1MB');
+    }
+  }
+
+  // Hàm kiểm tra ảnh hợp lệ
+  isValidImage(file: File): boolean {
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const maxSize = 1 * 1024 * 1024; // 1MB
+    return validImageTypes.includes(file.type) && file.size <= maxSize;
+  }
+
+  // Xử lý upload (thực hiện gọi API hoặc lưu ảnh)
+  uploadImage() {
+    if (this.selectedFile) {
+      // Gọi API upload image
+      console.log('Uploading image: ', this.selectedFile);
+      // Thực hiện upload tại đây...
+      // Sau khi upload thành công, có thể lưu đường dẫn ảnh trả về trong form
+    } else {
+      this.toastService.showWarning('Please choose an image before uploading.');
+    }
+  }
+
+  // Hủy ảnh đã chọn
+  cancelImage() {
+    this.imageUrl = undefined;
+    this.selectedFile = undefined;
   }
 }
