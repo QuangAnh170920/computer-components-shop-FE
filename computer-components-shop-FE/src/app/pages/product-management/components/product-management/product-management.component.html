@@ -40,7 +40,9 @@
         <th style="width: 15%">Tên sản phẩm</th>
         <th style="width: 13%">Loại sản phẩm</th>
         <th class="text-center" style="width: 10%">Hiệu suất</th>
-        <th class="text-center" style="width: 10%">Chiết khấu đang được áp dụng</th>
+        <th class="text-center" style="width: 10%">
+          Chiết khấu đang được áp dụng
+        </th>
         <th class="text-center" style="width: 10%">Giá</th>
         <th class="text-center" class="text-center" style="width: 9%">
           Trạng thái
@@ -56,7 +58,17 @@
           {{ i + 1 }}
         </td>
         <td class="text-center">
-          {{ item?.imageUrl }}
+          <img
+            *ngIf="item?.imageUrl"
+            [src]="item.imageUrl"
+            alt="Product Image"
+            style="
+              max-width: 100px;
+              max-height: 100px;
+              border-radius: 50%;
+              object-fit: cover;
+            "
+          />
         </td>
         <td class="text-center">
           {{ item?.code }}

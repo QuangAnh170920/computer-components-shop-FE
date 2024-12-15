@@ -45,4 +45,8 @@ export class ProductManagementService {
   detail(id: any) {
     return this.apiService.post(`${API_ROUTER.PRODUCT.DETAIL}${id}`);
   }
+
+  uploadFile(formData: any) {
+    return this.apiService.post(`${API_ROUTER.PRODUCT.DETAIL}${formData}`);
+  }
 }

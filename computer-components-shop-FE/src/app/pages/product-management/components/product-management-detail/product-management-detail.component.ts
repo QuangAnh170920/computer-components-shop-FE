@@ -14,6 +14,7 @@ import { EFormAction } from '../../../../shared/models/form.model';
 import { DropListService } from '../../../../shared/services/drop-list.service';
 import { CustomVaidators } from '../../../../shared/validators/custom.validator';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-management-detail',
@@ -37,7 +38,8 @@ export class ProductManagementDetailComponent {
     private _productManagementFacadee: ProductManagementFacade,
     private _dropListService: DropListService,
     private toastService: ToastService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private http: HttpClient
   ) {
     this.action = dialogConfig.data?.action;
   }
@@ -214,28 +216,55 @@ export class ProductManagementDetailComponent {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.imageUrl = e.target.result;
-        this.selectedFile = file; // Lưu lại file đã chọn
+        this.selectedFile = file;
       };
       reader.readAsDataURL(file);
     } else {
-      this.toastService.showWarning('Please select a valid image file. Expected: =< 1MB');
+      this.toastService.showWarning('Please select a valid image file.');
     }
   }
 
-  // Hàm kiểm tra ảnh hợp lệ
   isValidImage(file: File): boolean {
     const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    const maxSize = 1 * 1024 * 1024; // 1MB
-    return validImageTypes.includes(file.type) && file.size <= maxSize;
+    return validImageTypes.includes(file.type);
   }
 
-  // Xử lý upload (thực hiện gọi API hoặc lưu ảnh)
   uploadImage() {
     if (this.selectedFile) {
-      // Gọi API upload image
-      console.log('Uploading image: ', this.selectedFile);
-      // Thực hiện upload tại đây...
-      // Sau khi upload thành công, có thể lưu đường dẫn ảnh trả về trong form
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+
+      this.http
+        .post(
+          'http://192.168.1.16:8080/computer-components-admin-api/v1/api/admin/upload/upload',
+          formData,
+          {
+            headers: {
+              Accept: 'application/json',
+            },
+          }
+        )
+        .subscribe({
+          next: (response: any) => {
+            console.log('Upload thành công!', response);
+            this.toastService.showSuccess('Upload image successfully!');
+
+            const uploadedUrl = response?.responseData?.url;
+            if (uploadedUrl) {
+              const imageUrl = uploadedUrl.replace(/^.*src\/assets\//, '/assets/');
+              
+              this.form?.patchValue({
+                imageUrl: imageUrl,
+              });
+            } else {
+              this.toastService.showWarning('No URL returned from the server.');
+            }
+          },
+          error: (error) => {
+            console.error('Upload thất bại!', error);
+            this.toastService.showError('Failed to upload image.');
+          },
+        });
     } else {
       this.toastService.showWarning('Please choose an image before uploading.');
     }
