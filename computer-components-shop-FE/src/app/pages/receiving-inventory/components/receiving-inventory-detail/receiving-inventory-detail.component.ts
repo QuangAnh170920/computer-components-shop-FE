@@ -12,6 +12,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { EFormAction } from '../../../../shared/models/form.model';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { CustomVaidators } from '../../../../shared/validators/custom.validator';
+import { ReceivingInventoryFacade } from '../../facade/receiving-inventory.facade';
 
 @Component({
   selector: 'app-receiving-inventory-detail',
@@ -38,6 +39,9 @@ export class ReceivingInventoryDetailComponent {
     { value: 6, label: 'Tạm dừng' }          // ON_HOLD
   ];
 
+  totalQuantity: number = 0;
+  totalPrice: number = 0;
+
   constructor(
     private dialogConfig: DynamicDialogConfig,
     private fb: FormBuilder,
@@ -45,7 +49,8 @@ export class ReceivingInventoryDetailComponent {
     private messageService: MessageService,
     private _dropListService: DropListService,
     private toastService: ToastService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private _receivingInventoryFacade: ReceivingInventoryFacade,
   ) {
     this.action = dialogConfig.data?.action;
   }
@@ -55,6 +60,8 @@ export class ReceivingInventoryDetailComponent {
     this.getProductList();
     switch (this.action) {
       case EFormAction.INSERT: {
+        this.form?.get('totalQuantity')?.disable();
+        this.form?.get('totalPrice')?.disable();
         this.form?.reset();
         break;
       }
@@ -63,6 +70,8 @@ export class ReceivingInventoryDetailComponent {
         break;
       }
       case EFormAction.EDIT: {
+        this.form?.get('totalQuantity')?.disable();
+        this.form?.get('totalPrice')?.disable();
         break;
       }
     }
@@ -102,6 +111,8 @@ export class ReceivingInventoryDetailComponent {
       paymentMethod: [''],
       paymentStatus: [''],
       warehouseProductDTOS: this.fb.array([]),
+      description: [''],
+      transactionDate: [''],
     });
     this.form?.reset();
   }
@@ -129,7 +140,22 @@ export class ReceivingInventoryDetailComponent {
   save(e: boolean = false) {
     if (this.form?.valid) {
       if (this.form?.value.id) {
+        this._receivingInventoryFacade.update(this.form?.value);
       } else {
+        this._receivingInventoryFacade.create({
+          code: this.f['code']?.value,
+          name: this.f['name']?.value,
+          supplier: this.f['supplier']?.value,
+          type: '1',
+          totalQuantity: this.f['totalQuantity']?.value,
+          totalPrice: this.f['totalPrice']?.value,
+          employeeId: this.f['employeeId']?.value,
+          paymentMethod: this.f['paymentMethod']?.value,
+          paymentStatus: this.f['paymentStatus']?.value,
+          warehouseProductDTOS: this.f['warehouseProductDTOS']?.value || [],
+          description: this.f['description']?.value,
+          transactionDate: this.f['transactionDate']?.value,
+        });
       }
       this.dialogRef.close();
     }
@@ -183,5 +209,21 @@ export class ReceivingInventoryDetailComponent {
   getProductName(productId: number): string {
     const product = this.productList.find((p) => p.id === productId);
     return product ? product.name : '';
+  }
+
+  updateTotals() {
+    this.totalQuantity = 0;
+    this.totalPrice = 0;
+    this.warehouseProductDTOS.controls.forEach((control) => {
+      const quantity = control.get('quantity')?.value || 0;
+      const price = control.get('price')?.value || 0;
+      this.totalQuantity += quantity;
+      this.totalPrice += quantity * price;
+    });
+
+    this.form?.patchValue({
+      totalQuantity: this.totalQuantity,
+      totalPrice: this.totalPrice
+    });
   }
 }

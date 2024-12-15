@@ -51,7 +51,7 @@ export class ProductManagementFacade {
     return this.productService.create(payload).subscribe((res) => {
       if (res && res.responseData) {
         this._product.next(res.responseData);
-        this.toastService.showSuccess('Thêm mới thương hiệu thành công');
+        this.toastService.showSuccess('Thêm mới sản phẩm thành công');
         this.search({ pageNumber: 1, pageSize: 10 });
       }
     });
@@ -61,7 +61,7 @@ export class ProductManagementFacade {
     return this.productService.update(payload).subscribe((res) => {
       if (res && res.responseData) {
         this._product.next(res.responseData);
-        this.toastService.showSuccess('Cập nhật thương hiệu thành công');
+        this.toastService.showSuccess('Cập nhật sản phẩm thành công');
         this.search({ pageNumber: 1, pageSize: 10 });
       }
     });
@@ -72,7 +72,7 @@ export class ProductManagementFacade {
       if (res) {
         this._product.next(res.responseData);
         this.toastService.showSuccess(
-          'Cập nhật trạng thái thương hiệu thành công'
+          'Cập nhật trạng thái sản phẩm thành công'
         );
         this.search({ pageNumber: 1, pageSize: 10 });
       }
@@ -84,7 +84,7 @@ export class ProductManagementFacade {
       if (res) {
         this._product.next(res.responseData);
         this.toastService.showSuccess(
-          'Cập nhật trạng thái thương hiệu thành công'
+          'Cập nhật trạng thái sản phẩm thành công'
         );
         this.search({ pageNumber: 1, pageSize: 10 });
       }

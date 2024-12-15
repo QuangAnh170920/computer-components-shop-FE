@@ -6,6 +6,7 @@ import {
   filter,
 } from 'rxjs';
 import {
+  IPayload,
   IReceivingInventory,
   ISearch,
 } from '../models/receiving-inventory.model';
@@ -38,14 +39,14 @@ export class ReceivingInventoryFacade {
     );
   }
 
-  get reviewsPaging$(): Observable<NewPagingData<IReceivingInventory> | null> {
+  get receivingInventorysPaging$(): Observable<NewPagingData<IReceivingInventory> | null> {
     return this._ris.asObservable().pipe(
       filter((res) => res !== null),
       distinctUntilChanged()
     );
   }
 
-  get reviewPaging$(): Observable<NewResponseData<IReceivingInventory> | null> {
+  get receivingInventoryPaging$(): Observable<NewResponseData<IReceivingInventory> | null> {
     return this._ri.asObservable().pipe(
       filter((res) => res !== null),
       distinctUntilChanged()
@@ -64,17 +65,17 @@ export class ReceivingInventoryFacade {
     return this.receivingInventoryService.create(payload).subscribe((res) => {
       if (res && res.responseData) {
         this._ri.next(res.responseData);
-        this.toastService.showSuccess('Thêm mới đánh giá thành công');
+        this.toastService.showSuccess('Thêm mới đơn nhập hàng thành công');
         this.search({ pageNumber: 1, pageSize: 10 });
       }
     });
   }
 
-  update(payload: IReceivingInventory) {
+  update(payload: IPayload) {
     return this.receivingInventoryService.update(payload).subscribe((res) => {
       if (res && res.responseData) {
         this._ri.next(res.responseData);
-        this.toastService.showSuccess('Cập nhật đánh giá thành công');
+        this.toastService.showSuccess('Cập nhật đơn nhập hàng thành công');
         this.search({ pageNumber: 1, pageSize: 10 });
       }
     });
@@ -93,6 +94,30 @@ export class ReceivingInventoryFacade {
       if (res) {
         this._ri.next(res);
         this.toastService.showSuccess('Xóa thông tin thành công');
+        this.search({ pageNumber: 1, pageSize: 10 });
+      }
+    });
+  }
+
+  approve(id: any, status: string) {
+    return this.receivingInventoryService.approve(id, status).subscribe((res) => {
+      if (res) {
+        this._ri.next(res.responseData);
+        this.toastService.showSuccess(
+          'Cập nhật trạng thái thành công'
+        );
+        this.search({ pageNumber: 1, pageSize: 10 });
+      }
+    });
+  }
+
+  unapprove(id: any, status: string) {
+    return this.receivingInventoryService.unapprove(id, status).subscribe((res) => {
+      if (res) {
+        this._ri.next(res.responseData);
+        this.toastService.showSuccess(
+          'Cập nhật trạng thái thành công'
+        );
         this.search({ pageNumber: 1, pageSize: 10 });
       }
     });

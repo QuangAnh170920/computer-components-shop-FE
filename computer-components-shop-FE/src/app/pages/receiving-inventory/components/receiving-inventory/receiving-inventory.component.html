@@ -1,7 +1,8 @@
 <s-toolbar
-  [placeHolder]="searchTitle"
-  [add]="true"
   (onClick)="toolbarOnClick($event)"
+  [keyword]="searchField"
+  (onSearch)="onSearch($event)"
+  [placeHolder]="searchTitle"
 >
   <p-calendar
     appendTo="body"
@@ -25,6 +26,7 @@
 <div class="card mt-3">
   <p-table
     #dt
+    [value]="listDataSearchInit"
     [lazy]="true"
     (onLazyLoad)="lazyLoad($event)"
     dataKey="id"
@@ -41,17 +43,78 @@
       <tr>
         <th class="text-center" style="width: 2%">#</th>
         <th class="text-center" style="width: 8%">Mã đơn</th>
-        <th class="text-center" style="width: 8%">Mã sản phẩm</th>
-        <th style="width: 15%">Tên sản phẩm</th>
+        <th style="width: 15%">Tên đơn hàng</th>
         <th class="text-center" style="width: 8%">Số lượng</th>
         <th class="text-center" style="width: 8%">Giá nhập</th>
         <th style="width: 15%">Nhà cung cấp</th>
         <th class="text-center" style="width: 8%">Ngày nhập</th>
+        <th class="text-center" class="text-center" style="width: 9%">
+          Phương thức thanh toán
+        </th>
+        <th class="text-center" class="text-center" style="width: 9%">
+          Trạng thái thanh toán
+        </th>
+        <th class="text-center" class="text-center" style="width: 9%">
+          Trạng thái
+        </th>
         <th class="text-center" style="width: 10%">Thao tác</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
-      <tr></tr>
+      <tr [ngClass]="item?.status ? '' : 'text-400'">
+        <td class="text-center">
+          {{ i + 1 }}
+        </td>
+        <td class="text-center">
+          {{ item?.code }}
+        </td>
+        <td>
+          {{ item?.name }}
+        </td>
+        <td class="text-center">
+          {{ item?.totalQuantity }}
+        </td>
+        <td class="text-center">
+          {{ item?.totalPrice | currency: 'VND' }}
+        </td>
+        <td>{{ item?.supplier }}</td>
+        <td class="text-center">{{ item?.transactionDate | date: 'dd/MM/yyyy' }}</td>
+        <td>
+          <div class="flex" style="justify-content: center">
+            <p-tag
+              class="item-center"
+              [severity]="setPaymentMethodColor(item.paymentMethod)"
+              [value]="setPaymentMethod(item.paymentMethod)"
+            ></p-tag>
+          </div>
+        </td>
+        <td>
+          <div class="flex" style="justify-content: center">
+            <p-tag
+              class="item-center"
+              [severity]="setPaymentStatusColor(item.paymentStatus)"
+              [value]="setPaymentStatus(item.paymentStatus)"
+            ></p-tag>
+          </div>
+        </td>
+        <td>
+          <div class="flex" style="justify-content: center">
+            <p-tag
+              class="item-center"
+              [severity]="setStatusColor(item.status)"
+              [value]="setStatus(item.status)"
+            ></p-tag>
+          </div>
+        </td>
+        <td class="text-center">
+          <div class="flex" style="justify-content: center">
+            <p-actionbar
+              [actions]="setActionBar(item.status)"
+              (onClick)="actionClick($event, item)"
+            ></p-actionbar>
+          </div>
+        </td>
+      </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
       <tr>

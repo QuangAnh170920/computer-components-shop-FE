@@ -25,6 +25,7 @@ import { IProduct, IProductUpdate } from '../../models/product-management.model'
 export class ProductManagementDetailComponent {
   form?: FormGroup;
   action: EFormAction = EFormAction.VIEW;
+  actionView: boolean = false; 
   promotionList: any[] = [];
   categoriesList: any[] = [];
   discountPercentage: any;
@@ -340,5 +341,13 @@ export class ProductManagementDetailComponent {
   isValidImage(file: File): boolean {
     const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
     return validImageTypes.includes(file.type);
+  }
+
+  actionViewDisable(): boolean {
+    if (this.action === EFormAction.VIEW) {
+      return this.actionView = true;
+    } else {
+      return this.actionView = false;
+    }
   }
 }

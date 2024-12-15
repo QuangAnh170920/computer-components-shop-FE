@@ -163,6 +163,7 @@
             (onClick)="addFeature()"
             label="Thêm tính năng sản phẩm"
             icon="pi pi-plus"
+            [disabled]="actionViewDisable()"
           />
         </div>
         <div class="field col-12 lg:col-12">
@@ -194,6 +195,7 @@
                     style="max-height: 32px; max-width: 100%"
                     type="text"
                     class="p-inputtext p-component p-element"
+                    [readonly]="actionViewDisable()"
                   />
                 </td>
                 <td class="text-center">
@@ -206,11 +208,12 @@
                     class="p-inputtext p-component p-element"
                     min="1"
                     max="10"
+                    [readonly]="actionViewDisable()"
                   />
                 </td>
                 <td class="text-center">
                   <i
-                    (click)="removeFeature(i)"
+                    (click)="!actionViewDisable() && removeFeature(i)"
                     class="pi pi-trash"
                     style="
                       font-size: 1.2rem;
@@ -239,11 +242,13 @@
               (change)="onFileSelect($event)"
               accept="image/*"
               style="display: none"
+              [readonly]="actionViewDisable()"
             />
             <button
               type="button"
               (click)="fileInput.click()"
               class="p-button p-component p-button-text"
+              [disabled]="actionViewDisable()"
             >
               <i class="pi pi-upload"></i> Choose
             </button>
@@ -251,7 +256,7 @@
               type="button"
               (click)="uploadImage()"
               class="p-button p-component p-button-success"
-              [disabled]="!imageUrl"
+              [disabled]="!imageUrl || actionViewDisable()"
             >
               <i class="pi pi-check"></i> Upload
             </button>
@@ -259,13 +264,13 @@
               type="button"
               (click)="cancelImage()"
               class="p-button p-component p-button-danger"
-              [disabled]="!imageUrl"
+              [disabled]="!imageUrl || actionViewDisable()"
             >
               <i class="pi pi-times"></i> Cancel
             </button>
           </div>
         </div>
-        
+
         <div class="field col-12 lg:col-6">
           <label for="imageUrl">Ảnh sản phẩm</label>
           <div *ngIf="imageUrl || form?.get('imageUrl')?.value">
@@ -273,18 +278,18 @@
               [src]="imageUrl || form?.get('imageUrl')?.value"
               alt="Product Image"
               class="product-image"
-              style="max-width: 100%; max-height: 200px; border-radius: 8px;"
+              style="max-width: 100%; max-height: 200px; border-radius: 8px"
             />
             <button
               type="button"
               (click)="removeCurrentImage()"
               class="p-button p-component p-button-danger"
+              [disabled]="actionViewDisable()"
             >
               <i class="pi pi-trash"></i> Remove Image
             </button>
           </div>
         </div>
-        
 
         <div class="field col-12 lg:col-12">
           <label htmlfor="note">Mô tả</label>

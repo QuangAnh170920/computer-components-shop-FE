@@ -61,12 +61,9 @@
           <img
             *ngIf="item?.imageUrl"
             [src]="item.imageUrl"
-            alt="Product Image"
             style="
               max-width: 100px;
-              max-height: 100px;
-              border-radius: 50%;
-              object-fit: cover;
+              max-height: 70px;
             "
           />
         </td>
@@ -83,7 +80,7 @@
           {{ item?.power }}W
         </td>
         <td class="text-center">{{ item?.promotionName }}</td>
-        <td class="text-center">{{ item?.finalTotalPrice }}</td>
+        <td class="text-center">{{ item?.finalTotalPrice | currency: 'VND' }}</td>
         <td>
           <div class="flex" style="justify-content: center">
             <p-tag

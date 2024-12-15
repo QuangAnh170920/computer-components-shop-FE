@@ -10,10 +10,30 @@
           >
           <input
             pInputText
+            formControlName="code"
             id="title"
             type="text"
             class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['code'].errors && (f['code'].dirty || f['code'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
           />
+          <span
+            class="p-error font-italic"
+            *ngIf="f['code'].errors && (f['code'].dirty || f['code'].touched)"
+          >
+            <small
+              *ngIf="
+                f['code'].errors['required'] || f['code'].errors['whitespace']
+              "
+              >Mã đơn hàng không được để trống</small
+            >
+            <small *ngIf="f['code'].errors['maxlength']"
+              >Mã đơn hàng không được vượt quá 100 ký tự</small
+            >
+          </span>
         </div>
         <div class="field col-12 lg:col-6">
           <label htmlfor="title"
@@ -21,10 +41,30 @@
           >
           <input
             pInputText
+            formControlName="name"
             id="title"
             type="text"
             class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['name'].errors && (f['name'].dirty || f['name'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
           />
+          <span
+            class="p-error font-italic"
+            *ngIf="f['name'].errors && (f['name'].dirty || f['name'].touched)"
+          >
+            <small
+              *ngIf="
+                f['name'].errors['required'] || f['name'].errors['whitespace']
+              "
+              >Tên đơn hàng không được để trống</small
+            >
+            <small *ngIf="f['name'].errors['maxlength']"
+              >Tên đơn hàng không được vượt quá 255 ký tự</small
+            >
+          </span>
         </div>
         <div class="field col-12 lg:col-6">
           <label htmlfor="title"
@@ -32,30 +72,33 @@
           >
           <input
             pInputText
+            formControlName="supplier"
             id="title"
             type="text"
             class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['supplier'].errors && (f['supplier'].dirty || f['supplier'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
           />
+          <span
+            class="p-error font-italic"
+            *ngIf="f['supplier'].errors && (f['supplier'].dirty || f['supplier'].touched)"
+          >
+            <small
+              *ngIf="
+                f['supplier'].errors['required'] || f['supplier'].errors['whitespace']
+              "
+              >Tên nhà cung cấp không được để trống</small
+            >
+            <small *ngIf="f['supplier'].errors['maxlength']"
+              >Tên nhà cung cấp không được vượt quá 255 ký tự</small
+            >
+          </span>
         </div>
         <div class="field col-12 lg:col-6">
-          <label htmlfor="title">Tổng số lượng</label>
-          <input
-            pInputText
-            id="title"
-            type="number"
-            class="p-inputtext p-component p-element"
-          />
-        </div>
-        <div class="field col-12 lg:col-6">
-          <label htmlfor="title">Tổng giá nhập</label>
-          <p-inputNumber
-            mode="currency"
-            currency="VND"
-            locale="vi-VN"
-          ></p-inputNumber>
-        </div>
-        <div class="field col-12 lg:col-6">
-          <label htmlfor="title">Ngày nhập<span class="p-error">*</span></label>
+          <label htmlfor="title">Ngày nhập</label>
           <p-calendar
             appendTo="body"
             [showIcon]="true"
@@ -91,6 +134,25 @@
           ></p-dropdown>
         </div>
         <div class="field col-12 lg:col-6">
+          <label htmlfor="title">Tổng số lượng</label>
+          <input
+            formControlName="totalQuantity"
+            pInputText
+            id="title"
+            type="number"
+            class="p-inputtext p-component p-element"
+          />
+        </div>
+        <div class="field col-12 lg:col-6">
+          <label htmlfor="title">Tổng giá nhập</label>
+          <p-inputNumber
+            formControlName="totalPrice"
+            mode="currency"
+            currency="VND"
+            locale="vi-VN"
+          ></p-inputNumber>
+        </div>
+        <div class="field col-12 lg:col-6">
           <label>Thêm sản phẩm</label>
           <p-button
             (onClick)="addProduct()"
@@ -121,31 +183,25 @@
               <tr [formGroupName]="i">
                 <td class="text-center">{{ i + 1 }}</td>
                 <td>
-                  {{ getProductName(item.get('productId').value) }}
+                  {{ getProductName(item.get("productId").value) }}
                 </td>
                 <td class="text-center">
-                  <input
+                  <p-inputNumber
                     formControlName="quantity"
-                    pInputText
                     id="quantity"
-                    style="max-height: 32px; max-width: 100%"
-                    type="number"
-                    class="p-inputtext p-component p-element"
+                    (ngModelChange)="updateTotals()"
                     min="1"
-                    max="10"
-                  />
+                  ></p-inputNumber>
                 </td>
                 <td class="text-center">
-                  <input
+                  <p-inputNumber
                     formControlName="price"
-                    pInputText
                     id="price"
-                    style="max-height: 32px; max-width: 100%"
-                    type="number"
-                    class="p-inputtext p-component p-element"
-                    min="1"
-                    max="10"
-                  />
+                    (ngModelChange)="updateTotals()"
+                    mode="currency"
+                    currency="VND"
+                    locale="vi-VN"
+                  ></p-inputNumber>
                 </td>
                 <td class="text-center">
                   <i
@@ -190,9 +246,9 @@
   (onClose)="close()"
   (onSave)="save()"
   [isOnSaveContinue]="action === 'insert'"
+  [disabledSave]="form!.invalid"
   [cancelLabel]="action === 'view' ? 'Đóng' : 'Huỷ'"
 >
-  <!-- [disabledSave]="form!.invalid" -->
 </dialog-footer>
 
 <p-dialog
