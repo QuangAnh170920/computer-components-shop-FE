@@ -168,7 +168,7 @@
         <div class="field col-12 lg:col-12">
           <p-table
             #dt
-            [value]="productFeatures!.controls"
+            [value]="productFeatures.controls"
             [lazy]="true"
             [rows]="10"
             formArrayName="productFeatures"
@@ -265,17 +265,26 @@
             </button>
           </div>
         </div>
+        
         <div class="field col-12 lg:col-6">
           <label for="imageUrl">Ảnh sản phẩm</label>
-          <div *ngIf="imageUrl">
+          <div *ngIf="imageUrl || form?.get('imageUrl')?.value">
             <img
-              [src]="imageUrl"
+              [src]="imageUrl || form?.get('imageUrl')?.value"
               alt="Product Image"
               class="product-image"
-              style="max-width: 100%; max-height: 200px"
+              style="max-width: 100%; max-height: 200px; border-radius: 8px;"
             />
+            <button
+              type="button"
+              (click)="removeCurrentImage()"
+              class="p-button p-component p-button-danger"
+            >
+              <i class="pi pi-trash"></i> Remove Image
+            </button>
           </div>
         </div>
+        
 
         <div class="field col-12 lg:col-12">
           <label htmlfor="note">Mô tả</label>

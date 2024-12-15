@@ -39,6 +39,20 @@ export interface IProduct {
     productFeatures: IProductFeatures[];
 }
 
+export interface IProductUpdate {
+    id: number;
+    code: string;
+    name: string;
+    description: string;
+    price: number;
+    finalTotalPrice: number;
+    power: string;
+    imageUrl: string;
+    categoryId: number;
+    promotionId: number;
+    productFeatures: IProductFeatures[];
+}
+
 export interface IProductFeatures {
     name: string;
     priority: number;

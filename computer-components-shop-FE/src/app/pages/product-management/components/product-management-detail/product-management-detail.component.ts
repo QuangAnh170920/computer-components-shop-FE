@@ -15,6 +15,7 @@ import { DropListService } from '../../../../shared/services/drop-list.service';
 import { CustomVaidators } from '../../../../shared/validators/custom.validator';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { HttpClient } from '@angular/common/http';
+import { IProduct, IProductUpdate } from '../../models/product-management.model';
 
 @Component({
   selector: 'app-product-management-detail',
@@ -29,6 +30,7 @@ export class ProductManagementDetailComponent {
   discountPercentage: any;
   imageUrl: string | undefined;
   selectedFile: File | undefined;
+  dataDetail?: IProductUpdate;
 
   constructor(
     private dialogConfig: DynamicDialogConfig,
@@ -71,6 +73,50 @@ export class ProductManagementDetailComponent {
         break;
       }
     }
+    this.loadDetail();
+  }
+
+  loadDetail() {
+    this._productManagementFacadee.productPaging$.subscribe((res: any) => {
+      if (res) {
+        this.dataDetail = res.responseData;
+
+        this.form?.patchValue({
+          id: this.dataDetail?.id,
+          code: this.dataDetail?.code,
+          name: this.dataDetail?.name,
+          description: this.dataDetail?.description,
+          price: this.dataDetail?.price,
+          finalTotalPrice: this.dataDetail?.finalTotalPrice,
+          power: this.dataDetail?.power,
+          imageUrl: this.dataDetail?.imageUrl,
+          categoryId: this.dataDetail?.categoryId,
+          promotionId: this.dataDetail?.promotionId,
+        });
+
+        const productFeaturesArray = this.form?.get(
+          'productFeatures'
+        ) as FormArray;
+        productFeaturesArray.clear();
+
+        if (
+          this.dataDetail?.productFeatures &&
+          this.dataDetail.productFeatures.length > 0
+        ) {
+          this.dataDetail.productFeatures.forEach((feature: any) => {
+            productFeaturesArray.push(
+              this.fb.group({
+                feature: [feature.feature, Validators.required],
+                priority: [
+                  feature.priority,
+                  [Validators.required, Validators.min(1), Validators.max(10)],
+                ],
+              })
+            );
+          });
+        }
+      }
+    });
   }
 
   getPromotionList() {
@@ -142,7 +188,15 @@ export class ProductManagementDetailComponent {
       imageUrl: [''],
       categoryId: [''],
       promotionId: [''],
-      productFeatures: this.fb.array([]),
+      productFeatures: this.fb.array([
+        this.fb.group({
+          feature: ['', Validators.required],
+          priority: [
+            1,
+            [Validators.required, Validators.min(1), Validators.max(10)],
+          ],
+        }),
+      ]),
     });
     this.form?.reset();
   }
@@ -217,16 +271,12 @@ export class ProductManagementDetailComponent {
       reader.onload = (e: any) => {
         this.imageUrl = e.target.result;
         this.selectedFile = file;
+        this.form?.patchValue({ imageUrl: this.imageUrl });
       };
       reader.readAsDataURL(file);
     } else {
       this.toastService.showWarning('Please select a valid image file.');
     }
-  }
-
-  isValidImage(file: File): boolean {
-    const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    return validImageTypes.includes(file.type);
   }
 
   uploadImage() {
@@ -251,11 +301,14 @@ export class ProductManagementDetailComponent {
 
             const uploadedUrl = response?.responseData?.url;
             if (uploadedUrl) {
-              const imageUrl = uploadedUrl.replace(/^.*src\/assets\//, '/assets/');
-              
+              const imageUrl = uploadedUrl.replace(
+                /^.*src\/assets\//,
+                '/assets/'
+              );
               this.form?.patchValue({
                 imageUrl: imageUrl,
               });
+              this.selectedFile = undefined;
             } else {
               this.toastService.showWarning('No URL returned from the server.');
             }
@@ -270,9 +323,22 @@ export class ProductManagementDetailComponent {
     }
   }
 
-  // Hủy ảnh đã chọn
   cancelImage() {
     this.imageUrl = undefined;
     this.selectedFile = undefined;
+  }
+
+  removeCurrentImage() {
+    this.form?.patchValue({
+      imageUrl: null,
+    });
+    this.imageUrl = undefined;
+    this.selectedFile = undefined;
+    this.toastService.showSuccess('Image removed successfully.');
+  }
+
+  isValidImage(file: File): boolean {
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    return validImageTypes.includes(file.type);
   }
 }
