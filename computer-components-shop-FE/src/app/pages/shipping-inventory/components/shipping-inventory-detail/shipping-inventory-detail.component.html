@@ -10,12 +10,63 @@
           >
           <input
             pInputText
+            formControlName="code"
             id="title"
             type="text"
             class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['code'].errors && (f['code'].dirty || f['code'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
           />
+          <span
+            class="p-error font-italic"
+            *ngIf="f['code'].errors && (f['code'].dirty || f['code'].touched)"
+          >
+            <small
+              *ngIf="
+                f['code'].errors['required'] || f['code'].errors['whitespace']
+              "
+              >Mã đơn hàng không được để trống</small
+            >
+            <small *ngIf="f['code'].errors['maxlength']"
+              >Mã đơn hàng không được vượt quá 100 ký tự</small
+            >
+          </span>
         </div>
         <div class="field col-12 lg:col-6">
+          <label htmlfor="title"
+            >Tên đơn xuất hàng<span class="p-error">*</span></label
+          >
+          <input
+            pInputText
+            formControlName="name"
+            id="title"
+            type="text"
+            class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['name'].errors && (f['name'].dirty || f['name'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
+          />
+          <span
+            class="p-error font-italic"
+            *ngIf="f['name'].errors && (f['name'].dirty || f['name'].touched)"
+          >
+            <small
+              *ngIf="
+                f['name'].errors['required'] || f['name'].errors['whitespace']
+              "
+              >Tên đơn hàng không được để trống</small
+            >
+            <small *ngIf="f['name'].errors['maxlength']"
+              >Tên đơn hàng không được vượt quá 255 ký tự</small
+            >
+          </span>
+        </div>
+        <!-- <div class="field col-12 lg:col-6">
           <label htmlfor="title"
             >Người xuất<span class="p-error">*</span></label
           >
@@ -25,7 +76,7 @@
             type="text"
             class="p-inputtext p-component p-element"
           />
-        </div>
+        </div> -->
         <div class="field col-12 lg:col-6">
           <label htmlfor="note">Phương thức thanh toán đơn hàng</label>
           <p-dropdown
@@ -55,23 +106,26 @@
         <div class="field col-12 lg:col-6">
           <label htmlfor="title">Tổng số lượng</label>
           <input
+            formControlName="totalQuantity"
             pInputText
             id="title"
-            type="text"
+            type="number"
             class="p-inputtext p-component p-element"
           />
         </div>
         <div class="field col-12 lg:col-6">
           <label htmlfor="title">Tổng đơn giá</label>
           <p-inputNumber
+            formControlName="totalPrice"
             mode="currency"
             currency="VND"
             locale="vi-VN"
           ></p-inputNumber>
         </div>
         <div class="field col-12 lg:col-6">
-          <label htmlfor="title">Ngày xuất<span class="p-error">*</span></label>
+          <label htmlfor="title">Ngày xuất</label>
           <p-calendar
+            formControlName="transactionDate"
             appendTo="body"
             [showIcon]="true"
             [showButtonBar]="true"
@@ -85,12 +139,13 @@
             (onClick)="addProduct()"
             label="Thêm sản phẩm"
             icon="pi pi-plus"
+            [disabled]="actionViewDisable()"
           />
         </div>
         <div class="field col-12 lg:col-12">
           <p-table
             #dt
-            [value]="warehouseProductDTOS!.controls"
+            [value]="warehouseProductDTOS.controls"
             [lazy]="true"
             [rows]="10"
             formArrayName="warehouseProductDTOS"
@@ -110,35 +165,31 @@
               <tr [formGroupName]="i">
                 <td class="text-center">{{ i + 1 }}</td>
                 <td>
-                  {{ getProductName(item.get('productId').value) }}
+                  {{ getProductName(item.get("productId").value) }}
                 </td>
                 <td class="text-center">
-                  <input
+                  <p-inputNumber
                     formControlName="quantity"
-                    pInputText
                     id="quantity"
-                    style="max-height: 32px; max-width: 100%"
-                    type="number"
-                    class="p-inputtext p-component p-element"
+                    (ngModelChange)="updateTotals()"
                     min="1"
-                    max="10"
-                  />
+                    [readonly]="actionViewDisable()"
+                  ></p-inputNumber>
                 </td>
                 <td class="text-center">
-                  <input
+                  <p-inputNumber
                     formControlName="price"
-                    pInputText
                     id="price"
-                    style="max-height: 32px; max-width: 100%"
-                    type="number"
-                    class="p-inputtext p-component p-element"
-                    min="1"
-                    max="10"
-                  />
+                    (ngModelChange)="updateTotals()"
+                    mode="currency"
+                    currency="VND"
+                    locale="vi-VN"
+                    [readonly]="actionViewDisable()"
+                  ></p-inputNumber>
                 </td>
                 <td class="text-center">
                   <i
-                    (click)="removeProduct(i)"
+                    (click)="!actionViewDisable() && removeProduct(i)"
                     class="pi pi-trash"
                     style="
                       font-size: 1.2rem;
@@ -179,9 +230,9 @@
   (onClose)="close()"
   (onSave)="save()"
   [isOnSaveContinue]="action === 'insert'"
+  [disabledSave]="form!.invalid"
   [cancelLabel]="action === 'view' ? 'Đóng' : 'Huỷ'"
 >
-  <!-- [disabledSave]="form!.invalid" -->
 </dialog-footer>
 
 

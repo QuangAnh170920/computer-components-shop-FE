@@ -144,11 +144,12 @@ export const API_ROUTER = {
         UPDATE_STATUS: '/v1/api/admin/warehouse/update-status',
     },
     SHIPPING_INVENTORY: {
-        CREATE: '',
-        UPDATE: '',
-        SEARCH: '',
-        DELETE: '',
-        DETAIL: '',
+        CREATE: '/v1/api/admin/warehouse/create',
+        UPDATE: '/v1/api/admin/warehouse/update',
+        SEARCH: '/v1/api/admin/warehouse/find-all-and-search',
+        DELETE: '/v1/api/admin/warehouse/delete/',
+        DETAIL: '/v1/api/admin/warehouse/get-detail/',
+        UPDATE_STATUS: '/v1/api/admin/warehouse/update-status',
     },
     WAREHOUSE: {
         SEARCH: '/v1/api/admin/products/find-all-and-search-quantity-product',

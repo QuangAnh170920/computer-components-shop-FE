@@ -10,7 +10,7 @@ import {
   NewResponseData,
 } from '../../../shared/models/paging.model';
 import { ShippingInventoryService } from '../services/shipping-inventory.service';
-import { ISearch, IShippingInventory } from '../models/shipping-inventory.model';
+import { IPayload, ISearch, IShippingInventory, IShippingInventoryUpdate } from '../models/shipping-inventory.model';
 import { ToastService } from '../../../shared/services/toast.service';
 
 @Injectable({
@@ -36,14 +36,14 @@ export class ShippingInventoryFacade {
     );
   }
 
-  get reviewsPaging$(): Observable<NewPagingData<IShippingInventory> | null> {
+  get shippingInventorysPaging$(): Observable<NewPagingData<IShippingInventory> | null> {
     return this._sis.asObservable().pipe(
       filter((res) => res !== null),
       distinctUntilChanged()
     );
   }
 
-  get reviewPaging$(): Observable<NewResponseData<IShippingInventory> | null> {
+  get shippingInventoryPaging$(): Observable<NewResponseData<IShippingInventory> | null> {
     return this._si.asObservable().pipe(
       filter((res) => res !== null),
       distinctUntilChanged()
@@ -62,18 +62,18 @@ export class ShippingInventoryFacade {
     return this.shippingInventoryService.create(payload).subscribe((res) => {
       if (res && res.responseData) {
         this._si.next(res.responseData);
-        this.toastService.showSuccess('Thêm mới đánh giá thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.toastService.showSuccess('Thêm mới đơn xuất hàng thành công');
+        this.search({type: '2', pageNumber: 1, pageSize: 10 });
       }
     });
   }
 
-  update(payload: IShippingInventory) {
+  update(payload: IPayload) {
     return this.shippingInventoryService.update(payload).subscribe((res) => {
       if (res && res.responseData) {
         this._si.next(res.responseData);
-        this.toastService.showSuccess('Cập nhật đánh giá thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.toastService.showSuccess('Cập nhật đơn xuất hàng thành công');
+        this.search({type: '2', pageNumber: 1, pageSize: 10 });
       }
     });
   }
@@ -91,7 +91,31 @@ export class ShippingInventoryFacade {
       if (res) {
         this._si.next(res);
         this.toastService.showSuccess('Xóa thông tin thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({type: '2', pageNumber: 1, pageSize: 10 });
+      }
+    });
+  }
+
+  approve(id: any, status: string) {
+    return this.shippingInventoryService.approve(id, status).subscribe((res) => {
+      if (res) {
+        this._si.next(res.responseData);
+        this.toastService.showSuccess(
+          'Cập nhật trạng thái thành công'
+        );
+        this.search({type: '2', pageNumber: 1, pageSize: 10 });
+      }
+    });
+  }
+
+  unapprove(id: any, status: string) {
+    return this.shippingInventoryService.unapprove(id, status).subscribe((res) => {
+      if (res) {
+        this._si.next(res.responseData);
+        this.toastService.showSuccess(
+          'Cập nhật trạng thái thành công'
+        );
+        this.search({type: '2', pageNumber: 1, pageSize: 10 });
       }
     });
   }

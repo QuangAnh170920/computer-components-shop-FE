@@ -1,36 +1,49 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { EFormAction } from '../../../../shared/models/form.model';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DropListService } from '../../../../shared/services/drop-list.service';
 import { CustomVaidators } from '../../../../shared/validators/custom.validator';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { IShippingInventoryUpdate } from '../../models/shipping-inventory.model';
+import { ShippingInventoryFacade } from '../../facade/shipping-inventory.facade';
 
 @Component({
   selector: 'app-shipping-inventory-detail',
   templateUrl: './shipping-inventory-detail.component.html',
-  styleUrls: ['./shipping-inventory-detail.component.scss']
+  styleUrls: ['./shipping-inventory-detail.component.scss'],
 })
 export class ShippingInventoryDetailComponent {
   form?: FormGroup;
   action: EFormAction = EFormAction.VIEW;
+  actionView: boolean = false; 
   productList: any[] = [];
   displayProductDialog: boolean = false;
   selectedProduct: any = null;
   paymentMethodList = [
-    { value: 1, label: 'Tiền mặt' },          // CASH
-    { value: 2, label: 'Chuyển khoản' },     // BANK_TRANSFER
-    { value: 3, label: 'Thanh toán di động' } // MOBILE_PAYMENT
+    { value: 1, label: 'Tiền mặt' }, // CASH
+    { value: 2, label: 'Chuyển khoản' }, // BANK_TRANSFER
+    { value: 3, label: 'Thanh toán di động' }, // MOBILE_PAYMENT
   ];
   paymentStatusList = [
-    { value: 1, label: 'Chờ thanh toán' },    // PENDING
-    { value: 2, label: 'Đã thanh toán' },    // COMPLETED
+    { value: 1, label: 'Chờ thanh toán' }, // PENDING
+    { value: 2, label: 'Đã thanh toán' }, // COMPLETED
     { value: 3, label: 'Thanh toán thất bại' }, // FAILED
-    { value: 4, label: 'Đã hủy' },           // CANCELLED
+    { value: 4, label: 'Đã hủy' }, // CANCELLED
     { value: 5, label: 'Đang xử lý thanh toán' }, // PROCESSING
-    { value: 6, label: 'Tạm dừng' }          // ON_HOLD
+    { value: 6, label: 'Tạm dừng' }, // ON_HOLD
   ];
+
+  totalQuantity: number = 0;
+  totalPrice: number = 0;
+  dataDetail?: IShippingInventoryUpdate;
 
   constructor(
     private dialogConfig: DynamicDialogConfig,
@@ -39,7 +52,8 @@ export class ShippingInventoryDetailComponent {
     private messageService: MessageService,
     private _dropListService: DropListService,
     private toastService: ToastService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private _shippingInventoryFacade: ShippingInventoryFacade,
   ) {
     this.action = dialogConfig.data?.action;
   }
@@ -49,6 +63,8 @@ export class ShippingInventoryDetailComponent {
     this.getProductList();
     switch (this.action) {
       case EFormAction.INSERT: {
+        this.form?.get('totalQuantity')?.disable();
+        this.form?.get('totalPrice')?.disable();
         this.form?.reset();
         break;
       }
@@ -57,9 +73,62 @@ export class ShippingInventoryDetailComponent {
         break;
       }
       case EFormAction.EDIT: {
+        this.form?.get('totalQuantity')?.disable();
+        this.form?.get('totalPrice')?.disable();
         break;
       }
     }
+    this.loadDetail();
+  }
+
+  loadDetail() {
+    this._shippingInventoryFacade.shippingInventoryPaging$.subscribe((res: any) => {
+      if (res) {
+        this.dataDetail = res.responseData;
+        const transactionDate = this.dataDetail?.transactionDate
+        ? new Date(this.dataDetail.transactionDate)
+        : null;
+
+        this.form?.patchValue({
+          id: this.dataDetail?.id,
+          code: this.dataDetail?.code,
+          name: this.dataDetail?.name,
+          type: this.dataDetail?.type,
+          totalQuantity: this.dataDetail?.totalQuantity,
+          totalPrice: this.dataDetail?.totalPrice,
+          paymentMethod: this.dataDetail?.paymentMethod,
+          paymentStatus: this.dataDetail?.paymentStatus,
+          description: this.dataDetail?.description,
+          transactionDate: transactionDate,
+        });
+
+        const warehouseProductArray = this.form?.get(
+          'warehouseProductDTOS'
+        ) as FormArray;
+        warehouseProductArray.clear();
+
+        if (
+          this.dataDetail?.warehouseProductDTOS &&
+          this.dataDetail.warehouseProductDTOS.length > 0
+        ) {
+          this.dataDetail.warehouseProductDTOS.forEach((warehouseProduct: any) => {
+            warehouseProductArray.push(
+              this.fb.group({
+                productId: [warehouseProduct.productId, Validators.required],
+                quantity: [
+                  warehouseProduct.quantity,
+                  [Validators.required],
+                ],
+                price: [
+                  warehouseProduct.price,
+                  [Validators.required],
+                ],
+              })
+            );
+          });
+        }
+      }
+    });
   }
 
   private _formInit() {
@@ -81,14 +150,6 @@ export class ShippingInventoryDetailComponent {
           CustomVaidators.NoWhiteSpaceValidator(),
         ]),
       ],
-      supplier: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(100),
-          CustomVaidators.NoWhiteSpaceValidator(),
-        ]),
-      ],
       type: [''],
       totalQuantity: [''],
       totalPrice: [''],
@@ -96,6 +157,8 @@ export class ShippingInventoryDetailComponent {
       paymentMethod: [''],
       paymentStatus: [''],
       warehouseProductDTOS: this.fb.array([]),
+      description: [''],
+      transactionDate: [''],
     });
     this.form?.reset();
   }
@@ -123,9 +186,21 @@ export class ShippingInventoryDetailComponent {
   save(e: boolean = false) {
     if (this.form?.valid) {
       if (this.form?.value.id) {
-        
+        this._shippingInventoryFacade.update(this.form?.value);
       } else {
-        
+        this._shippingInventoryFacade.create({
+          code: this.f['code']?.value,
+          name: this.f['name']?.value,
+          type: '2',
+          totalQuantity: this.f['totalQuantity']?.value,
+          totalPrice: this.f['totalPrice']?.value,
+          employeeId: this.f['employeeId']?.value,
+          paymentMethod: this.f['paymentMethod']?.value,
+          paymentStatus: this.f['paymentStatus']?.value,
+          warehouseProductDTOS: this.f['warehouseProductDTOS']?.value || [],
+          description: this.f['description']?.value,
+          transactionDate: this.f['transactionDate']?.value,
+        });
       }
       this.dialogRef.close();
     }
@@ -135,14 +210,6 @@ export class ShippingInventoryDetailComponent {
   }
 
   addProduct() {
-    // this.warehouseProductDTOS.push(
-    //   this.fb.group({
-    //     warehouseId: [''],
-    //     productId: [''],
-    //     quantity: [''],
-    //     price: [''],
-    //   })
-    // );
     this.displayProductDialog = true;
   }
 
@@ -177,7 +244,7 @@ export class ShippingInventoryDetailComponent {
           price: [this.selectedProduct.price], // Điền giá sản phẩm
         })
       );
-  
+
       // Đóng popup và reset biến
       this.displayProductDialog = false;
       this.selectedProduct = null;
@@ -187,5 +254,29 @@ export class ShippingInventoryDetailComponent {
   getProductName(productId: number): string {
     const product = this.productList.find((p) => p.id === productId);
     return product ? product.name : '';
+  }
+
+  updateTotals() {
+    this.totalQuantity = 0;
+    this.totalPrice = 0;
+    this.warehouseProductDTOS.controls.forEach((control) => {
+      const quantity = control.get('quantity')?.value || 0;
+      const price = control.get('price')?.value || 0;
+      this.totalQuantity += quantity;
+      this.totalPrice += quantity * price;
+    });
+
+    this.form?.patchValue({
+      totalQuantity: this.totalQuantity,
+      totalPrice: this.totalPrice,
+    });
+  }
+
+  actionViewDisable(): boolean {
+    if (this.action === EFormAction.VIEW) {
+      return this.actionView = true;
+    } else {
+      return this.actionView = false;
+    }
   }
 }

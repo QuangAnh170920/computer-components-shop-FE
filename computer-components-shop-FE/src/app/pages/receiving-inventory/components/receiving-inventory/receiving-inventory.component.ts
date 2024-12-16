@@ -26,6 +26,7 @@ export class ReceivingInventoryComponent {
   event?: TableLazyLoadEvent;
   first = 1;
   searchPayload: ISearch = {
+    type: '1',
     pageNumber: 1,
     pageSize: 10,
   };
@@ -57,11 +58,11 @@ export class ReceivingInventoryComponent {
   }
 
   setStatus(s: number) {
-    return s === 1 ? 'Đã duyệt' : 'Chờ duyệt';
+    return s === 2 ? 'Đã duyệt' : 'Chờ duyệt';
   }
 
   setStatusColor(s: number) {
-    return s === 1 ? 'success' : 'warning';
+    return s === 2 ? 'success' : 'warning';
   }
 
   setPaymentMethod(p: number): string {
@@ -127,9 +128,9 @@ export class ReceivingInventoryComponent {
   }
 
   setActionBar(s: number) {
-    return s === 1
-      ? ['view', 'edit']
-      : ['view', 'edit', 'del'];
+    return s === 2
+    ? ['view', 'edit', 'unapprove']
+    : ['view', 'edit', 'del', 'approve'];
   }
 
   actionClick(e: any, item: IPayload) {
@@ -165,7 +166,7 @@ export class ReceivingInventoryComponent {
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
-            item.status = '1';
+            item.status = '2';
             this._receivingInventoryFacade.approve(item.id, item.status);
           },
           reject: () => {},
@@ -177,7 +178,7 @@ export class ReceivingInventoryComponent {
           header: 'Xác nhận',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
-            item.status = '2';
+            item.status = '1';
             this._receivingInventoryFacade.unapprove(item.id, item.status);
           },
           reject: () => {},

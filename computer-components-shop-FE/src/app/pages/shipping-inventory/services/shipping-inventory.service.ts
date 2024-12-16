@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { API_ROUTER } from '../../../shared/constants/api.constant';
 import { ApiService } from '../../../shared/services/api.service';
-import { IPayload, ISearch } from '../models/shipping-inventory.model';
+import { IPayload, ISearch, IShippingInventory } from '../models/shipping-inventory.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ShippingInventoryService {
     return this.apiService.post(`${API_ROUTER.SHIPPING_INVENTORY.SEARCH}`, payload);
   }
 
-  create(payload: IPayload) {
+  create(payload: IShippingInventory) {
     return this.apiService.post(`${API_ROUTER.SHIPPING_INVENTORY.CREATE}`, payload);
   }
 
@@ -28,5 +28,21 @@ export class ShippingInventoryService {
 
   detail(id: any) {
     return this.apiService.post(`${API_ROUTER.SHIPPING_INVENTORY.DETAIL}${id}`);
+  }
+
+  approve(id: any, status: string) {
+    const payload = {
+      id,
+      status
+    }
+    return this.apiService.put(`${API_ROUTER.SHIPPING_INVENTORY.UPDATE_STATUS}`, payload);
+  }
+
+  unapprove(id: any, status: string) {
+    const payload = {
+      id,
+      status
+    }
+    return this.apiService.put(`${API_ROUTER.SHIPPING_INVENTORY.UPDATE_STATUS}`, payload);
   }
 }

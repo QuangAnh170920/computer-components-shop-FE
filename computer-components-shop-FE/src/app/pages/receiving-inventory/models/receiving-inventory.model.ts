@@ -26,9 +26,26 @@ export interface ISearch {
   pageSize?: number;
   searchField?: string;
   productId?: number;
+  type?: string;
 }
 
 export interface IReceivingInventory {
+  code: string;
+  name: string;
+  supplier: string;
+  type: string;
+  totalQuantity: number;
+  totalPrice: number;
+  employeeId: number;
+  paymentMethod: string;
+  paymentStatus: string;
+  warehouseProductDTOS: IWarehouseProductDTOS[];
+  description: string;
+  transactionDate: Date;
+}
+
+export interface IReceivingInventoryUpdate {
+  id: number;
   code: string;
   name: string;
   supplier: string;

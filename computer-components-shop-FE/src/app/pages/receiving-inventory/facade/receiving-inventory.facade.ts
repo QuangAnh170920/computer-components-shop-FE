@@ -66,7 +66,7 @@ export class ReceivingInventoryFacade {
       if (res && res.responseData) {
         this._ri.next(res.responseData);
         this.toastService.showSuccess('Thêm mới đơn nhập hàng thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({type: '1', pageNumber: 1, pageSize: 10 });
       }
     });
   }
@@ -76,7 +76,7 @@ export class ReceivingInventoryFacade {
       if (res && res.responseData) {
         this._ri.next(res.responseData);
         this.toastService.showSuccess('Cập nhật đơn nhập hàng thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({type: '1', pageNumber: 1, pageSize: 10 });
       }
     });
   }
@@ -94,7 +94,7 @@ export class ReceivingInventoryFacade {
       if (res) {
         this._ri.next(res);
         this.toastService.showSuccess('Xóa thông tin thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({type: '1', pageNumber: 1, pageSize: 10 });
       }
     });
   }
@@ -106,7 +106,7 @@ export class ReceivingInventoryFacade {
         this.toastService.showSuccess(
           'Cập nhật trạng thái thành công'
         );
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({type: '1', pageNumber: 1, pageSize: 10 });
       }
     });
   }
@@ -118,7 +118,7 @@ export class ReceivingInventoryFacade {
         this.toastService.showSuccess(
           'Cập nhật trạng thái thành công'
         );
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({type: '1', pageNumber: 1, pageSize: 10 });
       }
     });
   }

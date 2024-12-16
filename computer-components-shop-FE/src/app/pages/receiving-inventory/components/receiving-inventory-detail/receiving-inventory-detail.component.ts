@@ -13,6 +13,7 @@ import { EFormAction } from '../../../../shared/models/form.model';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { CustomVaidators } from '../../../../shared/validators/custom.validator';
 import { ReceivingInventoryFacade } from '../../facade/receiving-inventory.facade';
+import { IReceivingInventory, IReceivingInventoryUpdate } from '../../models/receiving-inventory.model';
 
 @Component({
   selector: 'app-receiving-inventory-detail',
@@ -22,6 +23,7 @@ import { ReceivingInventoryFacade } from '../../facade/receiving-inventory.facad
 export class ReceivingInventoryDetailComponent {
   form?: FormGroup;
   action: EFormAction = EFormAction.VIEW;
+  actionView: boolean = false; 
   productList: any[] = [];
   displayProductDialog: boolean = false;
   selectedProduct: any = null;
@@ -41,6 +43,7 @@ export class ReceivingInventoryDetailComponent {
 
   totalQuantity: number = 0;
   totalPrice: number = 0;
+  dataDetail?: IReceivingInventoryUpdate;
 
   constructor(
     private dialogConfig: DynamicDialogConfig,
@@ -75,6 +78,58 @@ export class ReceivingInventoryDetailComponent {
         break;
       }
     }
+    this.loadDetail();
+  }
+
+  loadDetail() {
+    this._receivingInventoryFacade.receivingInventoryPaging$.subscribe((res: any) => {
+      if (res) {
+        this.dataDetail = res.responseData;
+        const transactionDate = this.dataDetail?.transactionDate
+        ? new Date(this.dataDetail.transactionDate)
+        : null;
+
+        this.form?.patchValue({
+          id: this.dataDetail?.id,
+          code: this.dataDetail?.code,
+          name: this.dataDetail?.name,
+          supplier: this.dataDetail?.supplier,
+          type: this.dataDetail?.type,
+          totalQuantity: this.dataDetail?.totalQuantity,
+          totalPrice: this.dataDetail?.totalPrice,
+          paymentMethod: this.dataDetail?.paymentMethod,
+          paymentStatus: this.dataDetail?.paymentStatus,
+          description: this.dataDetail?.description,
+          transactionDate: transactionDate,
+        });
+
+        const warehouseProductArray = this.form?.get(
+          'warehouseProductDTOS'
+        ) as FormArray;
+        warehouseProductArray.clear();
+
+        if (
+          this.dataDetail?.warehouseProductDTOS &&
+          this.dataDetail.warehouseProductDTOS.length > 0
+        ) {
+          this.dataDetail.warehouseProductDTOS.forEach((warehouseProduct: any) => {
+            warehouseProductArray.push(
+              this.fb.group({
+                productId: [warehouseProduct.productId, Validators.required],
+                quantity: [
+                  warehouseProduct.quantity,
+                  [Validators.required],
+                ],
+                price: [
+                  warehouseProduct.price,
+                  [Validators.required],
+                ],
+              })
+            );
+          });
+        }
+      }
+    });
   }
 
   private _formInit() {
@@ -225,5 +280,13 @@ export class ReceivingInventoryDetailComponent {
       totalQuantity: this.totalQuantity,
       totalPrice: this.totalPrice
     });
+  }
+
+  actionViewDisable(): boolean {
+    if (this.action === EFormAction.VIEW) {
+      return this.actionView = true;
+    } else {
+      return this.actionView = false;
+    }
   }
 }
