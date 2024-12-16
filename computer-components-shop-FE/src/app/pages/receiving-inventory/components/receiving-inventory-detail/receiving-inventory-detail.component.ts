@@ -28,17 +28,17 @@ export class ReceivingInventoryDetailComponent {
   displayProductDialog: boolean = false;
   selectedProduct: any = null;
   paymentMethodList = [
-    { value: 1, label: 'Tiền mặt' },          // CASH
-    { value: 2, label: 'Chuyển khoản' },     // BANK_TRANSFER
-    { value: 3, label: 'Thanh toán di động' } // MOBILE_PAYMENT
+    { value: '1', label: 'Tiền mặt' },          // CASH
+    { value: '2', label: 'Chuyển khoản' },     // BANK_TRANSFER
+    { value: '3', label: 'Thanh toán di động' } // MOBILE_PAYMENT
   ];
   paymentStatusList = [
-    { value: 1, label: 'Chờ thanh toán' },    // PENDING
-    { value: 2, label: 'Đã thanh toán' },    // COMPLETED
-    { value: 3, label: 'Thanh toán thất bại' }, // FAILED
-    { value: 4, label: 'Đã hủy' },           // CANCELLED
-    { value: 5, label: 'Đang xử lý thanh toán' }, // PROCESSING
-    { value: 6, label: 'Tạm dừng' }          // ON_HOLD
+    { value: '1', label: 'Chờ thanh toán' },    // PENDING
+    { value: '2', label: 'Đã thanh toán' },    // COMPLETED
+    { value: '3', label: 'Thanh toán thất bại' }, // FAILED
+    { value: '4', label: 'Đã hủy' },           // CANCELLED
+    { value: '5', label: 'Đang xử lý thanh toán' }, // PROCESSING
+    { value: '6', label: 'Tạm dừng' }          // ON_HOLD
   ];
 
   totalQuantity: number = 0;
@@ -60,6 +60,7 @@ export class ReceivingInventoryDetailComponent {
 
   ngOnInit() {
     this._formInit();
+    this.updateTotals();
     this.getProductList();
     switch (this.action) {
       case EFormAction.INSERT: {
@@ -69,16 +70,17 @@ export class ReceivingInventoryDetailComponent {
         break;
       }
       case EFormAction.VIEW: {
+        this.loadDetail();
         this.form?.disable();
         break;
       }
       case EFormAction.EDIT: {
+        this.loadDetail();
         this.form?.get('totalQuantity')?.disable();
         this.form?.get('totalPrice')?.disable();
         break;
       }
     }
-    this.loadDetail();
   }
 
   loadDetail() {
@@ -193,9 +195,24 @@ export class ReceivingInventoryDetailComponent {
   }
 
   save(e: boolean = false) {
+    this.updateTotals();
     if (this.form?.valid) {
       if (this.form?.value.id) {
-        this._receivingInventoryFacade.update(this.form?.value);
+        this._receivingInventoryFacade.update({
+          id: this.dataDetail?.id,
+          code: this.f['code']?.value,
+          name: this.f['name']?.value,
+          supplier: this.f['supplier']?.value,
+          type: '1',
+          totalQuantity: this.f['totalQuantity']?.value,
+          totalPrice: this.f['totalPrice']?.value,
+          employeeId: this.f['employeeId']?.value,
+          paymentMethod: this.f['paymentMethod']?.value,
+          paymentStatus: this.f['paymentStatus']?.value,
+          warehouseProductDTOS: this.f['warehouseProductDTOS']?.value || [],
+          description: this.f['description']?.value,
+          transactionDate: this.f['transactionDate']?.value,
+        });
       } else {
         this._receivingInventoryFacade.create({
           code: this.f['code']?.value,

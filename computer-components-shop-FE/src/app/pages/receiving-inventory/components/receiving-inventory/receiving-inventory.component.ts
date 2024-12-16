@@ -65,62 +65,62 @@ export class ReceivingInventoryComponent {
     return s === 2 ? 'success' : 'warning';
   }
 
-  setPaymentMethod(p: number): string {
-    if (p === 1) {
+  setPaymentMethod(p: string): string {
+    if (p === '1') {
       return 'Tiền mặt';
-    } else if (p === 2) {
+    } else if (p === '2') {
       return 'Chuyển khoản';
-    } else if (p === 3) {
+    } else if (p === '3') {
       return 'Thanh toán di động';
     } else {
       return 'Không xác định';
     }
   }
 
-  setPaymentMethodColor(p: number): "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
-    if (p === 1) {
+  setPaymentMethodColor(p: string): "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
+    if (p === '1') {
       return 'success';
-    } else if (p === 2) {
+    } else if (p === '2') {
       return 'info';
-    } else if (p === 3) {
+    } else if (p === '3') {
       return 'warning';
     } else {
       return undefined;
     }
   }
 
-  setPaymentStatus(paymentStatus: number): string {
+  setPaymentStatus(paymentStatus: string): string {
     switch (paymentStatus) {
-      case 1:
+      case '1':
         return 'Chờ thanh toán';
-      case 2:
+      case '2':
         return 'Đã thanh toán';
-      case 3:
+      case '3':
         return 'Thanh toán thất bại';
-      case 4:
+      case '4':
         return 'Đã hủy';
-      case 5:
+      case '5':
         return 'Đang xử lý thanh toán';
-      case 6:
+      case '6':
         return 'Tạm dừng';
       default:
         return 'Không xác định';
     }
   }
 
-  setPaymentStatusColor(paymentStatus: number): "success" | "danger" | "warning" | "info" | "secondary" | "contrast" | undefined {
+  setPaymentStatusColor(paymentStatus: string): "success" | "danger" | "warning" | "info" | "secondary" | "contrast" | undefined {
     switch (paymentStatus) {
-      case 1:
+      case '1':
         return 'warning'; // Chờ thanh toán
-      case 2:
+      case '2':
         return 'success'; // Đã thanh toán
-      case 3:
+      case '3':
         return 'danger'; // Thanh toán thất bại
-      case 4:
+      case '4':
         return 'secondary'; // Đã hủy
-      case 5:
+      case '5':
         return 'info'; // Đang xử lý thanh toán
-      case 6:
+      case '6':
         return 'warning'; // Tạm dừng
       default:
         return undefined; // Trường hợp không xác định

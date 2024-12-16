@@ -1,17 +1,17 @@
 export interface IPayload {
-  id: number;
-  code: string;
-  name: string;
-  type: string;
-  totalQuantity: number;
-  totalPrice: number;
-  employeeId: number;
-  paymentMethod: string;
-  paymentStatus: string;
-  warehouseProductDTOS: IWarehouseProductDTOS[];
-  description: string;
-  transactionDate: Date;
-  status: string;
+  id?: number;
+  code?: string;
+  name?: string;
+  type?: string;
+  totalQuantity?: number;
+  totalPrice?: number;
+  employeeId?: number;
+  paymentMethod?: string;
+  paymentStatus?: string;
+  warehouseProductDTOS?: IWarehouseProductDTOS[];
+  description?: string;
+  transactionDate?: Date;
+  status?: string;
 }
 
 export interface IResponse {
@@ -43,7 +43,7 @@ export interface IShippingInventory {
 }
 
 export interface IShippingInventoryUpdate {
-  id: number;
+  id?: number;
   code: string;
   name: string;
   type: string;

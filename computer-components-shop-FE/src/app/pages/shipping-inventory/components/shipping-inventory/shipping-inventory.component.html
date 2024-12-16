@@ -26,6 +26,7 @@
 <div class="card mt-3">
   <p-table
     #dt
+    [value]="listDataSearchInit"
     [lazy]="true"
     (onLazyLoad)="lazyLoad($event)"
     dataKey="id"
@@ -75,7 +76,6 @@
         <td class="text-center">
           {{ item?.totalPrice | currency: 'VND' }}
         </td>
-        <td>{{ item?.supplier }}</td>
         <td class="text-center">{{ item?.transactionDate | date: 'dd/MM/yyyy' }}</td>
         <td>
           <div class="flex" style="justify-content: center">

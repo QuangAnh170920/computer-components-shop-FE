@@ -1,18 +1,18 @@
 export interface IPayload {
-  id: number;
-  code: string;
-  name: string;
-  supplier: string;
-  type: string;
-  totalQuantity: number;
-  totalPrice: number;
-  employeeId: number;
-  paymentMethod: string;
-  paymentStatus: string;
-  warehouseProductDTOS: IWarehouseProductDTOS[];
-  description: string;
-  transactionDate: Date;
-  status: string;
+  id?: number;
+  code?: string;
+  name?: string;
+  supplier?: string;
+  type?: string;
+  totalQuantity?: number;
+  totalPrice?: number;
+  employeeId?: number;
+  paymentMethod?: string;
+  paymentStatus?: string;
+  warehouseProductDTOS?: IWarehouseProductDTOS[];
+  description?: string;
+  transactionDate?: Date;
+  status?: string;
 }
 
 export interface IResponse {

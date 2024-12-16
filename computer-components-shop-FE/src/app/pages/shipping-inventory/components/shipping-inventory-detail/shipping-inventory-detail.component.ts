@@ -28,17 +28,17 @@ export class ShippingInventoryDetailComponent {
   displayProductDialog: boolean = false;
   selectedProduct: any = null;
   paymentMethodList = [
-    { value: 1, label: 'Tiền mặt' }, // CASH
-    { value: 2, label: 'Chuyển khoản' }, // BANK_TRANSFER
-    { value: 3, label: 'Thanh toán di động' }, // MOBILE_PAYMENT
+    { value: '1', label: 'Tiền mặt' }, // CASH
+    { value: '2', label: 'Chuyển khoản' }, // BANK_TRANSFER
+    { value: '3', label: 'Thanh toán di động' }, // MOBILE_PAYMENT
   ];
   paymentStatusList = [
-    { value: 1, label: 'Chờ thanh toán' }, // PENDING
-    { value: 2, label: 'Đã thanh toán' }, // COMPLETED
-    { value: 3, label: 'Thanh toán thất bại' }, // FAILED
-    { value: 4, label: 'Đã hủy' }, // CANCELLED
-    { value: 5, label: 'Đang xử lý thanh toán' }, // PROCESSING
-    { value: 6, label: 'Tạm dừng' }, // ON_HOLD
+    { value: '1', label: 'Chờ thanh toán' }, // PENDING
+    { value: '2', label: 'Đã thanh toán' }, // COMPLETED
+    { value: '3', label: 'Thanh toán thất bại' }, // FAILED
+    { value: '4', label: 'Đã hủy' }, // CANCELLED
+    { value: '5', label: 'Đang xử lý thanh toán' }, // PROCESSING
+    { value: '6', label: 'Tạm dừng' }, // ON_HOLD
   ];
 
   totalQuantity: number = 0;
@@ -60,25 +60,28 @@ export class ShippingInventoryDetailComponent {
 
   ngOnInit() {
     this._formInit();
+    this.updateTotals();
     this.getProductList();
     switch (this.action) {
       case EFormAction.INSERT: {
+        this.form?.reset();
         this.form?.get('totalQuantity')?.disable();
         this.form?.get('totalPrice')?.disable();
-        this.form?.reset();
         break;
       }
       case EFormAction.VIEW: {
+        this.loadDetail();
         this.form?.disable();
         break;
       }
       case EFormAction.EDIT: {
+        this.loadDetail();
         this.form?.get('totalQuantity')?.disable();
         this.form?.get('totalPrice')?.disable();
         break;
       }
     }
-    this.loadDetail();
+    
   }
 
   loadDetail() {
@@ -184,9 +187,23 @@ export class ShippingInventoryDetailComponent {
   }
 
   save(e: boolean = false) {
+    this.updateTotals();
     if (this.form?.valid) {
       if (this.form?.value.id) {
-        this._shippingInventoryFacade.update(this.form?.value);
+        this._shippingInventoryFacade.update({
+          id: this.dataDetail?.id,
+          code: this.f['code']?.value,
+          name: this.f['name']?.value,
+          type: '2',
+          totalQuantity: this.f['totalQuantity']?.value,
+          totalPrice: this.f['totalPrice']?.value,
+          employeeId: this.f['employeeId']?.value,
+          paymentMethod: this.f['paymentMethod']?.value,
+          paymentStatus: this.f['paymentStatus']?.value,
+          warehouseProductDTOS: this.f['warehouseProductDTOS']?.value || [],
+          description: this.f['description']?.value,
+          transactionDate: this.f['transactionDate']?.value,
+        });
       } else {
         this._shippingInventoryFacade.create({
           code: this.f['code']?.value,
