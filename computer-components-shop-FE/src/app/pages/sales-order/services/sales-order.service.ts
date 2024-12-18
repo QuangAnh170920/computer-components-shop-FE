@@ -22,22 +22,6 @@ export class SalesOrderService {
     return this.apiService.put(`${API_ROUTER.SALE_ORDER.UPDATE}`, payload);
   }
 
-  approve(id: any, status: string) {
-    const payload = {
-      id,
-      status
-    }
-    return this.apiService.put(`${API_ROUTER.SALE_ORDER.UPDATE_STATUS}`, payload);
-  }
-
-  unapprove(id: any, status: string) {
-    const payload = {
-      id,
-      status
-    }
-    return this.apiService.put(`${API_ROUTER.SALE_ORDER.UPDATE_STATUS}`, payload);
-  }
-
   delete(id: any) {
     return this.apiService.post(`${API_ROUTER.SALE_ORDER.DELETE}${id}`);
   }

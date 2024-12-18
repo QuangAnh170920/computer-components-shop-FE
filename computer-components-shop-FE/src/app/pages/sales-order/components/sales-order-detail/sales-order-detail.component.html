@@ -6,7 +6,7 @@
       <div class="p-formgrid grid">
         <div class="field col-12 lg:col-6">
           <label htmlfor="title"
-            >Mã đơn hàng<span class="p-error">*</span></label
+            >Mã đơn nhập hàng<span class="p-error">*</span></label
           >
           <input
             pInputText
@@ -14,11 +14,30 @@
             id="title"
             type="text"
             class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['code'].errors && (f['code'].dirty || f['code'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
           />
+          <span
+            class="p-error font-italic"
+            *ngIf="f['code'].errors && (f['code'].dirty || f['code'].touched)"
+          >
+            <small
+              *ngIf="
+                f['code'].errors['required'] || f['code'].errors['whitespace']
+              "
+              >Mã đơn hàng không được để trống</small
+            >
+            <small *ngIf="f['code'].errors['maxlength']"
+              >Mã đơn hàng không được vượt quá 100 ký tự</small
+            >
+          </span>
         </div>
         <div class="field col-12 lg:col-6">
-          <label htmlfor="display_order"
-            >Tên đơn hàng<span class="p-error">*</span></label
+          <label htmlfor="title"
+            >Tên đơn nhập hàng<span class="p-error">*</span></label
           >
           <input
             pInputText
@@ -26,57 +45,42 @@
             id="title"
             type="text"
             class="p-inputtext p-component p-element"
+            [ngClass]="
+              f['name'].errors && (f['name'].dirty || f['name'].touched)
+                ? 'ng-dirty ng-invalid'
+                : ''
+            "
           />
-        </div>
-        <div class="field col-12 lg:col-6">
-          <label htmlfor="title">Mã khách hàng</label>
-          <input
-            pInputText
-            formControlName="code"
-            id="title"
-            type="text"
-            class="p-inputtext p-component p-element"
-          />
-        </div>
-        <div class="field col-12 lg:col-6">
-          <label htmlfor="title"
-            >Tên khách hàng<span class="p-error">*</span></label
+          <span
+            class="p-error font-italic"
+            *ngIf="f['name'].errors && (f['name'].dirty || f['name'].touched)"
           >
+            <small
+              *ngIf="
+                f['name'].errors['required'] || f['name'].errors['whitespace']
+              "
+              >Tên đơn hàng không được để trống</small
+            >
+            <small *ngIf="f['name'].errors['maxlength']"
+              >Tên đơn hàng không được vượt quá 255 ký tự</small
+            >
+          </span>
+        </div>
+        <div class="field col-12 lg:col-6">
+          <label htmlfor="title">Khách hàng</label>
           <input
             pInputText
-            formControlName="code"
+            formControlName="userId"
             id="title"
             type="text"
             class="p-inputtext p-component p-element"
           />
         </div>
         <div class="field col-12 lg:col-6">
-          <label htmlfor="title">Email<span class="p-error">*</span></label>
+          <label htmlfor="title">Địa chỉ</label>
           <input
             pInputText
-            formControlName="code"
-            id="title"
-            type="text"
-            class="p-inputtext p-component p-element"
-          />
-        </div>
-        <div class="field col-12 lg:col-6">
-          <label htmlfor="title"
-            >Số điện thoại<span class="p-error">*</span></label
-          >
-          <input
-            pInputText
-            formControlName="code"
-            id="title"
-            type="text"
-            class="p-inputtext p-component p-element"
-          />
-        </div>
-        <div class="field col-12 lg:col-6">
-          <label htmlfor="title">Địa chỉ<span class="p-error">*</span></label>
-          <input
-            pInputText
-            formControlName="code"
+            formControlName="shippingAddress"
             id="title"
             type="text"
             class="p-inputtext p-component p-element"
@@ -84,9 +88,10 @@
         </div>
         <div class="field col-12 lg:col-6">
           <label htmlfor="title"
-            >Thời gian đặt hàng<span class="p-error">*</span></label
+            >Thời gian đặt hàng</label
           >
           <p-calendar
+            formControlName="createdAt"
             appendTo="body"
             [showIcon]="true"
             [showButtonBar]="true"
@@ -95,14 +100,49 @@
           ></p-calendar>
         </div>
         <div class="field col-12 lg:col-6">
-          <label htmlfor="title">Tổng giá<span class="p-error">*</span></label>
+          <label htmlfor="note">Phương thức thanh toán đơn hàng</label>
+          <p-dropdown
+            formControlName="paymentMethod"
+            [options]="paymentMethodList"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Chọn phương thức"
+            [filter]="true"
+            filterBy="name"
+            [showClear]="true"
+          ></p-dropdown>
+        </div>
+        <div class="field col-12 lg:col-6">
+          <label htmlfor="note">Tình trạng thanh toán đơn hàng</label>
+          <p-dropdown
+            formControlName="status"
+            [options]="paymentStatusList"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Chọn phương thức"
+            [filter]="true"
+            filterBy="name"
+            [showClear]="true"
+          ></p-dropdown>
+        </div>
+        <div class="field col-12 lg:col-6">
+          <label htmlfor="title">Tổng số lượng</label>
           <input
+            formControlName="totalQuantity"
             pInputText
-            formControlName="code"
             id="title"
-            type="text"
+            type="number"
             class="p-inputtext p-component p-element"
           />
+        </div>
+        <div class="field col-12 lg:col-6">
+          <label htmlfor="title">Tổng giá nhập</label>
+          <p-inputNumber
+            formControlName="totalPrice"
+            mode="currency"
+            currency="VND"
+            locale="vi-VN"
+          ></p-inputNumber>
         </div>
         <div class="field col-12 lg:col-6">
           <label>Thêm sản phẩm</label>
@@ -110,12 +150,13 @@
             (onClick)="addProduct()"
             label="Thêm sản phẩm"
             icon="pi pi-plus"
+            [disabled]="actionViewDisable()"
           />
         </div>
         <div class="field col-12 lg:col-12">
           <p-table
             #dt
-            [value]="orderDetail!.controls"
+            [value]="orderDetail.controls"
             [lazy]="true"
             [rows]="10"
             formArrayName="orderDetail"
@@ -135,35 +176,31 @@
               <tr [formGroupName]="i">
                 <td class="text-center">{{ i + 1 }}</td>
                 <td>
-                  {{ getProductName(item.get('productId').value) }}
+                  {{ getProductName(item.get("productId").value) }}
                 </td>
                 <td class="text-center">
-                  <input
+                  <p-inputNumber
                     formControlName="quantity"
-                    pInputText
                     id="quantity"
-                    style="max-height: 32px; max-width: 100%"
-                    type="number"
-                    class="p-inputtext p-component p-element"
+                    (ngModelChange)="updateTotals()"
                     min="1"
-                    max="10"
-                  />
+                    [readonly]="actionViewDisable()"
+                  ></p-inputNumber>
                 </td>
                 <td class="text-center">
-                  <input
+                  <p-inputNumber
                     formControlName="price"
-                    pInputText
                     id="price"
-                    style="max-height: 32px; max-width: 100%"
-                    type="number"
-                    class="p-inputtext p-component p-element"
-                    min="1"
-                    max="10"
-                  />
+                    (ngModelChange)="updateTotals()"
+                    mode="currency"
+                    currency="VND"
+                    locale="vi-VN"
+                    [readonly]="actionViewDisable()"
+                  ></p-inputNumber>
                 </td>
                 <td class="text-center">
                   <i
-                    (click)="removeProduct(i)"
+                    (click)="!actionViewDisable() && removeProduct(i)"
                     class="pi pi-trash"
                     style="
                       font-size: 1.2rem;

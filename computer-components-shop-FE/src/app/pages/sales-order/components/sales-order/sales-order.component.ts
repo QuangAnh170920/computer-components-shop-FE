@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TableLazyLoadEvent } from 'primeng/table';
 import { ListDropdownEnum } from '../../../../common/list-dropdown-enum';
-import { ISaleOrder, ISearch } from '../../models/sales-order.model';
 import { ConfirmationService } from 'primeng/api';
 import { SalesOrderService } from '../../services/sales-order.service';
 import { SaleOrderFacade } from '../../facade/sales-order.facade';
@@ -10,6 +9,7 @@ import { EActionBar } from '../../../../shared/components/p-actionbar/models/p-a
 import { EFormAction } from '../../../../shared/models/form.model';
 import { SalesOrderDetailComponent } from '../sales-order-detail/sales-order-detail.component';
 import { EToolBarAction } from '../../../../shared/components/p-toolbar/models/toolbar.model';
+import { IOrders, IPayload, ISearch } from '../../models/sales-order.model';
 
 @Component({
   selector: 'app-sales-order',
@@ -28,7 +28,7 @@ export class SalesOrderComponent {
     pageNumber: 1,
     pageSize: 10,
   };
-  listDataSearchInit: ISaleOrder[] = [];
+  listDataSearchInit: IOrders[] = [];
   totalRecords: number = 0;
 
   constructor(
@@ -66,7 +66,7 @@ export class SalesOrderComponent {
       : ['view', 'edit', 'del', 'approve'];
   }
 
-  actionClick(e: any, item: ISaleOrder) {
+  actionClick(e: any, item: IPayload) {
     switch (e as EActionBar) {
       case EActionBar.VIEW:
         this._saleOrderFacade.detail(item.id);
@@ -92,35 +92,6 @@ export class SalesOrderComponent {
           },
           reject: () => {},
         });
-        break;
-      case EActionBar.APPROVE:
-        this.confirmationService.confirm({
-          message: 'Bạn muốn chuyển trạng thái đơn hàng này?',
-          header: 'Xác nhận',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-            item.status = '1'
-            this._saleOrderFacade.approve(
-              item.id,
-              item.status);;
-          },
-          reject: () => {},
-        });
-        break;
-      case EActionBar.UNAPPROVE:
-        this.confirmationService.confirm({
-          message: 'Bạn muốn chuyển trạng thái đơn hàng này?',
-          header: 'Xác nhận',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-            item.status = '2'
-            this._saleOrderFacade.unapprove(
-              item.id,
-              item.status);
-          },
-          reject: () => {},
-        });
-
         break;
 
       default:

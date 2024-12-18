@@ -163,12 +163,11 @@ export const API_ROUTER = {
         DETAIL: '/v1/api/admin/promotion/get-detail/',
     },
     SALE_ORDER: {
-        CREATE: '',
-        UPDATE: '',
-        UPDATE_STATUS: '',
-        SEARCH: '',
-        DELETE: '',
-        DETAIL: '',
+        CREATE: '/v1/admin/orders/create',
+        UPDATE: '/v1/admin/orders/update',
+        SEARCH: '/v1/admin/orders/find-all-and-search',
+        DELETE: '/v1/admin/orders/delete/',
+        DETAIL: '/v1/admin/orders/get-detail/',
     },
     EMPLOYEE_MANAGEMENT: {
         CREATE: '',

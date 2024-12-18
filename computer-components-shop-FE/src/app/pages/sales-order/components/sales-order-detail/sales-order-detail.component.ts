@@ -6,10 +6,9 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SaleOrderFacade } from '../../facade/sales-order.facade';
 import { CustomVaidators } from '../../../../shared/validators/custom.validator';
-import { NewResponseData } from '../../../../shared/models/paging.model';
-import { ISaleOrder } from '../../models/sales-order.model';
 import { DropListService } from '../../../../shared/services/drop-list.service';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { IOrdersUpdate } from '../../models/sales-order.model';
 
 @Component({
   selector: 'app-sales-order-detail',
@@ -19,10 +18,28 @@ import { ToastService } from '../../../../shared/services/toast.service';
 export class SalesOrderDetailComponent {
   form?: FormGroup;
   action: EFormAction = EFormAction.VIEW;
-  dataDetail?: IPromotion;
+  actionView: boolean = false; 
+  dataDetail?: IOrdersUpdate;
   displayProductDialog: boolean = false;
   selectedProduct: any = null;
   productList: any[] = [];
+
+  paymentMethodList = [
+    { value: '1', label: 'Tiền mặt' },          // CASH
+    { value: '2', label: 'Chuyển khoản' },     // BANK_TRANSFER
+    { value: '3', label: 'Thanh toán di động' } // MOBILE_PAYMENT
+  ];
+  paymentStatusList = [
+    { value: '1', label: 'Đơn hàng đang được xử lý' },    // PROCESSING
+    { value: '2', label: 'Đơn hàng đã được gửi đi' },    // SHIPPED
+    { value: '3', label: 'Đơn hàng đang chờ xử lý' }, // PENDING
+    { value: '4', label: 'Đơn hàng đã được giao' },  // DELIVERED
+    { value: '5', label: 'Đơn hàng đã bị hủy' }, // CANCELLED
+    { value: '6', label: 'Đơn hàng đã được trả lại' }          // RETURNED
+  ];
+
+  totalQuantity: number = 0;
+  totalPrice: number = 0;
 
   constructor(
     private dialogConfig: DynamicDialogConfig,
@@ -40,21 +57,31 @@ export class SalesOrderDetailComponent {
 
   ngOnInit() {
     this._formInit();
+    this.updateTotals();
     this.getProductList();
     switch (this.action) {
       case EFormAction.INSERT: {
+        this.form?.get('totalQuantity')?.disable();
+        this.form?.get('totalPrice')?.disable();
         this.form?.reset();
         break;
       }
       case EFormAction.VIEW: {
+        this.loadDetail();
         this.form?.disable();
-
         break;
       }
       case EFormAction.EDIT: {
+        this.loadDetail();
+        this.form?.get('totalQuantity')?.disable();
+        this.form?.get('totalPrice')?.disable();
         break;
       }
     }
+  }
+
+  loadDetail() {
+    
   }
 
   public get f(): { [key: string]: AbstractControl } {
@@ -84,13 +111,15 @@ export class SalesOrderDetailComponent {
           CustomVaidators.NoWhiteSpaceValidator(),
         ]),
       ],
-      description: [''],
       shippingAddress: [''],
       paymentMethod: [''],
-      paymentStatus: [''],
       totalQuantity: [''],
       totalPrice: [''],
+      status: [''],
+      userId: [''],
+      createdAt: [''],
       orderDetail: this.fb.array([]),
+      description: [''],
     });
     this.form?.reset();
   }
@@ -151,16 +180,14 @@ export class SalesOrderDetailComponent {
 
   selectProduct() {
     if (this.selectedProduct) {
-      // Thêm sản phẩm đã chọn vào danh sách
       this.orderDetail.push(
         this.fb.group({
           productId: [this.selectedProduct.id],
-          quantity: [1], // Đặt số lượng mặc định là 1
-          price: [this.selectedProduct.price], // Điền giá sản phẩm
+          quantity: [1],
+          price: [this.selectedProduct.price],
         })
       );
   
-      // Đóng popup và reset biến
       this.displayProductDialog = false;
       this.selectedProduct = null;
     }
@@ -169,5 +196,29 @@ export class SalesOrderDetailComponent {
   getProductName(productId: number): string {
     const product = this.productList.find((p) => p.id === productId);
     return product ? product.name : '';
+  }
+
+  actionViewDisable(): boolean {
+    if (this.action === EFormAction.VIEW) {
+      return this.actionView = true;
+    } else {
+      return this.actionView = false;
+    }
+  }
+
+  updateTotals() {
+    this.totalQuantity = 0;
+    this.totalPrice = 0;
+    this.orderDetail.controls.forEach((control) => {
+      const quantity = control.get('quantity')?.value || 0;
+      const price = control.get('price')?.value || 0;
+      this.totalQuantity += quantity;
+      this.totalPrice += quantity * price;
+    });
+
+    this.form?.patchValue({
+      totalQuantity: this.totalQuantity,
+      totalPrice: this.totalPrice
+    });
   }
 }

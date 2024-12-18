@@ -1,19 +1,19 @@
 import { BehaviorSubject, Observable, distinctUntilChanged, filter } from "rxjs";
-import { ISaleOrder, ISearch } from "../models/sales-order.model";
 import { NewPagingData, NewResponseData } from "../../../shared/models/paging.model";
 import { SalesOrderService } from "../services/sales-order.service";
 import { ToastService } from "../../../shared/services/toast.service";
 import { Injectable } from "@angular/core";
+import { IOrders, IPayload, ISearch } from "../models/sales-order.model";
 
 @Injectable({
     providedIn: 'root',
   })
   export class SaleOrderFacade {
     private _id = new BehaviorSubject<any | null>(null);
-    private _saleOrders = new BehaviorSubject<NewPagingData<ISaleOrder> | null>(
+    private _saleOrders = new BehaviorSubject<NewPagingData<IOrders> | null>(
       null
     );
-    private _saleOrder = new BehaviorSubject<NewResponseData<ISaleOrder> | null>(
+    private _saleOrder = new BehaviorSubject<NewResponseData<IOrders> | null>(
       null
     );
     constructor(
@@ -28,14 +28,14 @@ import { Injectable } from "@angular/core";
       );
     }
   
-    get saleOrdersPaging$(): Observable<NewPagingData<ISaleOrder> | null> {
+    get saleOrdersPaging$(): Observable<NewPagingData<IOrders> | null> {
       return this._saleOrders.asObservable().pipe(
         filter((res) => res !== null),
         distinctUntilChanged()
       );
     }
   
-    get saleOrderPaging$(): Observable<NewResponseData<ISaleOrder> | null> {
+    get saleOrderPaging$(): Observable<NewResponseData<IOrders> | null> {
       return this._saleOrder.asObservable().pipe(
         filter((res) => res !== null),
         distinctUntilChanged()
@@ -50,7 +50,7 @@ import { Injectable } from "@angular/core";
       });
     }
   
-    create(payload: ISaleOrder) {
+    create(payload: IOrders) {
       return this.saleOrderService.create(payload).subscribe((res) => {
         if (res && res.responseData) {
           this._saleOrder.next(res.responseData);
@@ -60,7 +60,7 @@ import { Injectable } from "@angular/core";
       });
     }
   
-    update(payload: ISaleOrder) {
+    update(payload: IPayload) {
       return this.saleOrderService.update(payload).subscribe((res) => {
         if (res && res.responseData) {
           this._saleOrder.next(res.responseData);
@@ -70,34 +70,10 @@ import { Injectable } from "@angular/core";
       });
     }
   
-    approve(id: any, status: string) {
-      return this.saleOrderService.approve(id, status).subscribe((res) => {
-        if (res) {
-          this._saleOrder.next(res.responseData);
-          this.toastService.showSuccess(
-            'Cập nhật trạng thái đơn hàng thành công'
-          );
-          this.search({ pageNumber: 1, pageSize: 10 });
-        }
-      });
-    }
-  
-    unapprove(id: any, status: string) {
-      return this.saleOrderService.unapprove(id, status).subscribe((res) => {
-        if (res) {
-          this._saleOrder.next(res.responseData);
-          this.toastService.showSuccess(
-            'Cập nhật trạng thái đơn hàng thành công'
-          );
-          this.search({ pageNumber: 1, pageSize: 10 });
-        }
-      });
-    }
-  
     detail(id: any) {
       return this.saleOrderService
         .detail(id)
-        .subscribe((res: NewResponseData<ISaleOrder>) => {
+        .subscribe((res: NewResponseData<IOrders>) => {
           this._saleOrder.next(res);
         });
     }

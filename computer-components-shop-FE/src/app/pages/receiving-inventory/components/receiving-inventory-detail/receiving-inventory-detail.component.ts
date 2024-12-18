@@ -262,17 +262,15 @@ export class ReceivingInventoryDetailComponent {
 
   selectProduct() {
     if (this.selectedProduct) {
-      // Thêm sản phẩm đã chọn vào danh sách
       this.warehouseProductDTOS.push(
         this.fb.group({
           warehouseId: [''],
           productId: [this.selectedProduct.id],
-          quantity: [1], // Đặt số lượng mặc định là 1
-          price: [this.selectedProduct.price], // Điền giá sản phẩm
+          quantity: [1],
+          price: [this.selectedProduct.price],
         })
       );
   
-      // Đóng popup và reset biến
       this.displayProductDialog = false;
       this.selectedProduct = null;
     }
