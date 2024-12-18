@@ -137,21 +137,43 @@ export class SalesOrderDetailComponent {
   }
 
   save(e: boolean = false) {
+    this.updateTotals();
     if (this.form?.valid) {
       if (this.form?.value.id) {
-        this._saleOrderFacade.update(this.form?.value);
+        this._saleOrderFacade.update({
+          id: this.dataDetail?.id,
+          code: this.f['code']?.value,
+          name: this.f['name']?.value,
+          shippingAddress: this.f['shippingAddress']?.value,
+          paymentMethod: this.f['paymentMethod']?.value,
+          totalQuantity: this.f['totalQuantity']?.value,
+          totalPrice: this.f['totalPrice']?.value,
+          status: this.f['status']?.value,
+          userId: this.f['userId']?.value,
+          createdAt: this.f['createdAt']?.value,
+          orderDetail: this.f['orderDetail']?.value || [],
+          description: this.f['description']?.value,
+        });
       } else {
-        this._saleOrderFacade.create(this.form?.value);
+        this._saleOrderFacade.create({
+          code: this.f['code']?.value,
+          name: this.f['name']?.value,
+          shippingAddress: this.f['shippingAddress']?.value,
+          paymentMethod: this.f['paymentMethod']?.value,
+          totalQuantity: this.f['totalQuantity']?.value,
+          totalPrice: this.f['totalPrice']?.value,
+          status: this.f['status']?.value,
+          userId: this.f['userId']?.value,
+          createdAt: this.f['createdAt']?.value,
+          orderDetail: this.f['orderDetail']?.value || [],
+          description: this.f['description']?.value,
+        });
       }
       this.dialogRef.close();
     }
     if (!e) {
       this.dialogRef.close();
     }
-  }
-
-  openPopupProduct(e: any) {
-
   }
 
   addProduct() {
