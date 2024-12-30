@@ -50,6 +50,35 @@
         <td class="text-center">
           {{ i + 1 }}
         </td>
+        <td class="text-center">
+          {{ item?.code }}
+        </td>
+        <td class="text-center">
+          {{ item?.customerCode }}
+        </td>
+        <td>
+          {{ item?.customerName }}
+        </td>
+        <td>
+          {{ item?.address }}
+        </td>
+        <td class="text-center">
+          {{ item?.orderTime }}
+        </td>
+        <td class="text-center">
+          {{ item?.lastUpdated }}
+        </td>
+        <td class="text-center">
+          {{ item?.status }}
+        </td>
+        <td class="text-center">
+          <div class="flex" style="justify-content: center">
+            <p-actionbar
+              [actions]="setActionBar(item.status)"
+              (onClick)="actionClick($event, item)"
+            ></p-actionbar>
+          </div>
+        </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">

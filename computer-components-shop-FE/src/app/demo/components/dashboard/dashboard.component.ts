@@ -16,6 +16,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     chartData: any;
 
+    chartData2: any;
+
     chartOptions: any;
 
     subscription!: Subscription;
@@ -46,19 +48,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
                 {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
-                    backgroundColor: documentStyle?.getPropertyValue('--bluegray-700'),
-                    borderColor: documentStyle?.getPropertyValue('--bluegray-700'),
-                    tension: .4
-                },
-                {
                     label: 'Second Dataset',
                     data: [28, 48, 40, 19, 86, 27, 90],
                     fill: false,
-                    backgroundColor: documentStyle.getPropertyValue('--green-600'),
-                    borderColor: documentStyle.getPropertyValue('--green-600'),
+                    backgroundColor: documentStyle.getPropertyValue('--red-600'),
+                    borderColor: documentStyle.getPropertyValue('--red-600'),
+                    tension: .4
+                }
+            ]
+        };
+
+        this.chartData2 = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                {
+                    label: 'Second Dataset',
+                    data: [45, 23, 56, 64, 97, 15, 78],
+                    fill: false,
+                    backgroundColor: documentStyle.getPropertyValue('--bluegray-700'),
+                    borderColor: documentStyle.getPropertyValue('--bluegray-700'),
                     tension: .4
                 }
             ]

@@ -28,7 +28,8 @@ export class SalesOrderComponent {
     pageNumber: 1,
     pageSize: 10,
   };
-  listDataSearchInit: IOrders[] = [];
+  // listDataSearchInit: IOrders[] = [];
+  listDataSearchInit: any;
   totalRecords: number = 0;
 
   constructor(
@@ -39,7 +40,39 @@ export class SalesOrderComponent {
   ) {}
 
   ngOnInit() {
-    this.loadData();
+    // this.loadData();
+    this.listDataSearchInit = [
+      {
+        id: 1,
+        code: 'DH001',
+        customerCode: 'KH001',
+        customerName: 'Nguyễn Văn A',
+        address: 'Hà Nội',
+        orderTime: '2024-12-31 08:00',
+        lastUpdated: '2024-12-31 09:00',
+        status: 'Đang xử lý'
+      },
+      {
+        id: 2,
+        code: 'DH002',
+        customerCode: 'KH002',
+        customerName: 'Trần Thị B',
+        address: 'Hồ Chí Minh',
+        orderTime: '2024-12-30 10:00',
+        lastUpdated: '2024-12-30 11:00',
+        status: 'Đã giao'
+      },
+      {
+        id: 3,
+        code: 'DH003',
+        customerCode: 'KH003',
+        customerName: 'Lê Minh C',
+        address: 'Đà Nẵng',
+        orderTime: '2024-12-29 12:00',
+        lastUpdated: '2024-12-29 13:00',
+        status: 'Đang xử lý'
+      }
+    ];
   }
 
   loadData() {
