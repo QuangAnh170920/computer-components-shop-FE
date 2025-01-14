@@ -52,7 +52,7 @@ export class ProductManagementFacade {
       if (res && res.responseData) {
         this._product.next(res.responseData);
         this.toastService.showSuccess('Thêm mới sản phẩm thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({});
       }
     });
   }
@@ -62,7 +62,7 @@ export class ProductManagementFacade {
       if (res && res.responseData) {
         this._product.next(res.responseData);
         this.toastService.showSuccess('Cập nhật sản phẩm thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({});
       }
     });
   }
@@ -74,7 +74,7 @@ export class ProductManagementFacade {
         this.toastService.showSuccess(
           'Cập nhật trạng thái sản phẩm thành công'
         );
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({});
       }
     });
   }
@@ -86,7 +86,7 @@ export class ProductManagementFacade {
         this.toastService.showSuccess(
           'Cập nhật trạng thái sản phẩm thành công'
         );
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({});
       }
     });
   }
@@ -104,7 +104,7 @@ export class ProductManagementFacade {
       if (res) {
         this._product.next(res);
         this.toastService.showSuccess('Xóa thông tin thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({});
       }
     });
   }

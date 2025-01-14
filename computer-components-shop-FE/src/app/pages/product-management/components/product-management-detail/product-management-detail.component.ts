@@ -194,7 +194,7 @@ export class ProductManagementDetailComponent {
           feature: ['', Validators.required],
           priority: [
             1,
-            [Validators.required, Validators.min(1), Validators.max(10)],
+            [Validators.max(10)],
           ],
         }),
       ]),

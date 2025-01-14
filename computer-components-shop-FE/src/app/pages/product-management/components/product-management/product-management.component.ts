@@ -23,10 +23,7 @@ export class ProductManagementComponent {
   statusDropDown = ListDropdownEnum.statusDropDownEnum();
   searchField: string = '';
   status: string | any;
-  searchPayload: ISearch = {
-    pageNumber: 1,
-    pageSize: 10,
-  };
+  searchPayload: ISearch = {};
   listDataSearchInit: IProduct[] = [];
   totalRecords: number = 0;
 

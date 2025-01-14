@@ -73,7 +73,7 @@ export class CategoriesManagementFacade {
       if (res && res.responseData) {
         this._category.next(res.responseData);
         this.toastService.showSuccess('Thêm mới loại sản phẩm thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({});
       }
     });
   }
@@ -97,7 +97,7 @@ export class CategoriesManagementFacade {
       if (res && res.responseData) {
         this._category.next(res.responseData);
         this.toastService.showSuccess('Cập nhật loại sản phẩm thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({});
       }
     });
   }
@@ -107,7 +107,7 @@ export class CategoriesManagementFacade {
       if (res) {
         this._category.next(res.responseData);
         this.toastService.showSuccess('Cập nhật trạng thái thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({});
       }
     });
   }
@@ -117,7 +117,7 @@ export class CategoriesManagementFacade {
       if (res) {
         this._category.next(res.responseData);
         this.toastService.showSuccess('Cập nhật trạng thái thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({});
       }
     });
   }
@@ -133,7 +133,7 @@ export class CategoriesManagementFacade {
       if (res) {
         this._category.next(res);
         this.toastService.showSuccess('Xóa thông tin thành công');
-        this.search({ pageNumber: 1, pageSize: 10 });
+        this.search({});
       }
     });
   }

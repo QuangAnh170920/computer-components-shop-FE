@@ -13,8 +13,6 @@ export interface IResponse {
 }
 
 export interface ISearch  {
-    pageNumber?: number;
-    pageSize?: number;
     searchField?: string;
     status?: string;
 }

@@ -26,10 +26,7 @@ export class CategoriesManagementComponent {
   statusDropDown = ListDropdownEnum.statusDropDownEnum();
   listDataSearchInit: TreeNode[] = [];
   totalRecords: number = 0;
-  searchPayload: ISearch = {
-    pageNumber: 1,
-    pageSize: 10,
-  };
+  searchPayload: ISearch = {};
 
   constructor(
     private confirmationService: ConfirmationService,

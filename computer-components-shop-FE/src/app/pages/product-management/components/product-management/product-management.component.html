@@ -23,10 +23,6 @@
     [lazy]="true"
     (onLazyLoad)="lazyLoad($event)"
     dataKey="id"
-    [rows]="10"
-    [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[5, 10, 20]"
-    [paginator]="true"
     [totalRecords]="totalRecords"
     currentPageReportTemplate="Hiển thị từ  {first} đến {last} trên tổng số  {totalRecords} bản ghi"
     styleClass="datatable-responsive p-datatable-striped"
@@ -61,10 +57,7 @@
           <img
             *ngIf="item?.imageUrl"
             [src]="item.imageUrl"
-            style="
-              max-width: 100px;
-              max-height: 70px;
-            "
+            style="max-width: 100px; max-height: 70px"
           />
         </td>
         <td class="text-center">
@@ -77,10 +70,12 @@
           {{ item?.categoryName }}
         </td>
         <td class="text-center">
-          {{ item?.power }}W
+          {{ item?.power ? item.power + "W" : "" }}
         </td>
         <td class="text-center">{{ item?.promotionName }}</td>
-        <td class="text-center">{{ item?.finalTotalPrice | currency: 'VND' }}</td>
+        <td class="text-center">
+          {{ item?.finalTotalPrice | currency : "VND" }}
+        </td>
         <td>
           <div class="flex" style="justify-content: center">
             <p-tag
