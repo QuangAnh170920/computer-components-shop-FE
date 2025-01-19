@@ -1,3 +1,4 @@
+import { environment } from './../../../../../environments/environment.prod';
 import { ResponseData } from './../../../../shared/models/paging.model';
 import { Component } from '@angular/core';
 import {
@@ -287,7 +288,7 @@ export class ProductManagementDetailComponent {
 
       this.http
         .post(
-          'http://192.168.1.16:8080/computer-components-admin-api/v1/api/admin/upload/upload',
+          'http://192.168.1.23:8080/computer-components-admin-api/v1/api/admin/upload/upload',
           formData,
           {
             headers: {
